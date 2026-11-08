@@ -60,6 +60,8 @@ export const TimelineSection: React.FC<TimelineSectionProps> = ({
           {/* Quick Search */}
           <div className="relative w-full lg:w-96">
             <input
+              id="timeline-search"
+              name="timelineSearch"
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}

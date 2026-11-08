@@ -71,6 +71,8 @@ export const DownloadsSection: React.FC<DownloadsSectionProps> = () => {
           {/* Search Box */}
           <div className="relative w-full lg:w-96">
             <input
+              id="downloads-search"
+              name="downloadsSearch"
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
