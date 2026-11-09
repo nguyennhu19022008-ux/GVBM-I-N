@@ -1,12 +1,11 @@
 import React from 'react';
-import { BookOpen, Clock, Download, Award, LogIn, Sparkles, ChevronRight } from 'lucide-react';
+import { BookOpen, Clock, Download, Award, LogIn, ChevronRight } from 'lucide-react';
 
 interface NavbarProps {
   activeTab: 'timeline' | 'downloads' | 'quiz' | 'all';
   setActiveTab: (tab: 'timeline' | 'downloads' | 'quiz' | 'all') => void;
   user: { name: string; email: string; avatar?: string } | null;
   onOpenAuth: () => void;
-  onOpenCopyright: () => void;
   onScrollToSection: (sectionId: string) => void;
 }
 
@@ -15,7 +14,6 @@ export const Navbar: React.FC<NavbarProps> = ({
   setActiveTab,
   user,
   onOpenAuth,
-  onOpenCopyright,
   onScrollToSection,
 }) => {
   return (
@@ -102,20 +100,8 @@ export const Navbar: React.FC<NavbarProps> = ({
           </button>
         </nav>
 
-        {/* Right Action Tools: Page 0 & User Profile */}
+        {/* Right Action Tools: User Profile */}
         <div className="flex items-center gap-3">
-          
-          {/* Quick Page 0 Copyright Trigger */}
-          <button
-            onClick={onOpenCopyright}
-            className="px-3 py-1.5 rounded-sm border border-[#4A2508]/30 hover:border-[#4A2508] text-[#4A2508] hover:text-black hover:bg-[#F2E4C6] text-xs font-mono font-bold uppercase transition-all flex items-center gap-1.5 cursor-pointer shadow-2xs"
-            title="Mở Trang Bản Quyền Sở Hữu Trí Tuệ (Page 0)"
-          >
-            <Sparkles className="w-3.5 h-3.5 text-[#780000]" />
-            <span className="hidden sm:inline">BẢN QUYỀN</span>
-            <span className="text-[10px] bg-black text-white px-1 py-0.2 font-mono">P.0</span>
-          </button>
-
           {/* User Sign-In / Profile */}
           {user ? (
             <div className="flex items-center gap-2.5 pl-3 border-l border-[#D4A373]/40">

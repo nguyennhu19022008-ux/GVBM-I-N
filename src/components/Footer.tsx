@@ -1,13 +1,12 @@
 import React from 'react';
-import { BookOpen, ShieldCheck, Mail, Phone } from 'lucide-react';
+import { BookOpen, Mail, Phone } from 'lucide-react';
 
 interface FooterProps {
-  onOpenCopyright: () => void;
   onNavigateTab: (tab: 'timeline' | 'downloads' | 'quiz' | 'all') => void;
   onScrollToSection: (sectionId: string) => void;
 }
 
-export const Footer: React.FC<FooterProps> = ({ onOpenCopyright, onNavigateTab, onScrollToSection }) => {
+export const Footer: React.FC<FooterProps> = ({ onNavigateTab, onScrollToSection }) => {
   return (
     <footer className="bg-[#4A2508] text-[#FAF3E0] pt-16 pb-12 border-t-2 border-[#D4A373] text-left w-full">
       <div className="w-full px-6 md:px-12 xl:px-16">
@@ -42,16 +41,6 @@ export const Footer: React.FC<FooterProps> = ({ onOpenCopyright, onNavigateTab, 
             <p className="text-sm text-[#FAF3E0]/85 leading-relaxed font-sans max-w-md">
               Kho tri thức số hóa, bài giảng điện tử và nền tảng trắc nghiệm trực quan phục vụ học tập, bồi dưỡng lòng yêu nước và chinh phục kỳ thi Tốt nghiệp THPT Quốc gia cho học sinh Khối 11 & Khối 12.
             </p>
-
-            <div className="pt-2">
-              <button
-                onClick={onOpenCopyright}
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-sm bg-black/70 hover:bg-black border border-white/60 text-white font-mono text-xs font-bold uppercase transition-all cursor-pointer shadow-md"
-              >
-                <ShieldCheck className="w-4 h-4 text-[#D4A373]" />
-                <span>GIẤY CHỨNG NHẬN BẢN QUYỀN (PAGE 0)</span>
-              </button>
-            </div>
           </div>
 
           {/* Col 2 (3 Columns): Navigation Links */}
