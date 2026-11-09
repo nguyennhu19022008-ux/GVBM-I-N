@@ -26,7 +26,7 @@ export const TEACHER_DATA: TeacherProfile = {
   email: "nguyennhu19022008@gmail.com",
   phone: "0876637806",
   zalo: "https://zalo.me/0876637806",
-  avatarUrl: "https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=800&q=80",
+  avatarUrl: "/images/thay-giao-nguyen-vuong-gia.jpg",
   achievements: [
     {
       year: "2024 - 2025",

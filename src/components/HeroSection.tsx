@@ -93,7 +93,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
             <div className="archival-frame p-2.5 sm:p-3 shadow-md">
               <div className="relative aspect-4/3 w-full bg-stone-900 overflow-hidden">
                 <img
-                  src="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=1200&q=80"
+                  src="/images/ba-dinh-1945.jpg"
                   alt="Quảng trường Ba Đình lịch sử năm 1945"
                   className="w-full h-full object-cover filter contrast-110 brightness-95"
                 />

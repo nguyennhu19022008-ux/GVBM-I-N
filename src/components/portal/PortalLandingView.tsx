@@ -131,7 +131,7 @@ export const PortalLandingView: React.FC<PortalLandingViewProps> = ({
             <div className="lg:col-span-5 space-y-4">
               <div className="archival-newspaper-frame">
                 <img
-                  src="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=1200&q=80"
+                  src="/images/ba-dinh-1945.jpg"
                   alt="Quảng trường Ba Đình lịch sử năm 1945"
                   className="w-full aspect-4/3 object-cover grayscale hover:grayscale-0 transition-all duration-500"
                 />

@@ -45,12 +45,12 @@ export const WARTIME_STORIES: WartimeStory[] = [
       'Anh hùng Bế Văn Đàn (Lấy thân làm giá súng)'
     ],
     significance: 'Đập tan Tập đoàn cứ điểm Điện Biên Phủ - "Pháo đài bất khả xâm phạm" của thực dân Pháp và can thiệp Mỹ, buộc Pháp phải ký Hiệp định Giơ-ne-vơ lập lại hòa bình tại Đông Dương.',
-    imageUrl: 'https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?auto=format&fit=crop&w=1200&q=80',
-    imageCaption: 'Tư liệu hào khí Điện Biên Phủ: Băng rừng vượt dốc, siết chặt vòng vây Mường Thanh lịch sử.'
+    imageUrl: '/images/dien-bien-phu-1954.jpg',
+    imageCaption: 'Ảnh tư liệu: Chiều 7/5/1954, cờ Quyết chiến Quyết thắng tung bay trên nóc hầm De Castries, kết thúc toàn thắng chiến dịch Điện Biên Phủ.'
   },
   {
     id: 'nga-ba-dong-loc-1968',
-    title: 'Huyền Thoại 10 Cô Gái Ngã Ba Đồng Lộc & Tuyến Lửa Trường Sơn',
+    title: 'Huyền Thoại Tuyến Lửa Trường Sơn & Khúc Tráng Ca Đồng Lộc',
     tagline: 'Khúc tráng ca của tuổi trẻ vì độc lập tự do',
     year: '1968',
     period: 'Kháng chiến chống Mỹ cứu nước (1954 - 1975)',
@@ -68,30 +68,31 @@ export const WARTIME_STORIES: WartimeStory[] = [
       'Hàng vạn chiến sĩ vận tải Đoàn 559 Trường Sơn'
     ],
     significance: 'Giữ vững huyết mạch chi viện Bắc - Nam, làm nên kỳ tích tuyến đường vận tải chiến lược Trường Sơn - nhân tố quyết định thắng lợi của cuộc kháng chiến chống Mỹ.',
-    imageUrl: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=1200&q=80',
-    imageCaption: 'Ký ức tuyến lửa Trường Sơn: Những đoàn xe không kính xẻ dọc Trường Sơn đi cứu nước.'
+    imageUrl: '/images/duong-truong-son.jpg',
+    imageCaption: 'Ảnh tư liệu: Đoàn xe vận tải và chiến sĩ công binh, thanh niên xung phong xẻ dọc Trường Sơn đi cứu nước.'
   },
   {
-    id: 'thanh-co-quang-tri-1972',
-    title: '81 Ngày Đêm Mùa Hè Đỏ Lửa: Khúc Bi Tráng Thành Cổ Quảng Trị',
-    tagline: 'Bản hùng ca kiên cường bên bờ sông Thạch Hãn',
+    id: 'dien-bien-phu-tren-khong-1972',
+    title: '12 Ngày Đêm Khói Lửa: Bản Hùng Ca Điện Biên Phủ Trên Không 1972',
+    tagline: 'Bản hùng ca kiên cường bảo vệ bầu trời Hà Nội',
     year: '1972',
     period: 'Kháng chiến chống Mỹ cứu nước (1954 - 1975)',
-    quote: '"Đò lên Thạch Hãn ơi… chèo nhẹ / Đáy sông còn đó bạn tôi nằm / Tan theo sóng nước, không phiến đá / Nhìn bờ xanh ngắt giọt sương rơi."',
-    excerpt: 'Trong 81 ngày đêm, mỗi mét vuông đất tại Thành Cổ Quảng Trị phải chịu lượng bom đạn tương đương 7 quả bom nguyên tử, viết nên thiên sử thi kiên cường nhất của người lính.',
+    quote: '"Hà Nội có thể bị tàn phá, một số nhà máy có thể bị phá hủy, nhưng nhân dân Việt Nam quyết không sợ!"',
+    excerpt: 'Trong 12 ngày đêm tháng 12/1972, quân dân Hà Nội và miền Bắc đã lập nên kỳ tích vô tiền khoáng hậu: đập tan chiến dịch Linebacker II, bắn hạ 34 siêu pháo đài bay B-52.',
     content: [
-      'Cuộc chiến đấu 81 ngày đêm (từ 28/6 đến 16/9/1972) bảo vệ Thành Cổ Quảng Trị và thị xã Quảng Trị diễn ra ác liệt bậc nhất trong lịch sử chiến tranh hiện đại.',
-      'Quân đội Mỹ - Ngụy đã trút xuống mảnh đất chưa đầy 3 cây số vuông này hơn 328.000 tấn bom đạn. Các chiến sĩ quân giải phóng, phần lớn là những sinh viên, trí thức tuổi mười tám đôi mươi xếp bút nghiên lên đường đánh giặc, đã kiên cường bám trụ từng tấc đất.',
-      'Sự hy sinh anh dũng kiên cường của quân và dân ta tại Quảng Trị đã tạo nên thế đứng vững chắc trên bàn đàm phán Hội nghị Paris, buộc Mỹ phải ký hiệp định rút quân.'
+      'Đêm 18/12/1972, đế quốc Mỹ mở cuộc tập kích chiến lược đường không quy mô lớn nhất sau Thế chiến II bằng máy bay ném bom chiến lược B-52 trút bom rải thảm xuống Thủ đô Hà Nội, Hải Phòng và các tỉnh lân cận hòng "đưa miền Bắc về thời kỳ đồ đá".',
+      'Với bản lĩnh và trí tuệ Việt Nam, lưới lửa phòng không nhiều tầng nhiều lớp của bộ đội Tên lửa SAM-2, pháo cao xạ và không quân MiG-21 đã chủ động đón đánh giặc trời.',
+      'Sau 12 ngày đêm kiên cường quả cảm, ta bắn rơi 81 máy bay hiện đại (trong đó có 34 chiếc B-52), bắt sống hàng chục giặc lái. Thất bại thảm hại này buộc Tổng thống Nixon phải tuyên bố ngừng ném bom và ký kết Hiệp định Paris.'
     ],
     heroes: [
-      'Các chiến sĩ Sư đoàn 308, 320B, 325, 312',
-      'Chiến sĩ Trung đoàn 48 Thành Cổ Quảng Trị',
-      'Những người con sinh viên Đại học Tổng hợp, Bách khoa, Sư phạm xếp bút nghiên lên đường'
+      'Bộ đội Tên lửa SAM-2 Phòng không - Không quân',
+      'Anh hùng Phi công Phạm Tuân (Bắn rơi B-52 đêm 27/12)',
+      'Anh hùng Phi công Vũ Xuân Thiều (Cảm tử lao vào B-52)',
+      'Đồng bào và chiến sĩ Thủ đô Hà Nội kiên trung'
     ],
-    significance: 'Tạo bước ngoặt quyết định trên bàn đàm phán ngoại giao Paris 1973, đánh bại ý chí tái chiếm của Mỹ - Ngụy, mở đường cho cuộc Tổng tiến công mùa Xuân 1975.',
-    imageUrl: 'https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?auto=format&fit=crop&w=1200&q=80',
-    imageCaption: 'Màu xanh hồi sinh bên dòng Thạch Hãn - Nơi ghi dấu sự hy sinh anh dũng của tuổi trẻ Việt Nam.'
+    significance: 'Là thắng lợi quân sự trực tiếp mang tính quyết định buộc chính phủ Mỹ phải ký Hiệp định Paris (27/1/1973), chấm dứt chiến tranh, rút hết quân viễn chinh Mỹ về nước.',
+    imageUrl: '/images/ha-noi-1972.jpg',
+    imageCaption: 'Ảnh tư liệu: Xác máy bay B-52 rơi tại làng hoa Ngọc Hà (Hồ Hữu Tiệp, Hà Nội) - Dấu ấn chiến thắng 12 ngày đêm Điện Biên Phủ trên không.'
   },
   {
     id: 'dinh-doc-lap-1975',
@@ -113,8 +114,8 @@ export const WARTIME_STORIES: WartimeStory[] = [
       'Tổ lái Xe tăng 390 và Xe tăng 843 húc đổ cổng Dinh Độc Lập'
     ],
     significance: 'Chấm dứt hoàn toàn ách thống trị của chủ nghĩa thực dân, đế quốc kéo dài hơn một thế kỷ; giang sơn thu về một mối, mở ra kỷ nguyên độc lập, thống nhất và đi lên chủ nghĩa xã hội.',
-    imageUrl: 'https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=1200&q=80',
-    imageCaption: 'Ký ức ngày 30/4/1975: Mốc son chói lọi khép lại 30 năm chiến tranh gian khổ và anh dũng.'
+    imageUrl: '/images/giai-phong-1975.jpg',
+    imageCaption: 'Ảnh tư liệu: Xe tăng Quân giải phóng húc đổ cổng Dinh Độc Lập trưa 30/4/1975, hoàn thành thống nhất non sông.'
   }
 ];
 
@@ -131,7 +132,7 @@ export const HISTORICAL_LEADERS: LeaderProfile[] = [
       'Soạn thảo và đọc bản Tuyên ngôn Độc lập khai sinh nước Việt Nam Dân chủ Cộng hòa (2/9/1945).',
       'Lãnh đạo toàn dân tiến hành hai cuộc kháng chiến vĩ đại chống thực dân Pháp và đế quốc Mỹ.'
     ],
-    imageUrl: 'https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=800&q=80',
+    imageUrl: '/images/ho-chi-minh.jpg',
     historicalMilestone: 'Khai sinh nước VNDCCH 1945 & Đường lối kháng chiến kiến quốc'
   },
   {
@@ -146,7 +147,7 @@ export const HISTORICAL_LEADERS: LeaderProfile[] = [
       'Kiến trúc sư quân sự đại tài của cuộc kháng chiến chống Mỹ và Đại thắng Mùa Xuân 1975.',
       'Nhà quân sự kiệt xuất được thế giới tôn vinh là một trong những danh tướng vĩ đại nhất mọi thời đại.'
     ],
-    imageUrl: 'https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?auto=format&fit=crop&w=800&q=80',
+    imageUrl: '/images/vo-nguyen-giap.jpg',
     historicalMilestone: 'Chiến thắng Điện Biên Phủ 1954 & Mệnh lệnh Thần tốc 1975'
   },
   {
@@ -160,21 +161,22 @@ export const HISTORICAL_LEADERS: LeaderProfile[] = [
       'Tổng Bí thư Đảng Cộng sản Việt Nam lãnh đạo cuộc kháng chiến chống Mỹ từ năm 1960 đến thắng lợi 1975.',
       'Chỉ đạo hoạch định chiến lược giải phóng miền Nam thống nhất đất nước trong 2 năm 1975 - 1976.'
     ],
-    imageUrl: 'https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?auto=format&fit=crop&w=800&q=80',
+    imageUrl: '/images/le-duan.jpg',
     historicalMilestone: 'Nghị quyết 15 & Đường lối kháng chiến thống nhất non sông'
   },
   {
-    id: 'nguyen-van-linh',
-    name: 'Tổng Bí Thư Nguyễn Văn Linh',
-    role: 'Nhà lãnh đạo khởi xướng công cuộc Đổi Mới toàn diện đất nước (1986)',
-    lifespan: '1915 - 1998',
-    quote: '"Hãy tự cứu mình trước khi trời cứu! Đổi mới là mệnh lệnh của cuộc sống."',
+    id: 'ton-duc-thang',
+    name: 'Chủ Tịch Tôn Đức Thắng',
+    role: 'Chủ tịch nước CHXHCN Việt Nam • Biểu tượng mẫu mực của khối Đại đoàn kết dân tộc',
+    lifespan: '1888 - 1980',
+    quote: '"Cả cuộc đời tôi chỉ có một tâm nguyện: phục vụ Tổ quốc, phục vụ nhân dân đến hơi thở cuối cùng."',
     contributions: [
-      'Tổng Bí thư tại Đại hội Đảng lần thứ VI (1986), chính thức khởi xướng đường lối Đổi Mới đất nước.',
-      'Tác giả loạt bài báo nổi tiếng "Những việc cần làm ngay" tạo luồng gió dân chủ, công khai và chống tiêu cực.',
-      'Mở đường đưa Việt Nam thoát khỏi khủng hoảng kinh tế - xã hội, bước vào kỷ nguyên hội nhập quốc tế.'
+      'Người kéo lá cờ đỏ trên chiến hạm France ở Biển Đen (1919) ủng hộ Cách mạng Tháng Mười Nga.',
+      'Sáng lập Công hội Đỏ đầu tiên của giai cấp công nhân Việt Nam (1920) tại Sài Gòn - Chợ Lớn.',
+      'Người chiến sĩ cộng sản kiên cường vượt qua 15 năm đày ải nơi địa ngục trần gian Côn Đảo.',
+      'Kế tục Chủ tịch Hồ Chí Minh giữ chức Chủ tịch nước Việt Nam Dân chủ Cộng hòa và Chủ tịch nước CHXHCN Việt Nam đầu tiên sau ngày thống nhất.'
     ],
-    imageUrl: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=800&q=80',
-    historicalMilestone: 'Đại hội VI (1986) & Đường lối Đổi Mới kinh tế - xã hội'
+    imageUrl: '/images/ton-duc-thang.jpg',
+    historicalMilestone: 'Chủ tịch nước CHXHCN Việt Nam đầu tiên & Khối Đại đoàn kết dân tộc'
   }
 ];

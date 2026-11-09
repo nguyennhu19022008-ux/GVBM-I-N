@@ -34,8 +34,21 @@ if (cssFiles.length === 0) {
   process.exit(1);
 }
 
+const imagesDir = path.join(distPath, 'images');
+if (!fs.existsSync(imagesDir)) {
+  console.error('❌ ERROR: Thư mục dist/images không tồn tại!');
+  process.exit(1);
+}
+
+const imageFiles = fs.readdirSync(imagesDir);
+if (imageFiles.length === 0) {
+  console.error('❌ ERROR: Thư mục dist/images không chứa tệp ảnh nào!');
+  process.exit(1);
+}
+
 console.log('✅ KIỂM TRA BẢN BUILD THÀNH CÔNG:');
 console.log(`- HTML: index.html (${fs.statSync(htmlFile).size} bytes)`);
 console.log(`- JS Chunks (${jsFiles.length}): ${jsFiles.join(', ')}`);
 console.log(`- CSS Chunks (${cssFiles.length}): ${cssFiles.join(', ')}`);
+console.log(`- Historical Images (${imageFiles.length}): Đã nạp đầy đủ trong dist/images/`);
 console.log('✨ Dự án ĐAM MÊ LỊCH SỬ đã sẵn sàng để deploy lên Vercel / Cloudflare Pages / Static Web!');
