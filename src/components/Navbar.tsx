@@ -1,176 +1,154 @@
 import React from 'react';
-import { BookOpen, Clock, Download, Award, LogIn, ChevronRight } from 'lucide-react';
+import { Newspaper, GraduationCap, Shield, LogIn, BookOpen } from 'lucide-react';
+
+export type PortalView = 'portal' | 'learning' | 'admin';
 
 interface NavbarProps {
-  activeTab: 'timeline' | 'downloads' | 'quiz' | 'all';
-  setActiveTab: (tab: 'timeline' | 'downloads' | 'quiz' | 'all') => void;
+  currentView: PortalView;
+  onChangeView: (view: PortalView) => void;
   user: { name: string; email: string; avatar?: string } | null;
   onOpenAuth: () => void;
-  onScrollToSection: (sectionId: string) => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
-  activeTab,
-  setActiveTab,
+  currentView,
+  onChangeView,
   user,
   onOpenAuth,
-  onScrollToSection,
 }) => {
   return (
-    <header className="sticky top-0 z-40 bg-[#FAF3E0]/95 backdrop-blur-md hairline-b transition-all">
+    <header className="sticky top-0 z-40 bg-[#F6F0E4]/95 backdrop-blur-md hairline-b broadsheet-double-b transition-all">
       <div className="w-full px-6 md:px-12 xl:px-16 h-20 flex items-center justify-between">
         
-        {/* Brand & Editorial Masthead */}
+        {/* Brand Masthead Logo */}
         <div 
           className="flex items-center gap-3.5 cursor-pointer select-none group" 
-          onClick={() => {
-            setActiveTab('all');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-          }}
+          onClick={() => onChangeView('portal')}
         >
-          <div className="w-11 h-11 rounded-sm bg-[#780000] border border-[#D4A373] flex items-center justify-center text-[#FAF3E0] shadow-sm transform group-hover:scale-105 transition-transform">
-            <BookOpen className="w-6 h-6" />
+          <div className="w-11 h-11 bg-[#1A1615] border border-[#C59B27] flex items-center justify-center text-[#F6F0E4] shadow-sm transform group-hover:scale-105 transition-transform">
+            <BookOpen className="w-6 h-6 text-[#C59B27]" />
           </div>
-          <div>
-            <div className="flex items-center gap-2.5">
-              <span className="font-cinzel text-xl sm:text-2xl font-black text-[#4A2508] tracking-tight group-hover:text-[#780000] transition-colors">
+          <div className="text-left">
+            <div className="flex items-center gap-2">
+              <span className="font-playfair text-xl sm:text-2xl font-black text-[#1A1615] tracking-tight group-hover:text-[#8B0000] transition-colors uppercase">
                 ĐAM MÊ LỊCH SỬ
               </span>
-              <span className="hidden sm:inline-block px-2 py-0.5 text-[10px] font-mono font-bold uppercase tracking-wider bg-[#F2E4C6] text-[#4A2508] border border-[#D4A373]/40 rounded-sm">
-                THPT 11 & 12
+              <span className="hidden sm:inline-block px-2 py-0.2 text-[10px] font-mono font-bold uppercase tracking-wider bg-[#ECE3D0] text-[#8B0000] border border-[#1A1615]/20">
+                KHỐI 10 · 11 · 12
               </span>
             </div>
-            <p className="text-[11px] font-medium text-[#4A2508]/75 font-sans tracking-wide">
-              Không Gian Học Tập & Ôn Luyện Lịch Sử Trực Quan 16:9
+            <p className="text-[11px] font-mono text-[#4A3E3D] tracking-wide">
+              Nhật Báo & Cổng Học Tập Lịch Sử Trực Quan
             </p>
           </div>
         </div>
 
-        {/* 16:9 Widescreen Navigation Links */}
-        <nav className="hidden md:flex items-center gap-2 lg:gap-3">
+        {/* 3 Core Zone Tabs (Broadsheet Style) */}
+        <nav className="hidden md:flex items-center gap-2">
+          
+          {/* Tab 1: Cổng Kết Nối */}
           <button
-            onClick={() => {
-              setActiveTab('timeline');
-              onScrollToSection('timeline-section');
-            }}
-            className={`px-4 py-2 rounded-sm font-medium text-sm transition-all flex items-center gap-2 cursor-pointer border ${
-              activeTab === 'timeline'
-                ? 'bg-[#4A2508] text-[#FAF3E0] border-[#4A2508] font-bold shadow-xs'
-                : 'bg-transparent text-[#4A2508]/85 border-transparent hover:border-[#D4A373]/50 hover:bg-[#F2E4C6]/60'
+            onClick={() => onChangeView('portal')}
+            className={`px-4 py-2 text-xs font-mono font-bold uppercase transition-all flex items-center gap-2 cursor-pointer border ${
+              currentView === 'portal'
+                ? 'bg-[#1A1615] text-[#F6F0E4] border-[#1A1615] shadow-xs'
+                : 'bg-transparent text-[#4A3E3D] border-transparent hover:border-[#1A1615]/30 hover:bg-[#ECE3D0]/60'
             }`}
           >
-            <Clock className="w-4 h-4 text-[#D4A373]" />
-            <span>01. Trục Thời Gian</span>
+            <Newspaper className="w-3.5 h-3.5 text-[#C59B27]" />
+            <span>01. Cổng Kết Nối & Ký Ức</span>
           </button>
 
+          {/* Tab 2: Giảng Đường */}
           <button
-            onClick={() => {
-              setActiveTab('downloads');
-              onScrollToSection('downloads-section');
-            }}
-            className={`px-4 py-2 rounded-sm font-medium text-sm transition-all flex items-center gap-2 cursor-pointer border ${
-              activeTab === 'downloads'
-                ? 'bg-[#4A2508] text-[#FAF3E0] border-[#4A2508] font-bold shadow-xs'
-                : 'bg-transparent text-[#4A2508]/85 border-transparent hover:border-[#D4A373]/50 hover:bg-[#F2E4C6]/60'
+            onClick={() => onChangeView('learning')}
+            className={`px-4 py-2 text-xs font-mono font-bold uppercase transition-all flex items-center gap-2 cursor-pointer border ${
+              currentView === 'learning'
+                ? 'bg-[#8B0000] text-white border-[#8B0000] shadow-xs'
+                : 'bg-transparent text-[#4A3E3D] border-transparent hover:border-[#8B0000]/40 hover:bg-[#ECE3D0]/60'
             }`}
           >
-            <Download className="w-4 h-4 text-[#780000]" />
-            <span>02. Kho Tài Nguyên</span>
-            <span className="px-1.5 py-0.2 text-[10px] font-mono font-bold bg-[#780000] text-white rounded-xs">
-              FREE
+            <GraduationCap className="w-3.5 h-3.5" />
+            <span>02. Giảng Đường 10-11-12</span>
+            <span className="px-1.5 py-0.2 text-[10px] font-mono font-bold bg-[#C59B27] text-black">
+              HỌC TẬP
             </span>
           </button>
 
+          {/* Tab 3: Khu Vực Giáo Viên */}
           <button
-            onClick={() => {
-              setActiveTab('quiz');
-              onScrollToSection('quiz-section');
-            }}
-            className={`px-4 py-2 rounded-sm font-medium text-sm transition-all flex items-center gap-2 cursor-pointer border ${
-              activeTab === 'quiz'
-                ? 'bg-[#780000] text-[#FAF3E0] border-[#780000] font-bold shadow-xs'
-                : 'bg-transparent text-[#4A2508]/85 border-transparent hover:border-[#780000]/40 hover:bg-[#F2E4C6]/60'
+            onClick={() => onChangeView('admin')}
+            className={`px-4 py-2 text-xs font-mono font-bold uppercase transition-all flex items-center gap-2 cursor-pointer border ${
+              currentView === 'admin'
+                ? 'bg-[#1A1615] text-[#F6F0E4] border-[#1A1615] shadow-xs'
+                : 'bg-transparent text-[#4A3E3D] border-transparent hover:border-[#1A1615]/30 hover:bg-[#ECE3D0]/60'
             }`}
           >
-            <Award className="w-4 h-4 text-[#D4A373]" />
-            <span>03. Luyện Thi Trắc Nghiệm</span>
-            <span className="px-1.5 py-0.2 text-[10px] font-mono font-bold bg-[#D4A373] text-[#4A2508] rounded-xs">
-              HOT
-            </span>
+            <Shield className="w-3.5 h-3.5 text-[#C59B27]" />
+            <span>03. Bàn Quản Trị Giáo Viên</span>
           </button>
+
         </nav>
 
-        {/* Right Action Tools: User Profile */}
+        {/* Right Student Auth Status */}
         <div className="flex items-center gap-3">
-          {/* User Sign-In / Profile */}
           {user ? (
-            <div className="flex items-center gap-2.5 pl-3 border-l border-[#D4A373]/40">
-              <div className="w-8 h-8 rounded-sm bg-[#4A2508] text-[#FAF3E0] flex items-center justify-center font-bold text-xs uppercase border border-[#D4A373]">
+            <div className="flex items-center gap-2.5 pl-3 border-l border-[#1A1615]/20">
+              <div className="w-8 h-8 bg-[#1A1615] text-[#F6F0E4] flex items-center justify-center font-bold text-xs uppercase border border-[#C59B27]">
                 {user.avatar ? (
-                  <img src={user.avatar} alt={user.name} className="w-full h-full object-cover rounded-sm" />
+                  <img src={user.avatar} alt={user.name} className="w-full h-full object-cover" />
                 ) : (
                   user.name.charAt(0)
                 )}
               </div>
               <div className="hidden lg:block text-left leading-tight">
-                <span className="block text-xs font-bold text-[#4A2508] max-w-[130px] truncate">{user.name}</span>
-                <span className="block text-[10px] text-[#780000] font-mono font-semibold">Sĩ Tử Đã Đăng Nhập</span>
+                <span className="block text-xs font-bold text-[#1A1615] max-w-[120px] truncate">{user.name}</span>
+                <span className="block text-[10px] text-[#8B0000] font-mono font-semibold">Sĩ Tử Đang Ôn Thi</span>
               </div>
             </div>
           ) : (
             <button
               onClick={onOpenAuth}
-              className="px-4 py-2 rounded-sm bg-[#4A2508] hover:bg-[#321905] text-[#FAF3E0] font-medium text-xs sm:text-sm transition-all flex items-center gap-1.5 shadow-xs cursor-pointer active:scale-95"
+              className="px-3.5 py-2 bg-[#1A1615] hover:bg-[#8B0000] text-[#F6F0E4] font-mono text-xs font-bold uppercase transition-all flex items-center gap-1.5 shadow-xs cursor-pointer active:scale-95"
             >
-              <LogIn className="w-4 h-4 text-[#D4A373]" />
-              <span>Đăng Nhập</span>
-              <ChevronRight className="w-3.5 h-3.5 text-stone-400" />
+              <LogIn className="w-3.5 h-3.5 text-[#C59B27]" />
+              <span>Đăng Nhập Sĩ Tử</span>
             </button>
           )}
-
         </div>
 
       </div>
 
       {/* Mobile Sub-Navigation Bar */}
-      <div className="md:hidden flex items-center justify-around hairline-t bg-[#FAF3E0] py-2 px-3 text-xs font-medium">
+      <div className="md:hidden flex items-center justify-around hairline-t bg-[#ECE3D0]/80 py-2 px-3 text-xs font-mono">
         <button
-          onClick={() => {
-            setActiveTab('timeline');
-            onScrollToSection('timeline-section');
-          }}
-          className={`flex items-center gap-1.5 py-1 px-2.5 rounded-sm cursor-pointer ${
-            activeTab === 'timeline' ? 'text-[#780000] font-bold bg-[#F2E4C6]' : 'text-[#4A2508]/80'
+          onClick={() => onChangeView('portal')}
+          className={`flex items-center gap-1 py-1 px-2 cursor-pointer ${
+            currentView === 'portal' ? 'text-[#8B0000] font-bold border-b-2 border-[#8B0000]' : 'text-[#4A3E3D]'
           }`}
         >
-          <Clock className="w-3.5 h-3.5" />
-          <span>Timeline</span>
+          <Newspaper className="w-3.5 h-3.5" />
+          <span>Ký Ức</span>
         </button>
 
         <button
-          onClick={() => {
-            setActiveTab('downloads');
-            onScrollToSection('downloads-section');
-          }}
-          className={`flex items-center gap-1.5 py-1 px-2.5 rounded-sm cursor-pointer ${
-            activeTab === 'downloads' ? 'text-[#780000] font-bold bg-[#F2E4C6]' : 'text-[#4A2508]/80'
+          onClick={() => onChangeView('learning')}
+          className={`flex items-center gap-1 py-1 px-2 cursor-pointer ${
+            currentView === 'learning' ? 'text-[#8B0000] font-bold border-b-2 border-[#8B0000]' : 'text-[#4A3E3D]'
           }`}
         >
-          <Download className="w-3.5 h-3.5" />
-          <span>Tài Liệu</span>
+          <GraduationCap className="w-3.5 h-3.5" />
+          <span>Học Tập</span>
         </button>
 
         <button
-          onClick={() => {
-            setActiveTab('quiz');
-            onScrollToSection('quiz-section');
-          }}
-          className={`flex items-center gap-1.5 py-1 px-2.5 rounded-sm cursor-pointer ${
-            activeTab === 'quiz' ? 'text-[#780000] font-bold bg-[#F2E4C6]' : 'text-[#4A2508]/80'
+          onClick={() => onChangeView('admin')}
+          className={`flex items-center gap-1 py-1 px-2 cursor-pointer ${
+            currentView === 'admin' ? 'text-[#8B0000] font-bold border-b-2 border-[#8B0000]' : 'text-[#4A3E3D]'
           }`}
         >
-          <Award className="w-3.5 h-3.5" />
-          <span>Luyện Thi</span>
+          <Shield className="w-3.5 h-3.5" />
+          <span>Quản Trị</span>
         </button>
       </div>
 

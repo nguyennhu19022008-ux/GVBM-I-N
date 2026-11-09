@@ -1,20 +1,36 @@
 import { useState, useEffect } from 'react';
 import { Navbar } from './components/Navbar';
-import { HeroSection } from './components/HeroSection';
-import { TimelineSection } from './components/TimelineSection';
+import type { PortalView } from './components/Navbar';
+import { PortalLandingView } from './components/portal/PortalLandingView';
+import { LearningHubView } from './components/learning/LearningHubView';
+import { AdminDashboardView } from './components/admin/AdminDashboardView';
+import { AdminPinModal } from './components/admin/AdminPinModal';
 import { TimelineDetailModal } from './components/TimelineDetailModal';
-import { DownloadsSection } from './components/DownloadsSection';
-import { QuizSection } from './components/QuizSection';
 import { QuizModal } from './components/QuizModal';
 import { AuthModal } from './components/AuthModal';
 import { Footer } from './components/Footer';
-import { QUIZ_EXAMS } from './data/quizData';
+
 import type { TimelineEvent } from './data/historyData';
 import type { QuizExam } from './data/quizData';
+import type { CurriculumResource, GradeLevel } from './data/curriculumData';
+import type { StudentFeedback } from './data/feedbackData';
+import { INITIAL_FEEDBACK_LIST } from './data/feedbackData';
+import { QUIZ_EXAMS } from './data/quizData';
 
 export function App() {
-  // Active navigation tab
-  const [activeTab, setActiveTab] = useState<'timeline' | 'downloads' | 'quiz' | 'all'>('all');
+  // Current Active Main Zone
+  const [currentView, setCurrentView] = useState<PortalView>('portal');
+  const [learningGrade, setLearningGrade] = useState<GradeLevel>('12');
+
+  // Admin PIN Protection State
+  const [isAdminAuthenticated, setIsAdminAuthenticated] = useState<boolean>(false);
+  const [isAdminPinModalOpen, setIsAdminPinModalOpen] = useState<boolean>(false);
+
+  // Dynamic Custom Resources (Added by teacher)
+  const [customResources, setCustomResources] = useState<CurriculumResource[]>([]);
+
+  // Student Feedback Reports State
+  const [feedbackList, setFeedbackList] = useState<StudentFeedback[]>([]);
 
   // Selected Timeline Event for Modal Reader
   const [selectedTimelineEvent, setSelectedTimelineEvent] = useState<TimelineEvent | null>(null);
@@ -26,23 +42,131 @@ export function App() {
   const [user, setUser] = useState<{ name: string; email: string; school?: string } | null>(null);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState<boolean>(false);
 
-  // Check stored user on mount
+  // Load persistent states on mount
   useEffect(() => {
     try {
-      const stored = localStorage.getItem('dam_me_lich_su_user');
-      if (stored) {
-        setUser(JSON.parse(stored));
+      // 1. User
+      const storedUser = localStorage.getItem('dam_me_lich_su_user');
+      if (storedUser) {
+        setUser(JSON.parse(storedUser));
+      }
+
+      // 2. Custom Resources
+      const storedRes = localStorage.getItem('dam_me_lich_su_custom_res');
+      if (storedRes) {
+        setCustomResources(JSON.parse(storedRes));
+      }
+
+      // 3. Feedback Reports
+      const storedFeedback = localStorage.getItem('dam_me_lich_su_feedback');
+      if (storedFeedback) {
+        setFeedbackList(JSON.parse(storedFeedback));
+      } else {
+        setFeedbackList(INITIAL_FEEDBACK_LIST);
+      }
+
+      // 4. URL Hash Routing
+      const hash = window.location.hash.replace('#', '');
+      if (hash === 'learning' || hash === 'admin' || hash === 'portal') {
+        if (hash === 'admin') {
+          setIsAdminPinModalOpen(true);
+        } else {
+          setCurrentView(hash as PortalView);
+        }
       }
     } catch (err) {
-      console.warn('Cannot read stored user:', err);
+      console.warn('Error reading stored state:', err);
     }
   }, []);
 
-  const scrollToSection = (sectionId: string) => {
-    const el = document.getElementById(sectionId);
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth' });
+  // Sync custom resources to localStorage
+  const handleAddResource = (newRes: CurriculumResource) => {
+    const updated = [newRes, ...customResources];
+    setCustomResources(updated);
+    try {
+      localStorage.setItem('dam_me_lich_su_custom_res', JSON.stringify(updated));
+    } catch (err) {
+      console.warn('Cannot save custom resources:', err);
     }
+  };
+
+  const handleDeleteResource = (id: string) => {
+    const updated = customResources.filter((r) => r.id !== id);
+    setCustomResources(updated);
+    try {
+      localStorage.setItem('dam_me_lich_su_custom_res', JSON.stringify(updated));
+    } catch (err) {
+      console.warn('Cannot update custom resources:', err);
+    }
+  };
+
+  // Sync feedback to localStorage
+  const handleSubmitFeedback = (fb: Omit<StudentFeedback, 'id' | 'createdAt' | 'status'>) => {
+    const newFeedback: StudentFeedback = {
+      ...fb,
+      id: `fb-${Date.now()}`,
+      createdAt: new Date().toLocaleString('vi-VN', {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+      }),
+      status: 'pending',
+    };
+
+    const updated = [newFeedback, ...feedbackList];
+    setFeedbackList(updated);
+    try {
+      localStorage.setItem('dam_me_lich_su_feedback', JSON.stringify(updated));
+    } catch (err) {
+      console.warn('Cannot save feedback:', err);
+    }
+  };
+
+  const handleResolveFeedback = (id: string) => {
+    const updated = feedbackList.map((f) =>
+      f.id === id ? { ...f, status: 'resolved' as const, resolvedAt: new Date().toISOString() } : f
+    );
+    setFeedbackList(updated);
+    try {
+      localStorage.setItem('dam_me_lich_su_feedback', JSON.stringify(updated));
+    } catch (err) {
+      console.warn('Cannot update feedback:', err);
+    }
+  };
+
+  // View Navigation
+  const handleNavigateView = (view: PortalView) => {
+    if (view === 'admin' && !isAdminAuthenticated) {
+      setIsAdminPinModalOpen(true);
+      return;
+    }
+    setCurrentView(view);
+    window.location.hash = view;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleGoToGrade = (grade: GradeLevel) => {
+    setLearningGrade(grade);
+    setCurrentView('learning');
+    window.location.hash = 'learning';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleAdminPinSuccess = () => {
+    setIsAdminAuthenticated(true);
+    setIsAdminPinModalOpen(false);
+    setCurrentView('admin');
+    window.location.hash = 'admin';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleAdminLogout = () => {
+    setIsAdminAuthenticated(false);
+    setCurrentView('portal');
+    window.location.hash = 'portal';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const handleStartExam = (exam: QuizExam) => {
@@ -59,59 +183,74 @@ export function App() {
   };
 
   const handleGoToDownloadByTopic = (_resourceId?: string) => {
-    scrollToSection('downloads-section');
-  };
-
-  const handleLoginSuccess = (newUser: { name: string; email: string; school?: string }) => {
-    setUser(newUser);
+    setCurrentView('learning');
+    window.location.hash = 'learning';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
-    <div className="min-h-screen bg-[#FAF3E0] text-[#18120E] flex flex-col font-sans selection:bg-[#D4A373]/30 selection:text-[#4A2508] w-full max-w-full overflow-x-hidden">
-      {/* Top Sticky Full-Bleed Masthead */}
+    <div className="min-h-screen bg-[#F6F0E4] text-[#1A1615] flex flex-col font-sans selection:bg-[#C59B27]/30 selection:text-[#1A1615] w-full max-w-full overflow-x-hidden">
+      
+      {/* Top Broadsheet Masthead */}
       <Navbar
-        activeTab={activeTab}
-        setActiveTab={setActiveTab}
+        currentView={currentView}
+        onChangeView={handleNavigateView}
         user={user}
         onOpenAuth={() => setIsAuthModalOpen(true)}
-        onScrollToSection={scrollToSection}
       />
 
+      {/* Main View Router */}
       <main className="w-full flex-1">
-        {/* Chapter I: Hero Section 16:9 Asymmetric Split */}
-        <HeroSection
-          onExploreTimeline={() => scrollToSection('timeline-section')}
-          onExploreDownloads={() => scrollToSection('downloads-section')}
-          onStartQuiz={() => scrollToSection('quiz-section')}
-        />
+        
+        {/* VIEW 1: CỔNG KẾT NỐI (LANDING PAGE NHẬT BÁO KÝ ỨC) */}
+        {currentView === 'portal' && (
+          <PortalLandingView
+            onGoToGrade={handleGoToGrade}
+            onGoToLearning={() => handleNavigateView('learning')}
+            onSelectTimelineEvent={(evt) => setSelectedTimelineEvent(evt)}
+            onGoToQuizByTopic={handleGoToQuizByTopic}
+            onGoToDownloadByTopic={handleGoToDownloadByTopic}
+          />
+        )}
 
-        {/* Chapter II: Interactive 16:9 Timeline (Split-Stage Master-Detail) */}
-        <TimelineSection
-          onSelectEventDetail={(evt) => setSelectedTimelineEvent(evt)}
-          onGoToQuiz={handleGoToQuizByTopic}
-          onGoToDownload={handleGoToDownloadByTopic}
-        />
+        {/* VIEW 2: GIẢNG ĐƯỜNG HỌC TẬP & TƯƠNG TÁC (KHỐI 10 - 11 - 12) */}
+        {currentView === 'learning' && (
+          <LearningHubView
+            initialGrade={learningGrade}
+            onSelectExam={handleStartExam}
+            onSubmitFeedback={handleSubmitFeedback}
+            customResources={customResources}
+          />
+        )}
 
-        {/* Chapter III: Public Downloads Hub (16:9 Asymmetric Bento & Open Ledger) */}
-        <DownloadsSection
-          onGoToQuiz={handleGoToQuizByTopic}
-        />
+        {/* VIEW 3: KHU VỰC QUẢN TRỊ GIÁO VIÊN (ADMIN DASHBOARD) */}
+        {currentView === 'admin' && isAdminAuthenticated && (
+          <AdminDashboardView
+            resources={customResources}
+            feedbackList={feedbackList}
+            onAddResource={handleAddResource}
+            onDeleteResource={handleDeleteResource}
+            onResolveFeedback={handleResolveFeedback}
+            onLogout={handleAdminLogout}
+          />
+        )}
 
-        {/* Chapter IV: Widescreen Mini-Quiz Exam Room */}
-        <QuizSection
-          user={user}
-          onOpenAuth={() => setIsAuthModalOpen(true)}
-          onSelectExam={(exam) => handleStartExam(exam)}
-        />
       </main>
 
       {/* Footer 16:9 Full-Bleed */}
       <Footer
-        onNavigateTab={setActiveTab}
-        onScrollToSection={scrollToSection}
+        onNavigateView={handleNavigateView}
+        onSelectGrade={handleGoToGrade}
       />
 
-      {/* Modal 1: Full-Screen Archival Event Reader */}
+      {/* Modal 1: Admin PIN Login */}
+      <AdminPinModal
+        isOpen={isAdminPinModalOpen}
+        onSuccess={handleAdminPinSuccess}
+        onCancel={() => setIsAdminPinModalOpen(false)}
+      />
+
+      {/* Modal 2: Full-Screen Archival Event Reader (Timeline) */}
       <TimelineDetailModal
         event={selectedTimelineEvent}
         onClose={() => setSelectedTimelineEvent(null)}
@@ -119,19 +258,20 @@ export function App() {
         onGoToDownload={handleGoToDownloadByTopic}
       />
 
-      {/* Modal 2: 16:9 Widescreen Exam Studio */}
+      {/* Modal 3: 16:9 Widescreen Exam Studio */}
       <QuizModal
         exam={selectedExam}
         onClose={() => setSelectedExam(null)}
         user={user}
       />
 
-      {/* Modal 3: Fast Auth & Student Registration */}
+      {/* Modal 4: Fast Auth & Student Registration */}
       <AuthModal
         isOpen={isAuthModalOpen}
         onClose={() => setIsAuthModalOpen(false)}
-        onLoginSuccess={handleLoginSuccess}
+        onLoginSuccess={(newUser) => setUser(newUser)}
       />
+
     </div>
   );
 }
