@@ -24,7 +24,7 @@ export const DocumentManagerTable: React.FC<DocumentManagerTableProps> = ({
   });
 
   return (
-    <div className="p-6 bg-white border border-[#1A1615]/20 text-left space-y-4">
+    <div className="py-6 border-y border-[#1A1615]/30 text-left space-y-4">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 hairline-b">
         <div>
           <h4 className="font-playfair text-xl font-bold text-[#1A1615]">

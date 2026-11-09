@@ -52,7 +52,7 @@ export const DocumentPublisherForm: React.FC<DocumentPublisherFormProps> = ({ on
   };
 
   return (
-    <div className="p-6 bg-white border border-[#1A1615]/20 text-left space-y-6">
+    <div className="py-6 border-y border-[#1A1615]/30 text-left space-y-6">
       <div className="flex items-center justify-between pb-3 hairline-b">
         <div className="flex items-center gap-2">
           <UploadCloud className="w-5 h-5 text-[#8B0000]" />

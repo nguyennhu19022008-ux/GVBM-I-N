@@ -116,45 +116,51 @@ export const WartimeStoriesSection: React.FC = () => {
         </div>
 
         {/* ============================================================== */}
-        {/* ARCHIVAL FILMSTRIP: THUMBNAILS TO SWITCH THE 4 WARTIME MOMENTS */}
+        {/* ARCHIVAL FILMSTRIP: OPEN BROADSHEET INDEX (NO CARD BOXES)      */}
         {/* ============================================================== */}
         <div className="pt-6 pb-12 broadsheet-double-b">
           <div className="flex items-center justify-between mb-4">
             <span className="text-xs font-mono font-bold uppercase text-[#4A3E3D] tracking-wider">
               CHỌN CUỘC KHÁNG CHIẾN / CHIẾN DỊCH ĐỂ XEM BÁO ẢNH:
             </span>
-            <span className="text-[11px] font-mono text-[#8B0000]">
+            <span className="text-[11px] font-mono text-[#8B0000] font-bold">
               [4 MỐC LỊCH SỬ TIÊU BIỂU]
             </span>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 divide-y sm:divide-y-0 sm:divide-x divide-[#1A1615]/20 border-y border-[#1A1615]/25">
             {WARTIME_STORIES.map((story, idx) => {
               const isActive = idx === activeStoryIndex;
               return (
                 <button
                   key={story.id}
                   onClick={() => setActiveStoryIndex(idx)}
-                  className={`p-3 text-left transition-all cursor-pointer border ${
+                  className={`p-4 text-left transition-all cursor-pointer relative ${
                     isActive
-                      ? 'border-2 border-[#8B0000] bg-[#ECE3D0]/80 shadow-md'
-                      : 'border-[#1A1615]/20 bg-white/70 hover:bg-white hover:border-[#1A1615]'
+                      ? 'bg-[#ECE3D0]/70'
+                      : 'hover:bg-[#ECE3D0]/30'
                   }`}
                 >
-                  <div className="aspect-16/9 overflow-hidden mb-2 relative">
+                  {isActive && (
+                    <div className="absolute top-0 left-0 right-0 h-1 bg-[#8B0000]" />
+                  )}
+                  <div className="flex items-baseline justify-between mb-2">
+                    <span className="font-mono text-xs font-bold text-[#8B0000]">
+                      0{idx + 1}. MỐC NĂM {story.year}
+                    </span>
+                    <span className="text-[10px] font-mono text-[#4A3E3D]">TƯ LIỆU</span>
+                  </div>
+                  <div className="aspect-16/9 overflow-hidden mb-2.5 relative border border-[#1A1615]/30">
                     <img
                       src={story.imageUrl}
                       alt={story.title}
                       className={`w-full h-full object-cover grayscale ${isActive ? 'contrast-125' : 'contrast-90'}`}
                     />
-                    <span className="absolute bottom-1 left-1 px-1.5 py-0.2 bg-black/80 text-white text-[10px] font-mono">
-                      {story.year}
-                    </span>
                   </div>
-                  <h5 className={`font-playfair text-xs sm:text-sm font-bold line-clamp-1 ${isActive ? 'text-[#8B0000]' : 'text-[#1A1615]'}`}>
+                  <h5 className={`font-playfair text-sm font-bold line-clamp-1 ${isActive ? 'text-[#8B0000]' : 'text-[#1A1615]'}`}>
                     {story.title}
                   </h5>
-                  <p className="text-[10px] font-mono text-[#4A3E3D] truncate mt-0.5">
+                  <p className="text-[10px] font-mono text-[#4A3E3D] truncate mt-1">
                     {story.period}
                   </p>
                 </button>
@@ -164,7 +170,7 @@ export const WartimeStoriesSection: React.FC = () => {
         </div>
 
         {/* ============================================================== */}
-        {/* LEADERS GALLERY: CARDLESS OPEN PORTRAIT GALLERY                */}
+        {/* LEADERS GALLERY: OPEN BROADSHEET PORTRAIT STRIP (CARDLESS)     */}
         {/* ============================================================== */}
         <div className="pt-12">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 mb-8 pb-3 hairline-b">
@@ -182,12 +188,12 @@ export const WartimeStoriesSection: React.FC = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 divide-y sm:divide-y-0 sm:divide-x divide-[#1A1615]/20 border-y border-[#1A1615]/25">
             {HISTORICAL_LEADERS.map((leader) => (
               <div
                 key={leader.id}
                 onClick={() => setSelectedLeader(leader)}
-                className="group cursor-pointer text-left space-y-3"
+                className="group cursor-pointer text-left p-4 sm:p-5 space-y-3 hover:bg-[#ECE3D0]/30 transition-colors"
               >
                 {/* Archival framed portrait */}
                 <div className="archival-newspaper-frame overflow-hidden">
@@ -280,14 +286,14 @@ export const WartimeStoriesSection: React.FC = () => {
               </span>
               <div className="flex flex-wrap gap-2">
                 {selectedStoryModal.heroes.map((hero, idx) => (
-                  <span key={idx} className="px-2.5 py-1 bg-white border border-[#1A1615]/20 text-xs font-mono text-[#1A1615]">
+                  <span key={idx} className="px-2.5 py-1 bg-[#F6F0E4] border border-[#1A1615]/30 text-xs font-mono text-[#1A1615]">
                     {hero}
                   </span>
                 ))}
               </div>
             </div>
 
-            <div className="p-4 bg-white border border-[#1A1615]/20 text-xs font-sans text-[#4A3E3D] mb-6">
+            <div className="p-4 bg-[#ECE3D0]/50 border-l-4 border-[#1A1615] text-xs font-sans text-[#4A3E3D] mb-6">
               <span className="font-bold text-[#1A1615] uppercase block mb-1 font-mono">Ý NGHĨA LỊCH SỬ SÂU SẮC:</span>
               <p>{selectedStoryModal.significance}</p>
             </div>
