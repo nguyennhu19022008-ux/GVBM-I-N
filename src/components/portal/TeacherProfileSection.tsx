@@ -12,8 +12,21 @@ export const TeacherProfileSection: React.FC = () => {
   };
 
   return (
-    <section className="w-full py-16 lg:py-24 bg-[#F3EFE5] text-left">
-      <div className="w-full px-6 md:px-12 xl:px-16 text-left">
+    <section className="w-full py-16 lg:py-24 bg-[#F3EFE5] text-left relative overflow-hidden">
+      {/* Prominent Architectural & Flag Tower Background Blend */}
+      <div 
+        className="absolute inset-0 bg-cover bg-center opacity-20 mix-blend-multiply pointer-events-none image-blend-radial select-none filter contrast-110"
+        style={{ backgroundImage: `url('/images/cot-co-ha-noi.jpg')` }}
+      />
+      {/* Soft warm paper vignette */}
+      <div className="absolute inset-0 bg-radial from-transparent via-[#F3EFE5]/50 to-[#F3EFE5]/90 pointer-events-none" />
+
+      {/* Heritage Watermark Text */}
+      <div className="absolute right-6 top-8 font-mono text-8xl sm:text-9xl font-black text-[#9C3B32]/5 select-none pointer-events-none tracking-widest uppercase">
+        SƯ PHẠM
+      </div>
+
+      <div className="w-full px-6 md:px-12 xl:px-16 text-left relative z-10">
         
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-12">

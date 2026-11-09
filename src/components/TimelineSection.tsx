@@ -40,15 +40,22 @@ export const TimelineSection: React.FC<TimelineSectionProps> = ({
 
   return (
     <section id="timeline-section" className="py-14 lg:py-20 bg-[#FAF8F1] text-left relative overflow-hidden">
-      {/* Ambient background historical photo blend */}
+      {/* Prominent Atmospheric Background Historical Trail Blend */}
       <div 
-        className="absolute -top-10 right-0 w-2/3 h-96 pointer-events-none opacity-10 select-none image-blend-radial"
+        className="absolute inset-x-0 -top-10 h-[550px] pointer-events-none opacity-25 select-none image-blend-panoramic filter contrast-120"
         style={{
           backgroundImage: 'url(/images/duong-truong-son.jpg)',
           backgroundSize: 'cover',
-          backgroundPosition: 'center',
+          backgroundPosition: 'center 40%',
         }}
       />
+      {/* Soft warm paper vignette */}
+      <div className="absolute inset-0 bg-radial from-transparent via-[#FAF8F1]/60 to-[#FAF8F1] pointer-events-none" />
+      
+      {/* Historic Background Typographic Watermark */}
+      <div className="absolute left-6 bottom-12 font-mono text-8xl sm:text-9xl font-black text-[#9C3B32]/5 select-none pointer-events-none tracking-widest uppercase">
+        1858 · 1986
+      </div>
 
       <div className="w-full px-6 md:px-12 xl:px-16 relative z-10">
         

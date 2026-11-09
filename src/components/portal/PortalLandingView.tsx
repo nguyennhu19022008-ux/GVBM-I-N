@@ -21,10 +21,10 @@ export const PortalLandingView: React.FC<PortalLandingViewProps> = ({
   onGoToDownloadByTopic,
 }) => {
   return (
-    <div className="w-full flex flex-col bg-[#FAF8F1] text-[#0A1418] animate-fadeSlideUp">
+    <div className="w-full flex flex-col bg-[#FAF8F1] text-[#0A1418] animate-fadeSlideUp relative">
       
       {/* Top Heritage Edition Publication Banner */}
-      <div className="w-full py-2.5 px-6 md:px-12 xl:px-16 bg-[#F3EFE5]/70 text-xs font-mono text-[#687477] flex flex-wrap items-center justify-between gap-3">
+      <div className="w-full py-2.5 px-6 md:px-12 xl:px-16 bg-[#F3EFE5]/80 text-xs font-mono text-[#687477] flex flex-wrap items-center justify-between gap-3 relative z-20">
         <div className="flex items-center gap-3">
           <span className="font-bold text-[#9C3B32] uppercase">SỐ XUÂN ĐỘC LẬP • 2026</span>
           <span className="hidden sm:inline">•</span>
@@ -37,34 +37,43 @@ export const PortalLandingView: React.FC<PortalLandingViewProps> = ({
         </div>
       </div>
 
-      {/* Main Masthead Headline */}
-      <section className="w-full pt-12 pb-8 px-6 md:px-12 xl:px-16 text-center relative overflow-hidden">
-        {/* Subtle atmospheric background blend */}
+      {/* Main Masthead Headline with Prominent Ba Dinh 1945 Panorama Background */}
+      <section className="w-full pt-14 pb-10 px-6 md:px-12 xl:px-16 text-center relative overflow-hidden">
+        {/* Prominent atmospheric historical photo background */}
         <div 
-          className="absolute inset-0 bg-cover bg-center opacity-8 mix-blend-multiply pointer-events-none image-blend-radial"
+          className="absolute inset-0 bg-cover bg-center opacity-22 mix-blend-multiply pointer-events-none image-blend-panoramic select-none filter contrast-115"
           style={{ backgroundImage: `url('/images/quang-truong-ba-dinh.jpg')` }}
         />
+        {/* Subtle warm paper lighting vignette */}
+        <div className="absolute inset-0 bg-radial from-transparent via-[#FAF8F1]/40 to-[#FAF8F1]/90 pointer-events-none" />
 
         <div className="relative z-10 max-w-5xl mx-auto space-y-4">
-          <span className="inline-block px-3.5 py-1 bg-[#0A1418] text-[#E5C985] text-xs font-mono font-bold uppercase tracking-widest rounded-xs">
+          <span className="inline-block px-4 py-1.5 bg-[#0A1418] text-[#E5C985] text-xs font-mono font-bold uppercase tracking-widest rounded-md shadow-xs">
             NHẬT BÁO SỬ HỌC VIỆT NAM • KHƠI NGUỒN YÊU NƯỚC
           </span>
-          <h1 className="font-playfair text-4xl sm:text-6xl md:text-7xl font-black text-[#0A1418] tracking-tight leading-none uppercase">
+          <h1 className="font-playfair text-4xl sm:text-6xl md:text-7xl font-black text-[#0A1418] tracking-tight leading-none uppercase drop-shadow-xs">
             ĐAM MÊ LỊCH SỬ
           </h1>
-          <p className="font-serif italic text-base sm:text-xl text-[#687477] max-w-3xl mx-auto">
+          <p className="font-serif italic text-base sm:text-xl text-[#0A1418]/80 max-w-3xl mx-auto">
             "Không gian số hóa bài giảng, tư liệu kháng chiến và hệ thống ôn luyện trắc nghiệm phân hóa bám sát chương trình Giáo dục Phổ thông mới."
           </p>
         </div>
       </section>
 
-      {/* 7:5 Asymmetrical Hero Editorial Section with Organic Image Background Blend */}
-      <section className="w-full py-12 lg:py-16 relative overflow-hidden">
-        {/* Subtle ambient image blend in hero background */}
+      {/* 7:5 Asymmetrical Hero Section with Striking Full-Bleed 1945 Independence Rally Background */}
+      <section className="w-full py-12 lg:py-20 relative overflow-hidden">
+        {/* Prominent Full-Width Historical Rally Photo in Background */}
         <div 
-          className="absolute right-0 top-0 bottom-0 w-1/2 bg-cover bg-center opacity-10 mix-blend-multiply pointer-events-none image-blend-hero hidden lg:block"
+          className="absolute inset-0 bg-cover bg-right lg:bg-center opacity-25 lg:opacity-30 mix-blend-multiply pointer-events-none select-none filter contrast-120"
           style={{ backgroundImage: `url('/images/ba-dinh-1945.jpg')` }}
         />
+        {/* Editorial gradient scrim: luminous solid ink readability on the left, clear historic visual on the right */}
+        <div className="absolute inset-0 bg-gradient-to-r from-[#FAF8F1] via-[#FAF8F1]/90 to-[#FAF8F1]/30 lg:via-[#FAF8F1]/85 lg:to-transparent pointer-events-none" />
+        
+        {/* Huge artistic watermark in background */}
+        <div className="absolute right-6 -bottom-6 font-mono text-8xl sm:text-9xl font-black text-[#9C3B32]/5 select-none pointer-events-none tracking-tighter">
+          1945
+        </div>
 
         <div className="w-full px-6 md:px-12 xl:px-16 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 xl:gap-14 items-center">
@@ -81,19 +90,19 @@ export const PortalLandingView: React.FC<PortalLandingViewProps> = ({
                 Vững Vàng Chinh Phục Điểm 10 THPT Quốc Gia.
               </h2>
 
-              <p className="font-sans text-sm sm:text-base text-[#687477] leading-relaxed">
+              <p className="font-sans text-sm sm:text-base text-[#0A1418]/85 leading-relaxed">
                 Đưa lịch sử vượt khỏi những trang vở khô khan. Hệ thống liên kết chặt chẽ giữa <strong>tiến trình thời gian</strong>, <strong>kho bài tập về nhà</strong>, <strong>đề thi chuẩn ma trận</strong> và <strong>phòng thi trắc nghiệm có giải thích tường tận</strong> cho từng phương án gây nhiễu.
               </p>
 
-              {/* Grade Gateways: Open Organic Rows (No Hard Lines) */}
+              {/* Grade Gateways: Open Organic Rows */}
               <div className="space-y-2 pt-2">
                 <span className="text-xs font-mono font-bold text-[#0A1418] uppercase tracking-wider block mb-2">
                   CHỌN KHỐI HỌC TẬP ĐỂ VÀO BÀI GIẢNG & ĐỀ THI:
                 </span>
-                <div className="space-y-1.5">
+                <div className="space-y-2">
                   <button
                     onClick={() => onGoToGrade('10')}
-                    className="w-full py-3 px-4 rounded-lg flex items-center justify-between text-left hover:bg-[#F3EFE5] transition-all cursor-pointer group"
+                    className="w-full py-3.5 px-4 rounded-xl flex items-center justify-between text-left bg-[#F3EFE5]/70 hover:bg-[#F3EFE5] transition-all cursor-pointer group shadow-2xs"
                   >
                     <div className="flex items-center gap-3">
                       <span className="text-xs font-mono font-bold text-[#9C3B32] w-16">KHỐI 10</span>
@@ -104,7 +113,7 @@ export const PortalLandingView: React.FC<PortalLandingViewProps> = ({
 
                   <button
                     onClick={() => onGoToGrade('11')}
-                    className="w-full py-3 px-4 rounded-lg flex items-center justify-between text-left hover:bg-[#F3EFE5] transition-all cursor-pointer group"
+                    className="w-full py-3.5 px-4 rounded-xl flex items-center justify-between text-left bg-[#F3EFE5]/70 hover:bg-[#F3EFE5] transition-all cursor-pointer group shadow-2xs"
                   >
                     <div className="flex items-center gap-3">
                       <span className="text-xs font-mono font-bold text-[#9C3B32] w-16">KHỐI 11</span>
@@ -115,7 +124,7 @@ export const PortalLandingView: React.FC<PortalLandingViewProps> = ({
 
                   <button
                     onClick={() => onGoToGrade('12')}
-                    className="w-full py-3 px-4 rounded-lg bg-[#F3EFE5]/60 hover:bg-[#F3EFE5] flex items-center justify-between text-left transition-all cursor-pointer group"
+                    className="w-full py-3.5 px-4 rounded-xl bg-[#F3EFE5] hover:bg-[#EAE4D5] flex items-center justify-between text-left transition-all cursor-pointer group shadow-xs"
                   >
                     <div className="flex items-center gap-3">
                       <span className="text-xs font-mono font-bold text-[#9C3B32] w-16">KHỐI 12 ★</span>
@@ -130,23 +139,23 @@ export const PortalLandingView: React.FC<PortalLandingViewProps> = ({
               <div className="pt-2 flex flex-wrap items-center gap-4">
                 <button
                   onClick={onGoToLearning}
-                  className="px-6 py-3.5 bg-[#9C3B32] hover:bg-[#7A2820] text-white font-mono text-xs font-bold uppercase tracking-wider transition-all shadow-xs cursor-pointer flex items-center gap-2 rounded-xs"
+                  className="px-6 py-3.5 bg-[#9C3B32] hover:bg-[#7A2820] text-white font-mono text-xs font-bold uppercase tracking-wider transition-all shadow-md cursor-pointer flex items-center gap-2 rounded-xl"
                 >
-                  <GraduationCap className="w-4 h-4" />
+                  <GraduationCap className="w-4 h-4 text-[#E5C985]" />
                   <span>Vào Giảng Đường Học Tập & Tương Tác</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
+                  <ArrowRight className="w-3.5 h-3.5 text-[#E5C985]" />
                 </button>
               </div>
             </div>
 
-            {/* Right 5 Columns: Iconic Archival Plate (Blending into Background, yet Standing Out) */}
+            {/* Right 5 Columns: Iconic Archival Plate (Prominent Standout against the Rally Backdrop) */}
             <div className="lg:col-span-5 space-y-6">
               <div className="relative group">
-                <div className="overflow-hidden rounded-xl image-standout bg-[#F3EFE5]">
+                <div className="overflow-hidden rounded-2xl image-standout bg-[#F3EFE5] shadow-xl">
                   <img
                     src="/images/ba-dinh-1945.jpg"
                     alt="Quảng trường Ba Đình lịch sử năm 1945"
-                    className="w-full aspect-4/3 object-cover contrast-105 hover:scale-102 transition-all duration-700"
+                    className="w-full aspect-4/3 object-cover contrast-110 hover:scale-102 transition-all duration-700"
                   />
                   <div className="p-4 bg-[#F3EFE5] text-left">
                     <span className="block text-[11px] font-mono font-bold text-[#9C3B32] uppercase">MỐC SON KHAI SINH NƯỚC VNDCCH</span>
@@ -157,21 +166,21 @@ export const PortalLandingView: React.FC<PortalLandingViewProps> = ({
                 </div>
               </div>
 
-              {/* 4 Quick Metrics (No Harsh Border Lines, Pure Air and Clarity) */}
+              {/* 4 Quick Metrics */}
               <div className="grid grid-cols-2 gap-6 text-left pt-2">
-                <div>
+                <div className="p-3.5 bg-[#F3EFE5]/80 rounded-xl shadow-2xs">
                   <span className="block font-mono text-3xl font-black text-[#9C3B32]">03 KHỐI</span>
                   <span className="text-[11px] text-[#687477] font-mono uppercase">10 · 11 · 12 Chuẩn SGK</span>
                 </div>
-                <div>
+                <div className="p-3.5 bg-[#F3EFE5]/80 rounded-xl shadow-2xs">
                   <span className="block font-mono text-3xl font-black text-[#C69A47]">150+ MỐC</span>
                   <span className="text-[11px] text-[#687477] font-mono uppercase">Niên đại & Sự kiện</span>
                 </div>
-                <div>
+                <div className="p-3.5 bg-[#F3EFE5]/80 rounded-xl shadow-2xs">
                   <span className="block font-mono text-3xl font-black text-[#0A1418]">100% FREE</span>
                   <span className="text-[11px] text-[#687477] font-mono uppercase">Tải file mở tự do</span>
                 </div>
-                <div>
+                <div className="p-3.5 bg-[#F3EFE5]/80 rounded-xl shadow-2xs">
                   <span className="block font-mono text-3xl font-black text-[#486D5D]">GIẢI THÍCH</span>
                   <span className="text-[11px] text-[#687477] font-mono uppercase">Chuẩn ma trận đề thi</span>
                 </div>

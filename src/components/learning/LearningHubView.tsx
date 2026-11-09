@@ -100,9 +100,22 @@ Chúc các em học sinh Khối ${res.grade} ôn tập hiệu quả và đạt �
 
   return (
     <div className="w-full py-10 lg:py-14 px-6 md:px-12 xl:px-16 bg-[#FAF8F1] animate-fadeSlideUp relative overflow-hidden">
-      
-      {/* Top Breadcrumb & Page Banner */}
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8 pb-2 text-left relative z-10">
+      {/* Prominent Educational Heritage Historical Background Blend */}
+      <div 
+        className="absolute top-0 right-0 w-full sm:w-2/3 h-[500px] bg-cover bg-center opacity-22 mix-blend-multiply pointer-events-none image-blend-panoramic select-none filter contrast-120"
+        style={{ backgroundImage: `url('/images/hoi-nghi-ianta.jpg')` }}
+      />
+      {/* Soft warm paper lighting vignette */}
+      <div className="absolute inset-0 bg-radial from-transparent via-[#FAF8F1]/60 to-[#FAF8F1] pointer-events-none" />
+
+      {/* Large Pedagogical Watermark */}
+      <div className="absolute right-6 top-10 font-mono text-8xl sm:text-9xl font-black text-[#9C3B32]/5 select-none pointer-events-none tracking-widest uppercase">
+        10 · 11 · 12
+      </div>
+
+      <div className="relative z-10">
+        {/* Top Breadcrumb & Page Banner */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8 pb-2 text-left relative z-10">
         <div>
           <div className="flex items-center gap-2 text-xs font-mono font-bold tracking-widest text-[#9C3B32] uppercase mb-1.5">
             <span>GIẢNG ĐƯỜNG SỐ HÓA</span>
@@ -169,6 +182,7 @@ Chúc các em học sinh Khối ${res.grade} ôn tập hiệu quả và đạt �
         onSubmitReport={onSubmitFeedback}
       />
 
+      </div>
     </div>
   );
 };
