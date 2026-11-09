@@ -73,37 +73,43 @@ export const PortalLandingView: React.FC<PortalLandingViewProps> = ({
                 Đưa lịch sử vượt khỏi những trang vở khô khan. Hệ thống liên kết chặt chẽ giữa <strong>tiến trình thời gian</strong>, <strong>kho bài tập về nhà</strong>, <strong>đề thi chuẩn ma trận</strong> và <strong>phòng thi trắc nghiệm có giải thích tường tận</strong> cho từng phương án gây nhiễu.
               </p>
 
-              {/* Grade Gateways: 3 Quick Jumps */}
+              {/* Grade Gateways: Open Broadsheet Strip (No Card Boxes) */}
               <div className="space-y-3 pt-2">
                 <span className="text-xs font-mono font-bold text-[#1A1615] uppercase tracking-wider block">
                   CHỌN KHỐI HỌC TẬP ĐỂ VÀO BÀI GIẢNG & ĐỀ THI:
                 </span>
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                <div className="divide-y divide-[#1A1615]/20 border-y border-[#1A1615]/20">
                   <button
                     onClick={() => onGoToGrade('10')}
-                    className="p-3.5 bg-white border border-[#1A1615]/20 hover:border-[#8B0000] text-left transition-all paper-lift cursor-pointer group"
+                    className="w-full py-2.5 flex items-center justify-between text-left hover:text-[#8B0000] transition-colors cursor-pointer group"
                   >
-                    <span className="text-[10px] font-mono font-bold text-[#3D4A3E] uppercase block">GDPT 2018</span>
-                    <h4 className="font-playfair text-base font-bold text-[#1A1615] group-hover:text-[#8B0000]">Khối 10</h4>
-                    <p className="text-[11px] text-[#4A3E3D] mt-1 line-clamp-1">Văn minh Cổ - Trung đại</p>
+                    <div className="flex items-center gap-3">
+                      <span className="text-xs font-mono font-bold text-[#8B0000] w-16">KHỐI 10</span>
+                      <span className="font-playfair text-base font-bold text-[#1A1615] group-hover:text-[#8B0000]">Lịch Sử & Văn Minh Nhân Loại (GDPT 2018)</span>
+                    </div>
+                    <ArrowRight className="w-4 h-4 text-[#8B0000] opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all" />
                   </button>
 
                   <button
                     onClick={() => onGoToGrade('11')}
-                    className="p-3.5 bg-white border border-[#1A1615]/20 hover:border-[#8B0000] text-left transition-all paper-lift cursor-pointer group"
+                    className="w-full py-2.5 flex items-center justify-between text-left hover:text-[#8B0000] transition-colors cursor-pointer group"
                   >
-                    <span className="text-[10px] font-mono font-bold text-[#3D4A3E] uppercase block">CẬN - HIỆN ĐẠI</span>
-                    <h4 className="font-playfair text-base font-bold text-[#1A1615] group-hover:text-[#8B0000]">Khối 11</h4>
-                    <p className="text-[11px] text-[#4A3E3D] mt-1 line-clamp-1">1858 - Thế chiến II</p>
+                    <div className="flex items-center gap-3">
+                      <span className="text-xs font-mono font-bold text-[#8B0000] w-16">KHỐI 11</span>
+                      <span className="font-playfair text-base font-bold text-[#1A1615] group-hover:text-[#8B0000]">Việt Nam Cận Đại (1858 - 1918) & Thế Chiến II</span>
+                    </div>
+                    <ArrowRight className="w-4 h-4 text-[#8B0000] opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all" />
                   </button>
 
                   <button
                     onClick={() => onGoToGrade('12')}
-                    className="p-3.5 bg-white border-2 border-[#8B0000] bg-red-50/30 text-left transition-all paper-lift cursor-pointer group"
+                    className="w-full py-2.5 flex items-center justify-between text-left hover:text-[#8B0000] transition-colors cursor-pointer group"
                   >
-                    <span className="text-[10px] font-mono font-bold text-[#8B0000] uppercase block">ÔN THI TN THPT</span>
-                    <h4 className="font-playfair text-base font-bold text-[#8B0000]">Khối 12 ★</h4>
-                    <p className="text-[11px] text-[#4A3E3D] mt-1 line-clamp-1">1919 - Đổi Mới 1986</p>
+                    <div className="flex items-center gap-3">
+                      <span className="text-xs font-mono font-bold text-[#8B0000] w-16">KHỐI 12 ★</span>
+                      <span className="font-playfair text-base font-bold text-[#8B0000]">Trọng Tâm Ôn Thi Tốt Nghiệp THPT Quốc Gia 2026</span>
+                    </div>
+                    <ArrowRight className="w-4 h-4 text-[#8B0000] opacity-100 group-hover:translate-x-1 transition-all" />
                   </button>
                 </div>
               </div>
@@ -137,21 +143,21 @@ export const PortalLandingView: React.FC<PortalLandingViewProps> = ({
                 </div>
               </div>
 
-              {/* 4 Quick Metrics in Broadsheet Style */}
-              <div className="grid grid-cols-2 gap-3 text-left">
-                <div className="p-3 bg-white border border-[#1A1615]/20">
+              {/* 4 Quick Metrics in Broadsheet Open Band (No Cards) */}
+              <div className="grid grid-cols-2 gap-4 py-3 border-y border-[#1A1615]/20 text-left">
+                <div className="pr-3 border-r border-[#1A1615]/15">
                   <span className="block font-mono text-2xl font-black text-[#8B0000]">03 KHỐI</span>
                   <span className="text-[11px] text-[#4A3E3D] font-mono uppercase">10 · 11 · 12 Chuẩn SGK</span>
                 </div>
-                <div className="p-3 bg-white border border-[#1A1615]/20">
+                <div>
                   <span className="block font-mono text-2xl font-black text-[#C59B27]">150+ MỐC</span>
                   <span className="text-[11px] text-[#4A3E3D] font-mono uppercase">Niên đại & Sự kiện</span>
                 </div>
-                <div className="p-3 bg-white border border-[#1A1615]/20">
+                <div className="pr-3 border-r border-[#1A1615]/15 pt-2 border-t border-[#1A1615]/15">
                   <span className="block font-mono text-2xl font-black text-[#1A1615]">100% FREE</span>
                   <span className="text-[11px] text-[#4A3E3D] font-mono uppercase">Tải file mở tự do</span>
                 </div>
-                <div className="p-3 bg-white border border-[#1A1615]/20">
+                <div className="pt-2 border-t border-[#1A1615]/15">
                   <span className="block font-mono text-2xl font-black text-[#8B0000]">GIẢI THÍCH</span>
                   <span className="text-[11px] text-[#4A3E3D] font-mono uppercase">Chuẩn ma trận đề thi</span>
                 </div>
