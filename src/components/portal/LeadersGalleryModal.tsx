@@ -13,19 +13,19 @@ export const LeadersGalleryModal: React.FC<LeadersGalleryModalProps> = ({ leader
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/75 backdrop-blur-xs animate-fadeSlideUp">
       <div 
-        className="relative w-full max-w-4xl max-h-[90vh] overflow-y-auto bg-[#F6F0E4] border-2 border-[#1A1615] shadow-2xl p-6 sm:p-8 text-left"
+        className="relative w-full max-w-4xl max-h-[90vh] overflow-y-auto bg-[#FAF8F1] border-2 border-[#0A1418] shadow-2xl p-6 sm:p-8 text-left"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header Ribbon */}
         <div className="flex items-center justify-between pb-4 mb-6 broadsheet-double-b">
-          <div className="flex items-center gap-2 text-xs font-mono font-bold tracking-widest text-[#8B0000] uppercase">
+          <div className="flex items-center gap-2 text-xs font-mono font-bold tracking-widest text-[#9C3B32] uppercase">
             <span>HỒ SƠ DANH NHÂN LỊCH SỬ</span>
             <span>•</span>
             <span>LƯU TRỮ QUỐC GIA</span>
           </div>
           <button
             onClick={onClose}
-            className="w-8 h-8 rounded-full border border-[#1A1615]/30 hover:border-[#1A1615] hover:bg-[#8B0000] hover:text-white flex items-center justify-center transition-colors cursor-pointer"
+            className="w-8 h-8 rounded-full border border-[rgba(16,37,43,0.3)] hover:border-[#0A1418] hover:bg-[#9C3B32] hover:text-white flex items-center justify-center transition-colors cursor-pointer text-[#0A1418]"
             title="Đóng cửa sổ"
           >
             <X className="w-5 h-5" />
@@ -37,57 +37,57 @@ export const LeadersGalleryModal: React.FC<LeadersGalleryModalProps> = ({ leader
           
           {/* Left Column (5 Cols): Portrait */}
           <div className="md:col-span-5 space-y-4">
-            <div className="archival-newspaper-frame">
+            <div className="archival-newspaper-frame border border-[rgba(16,37,43,0.25)] bg-[#F3EFE5]">
               <img
                 src={leader.imageUrl}
                 alt={leader.name}
                 className="w-full aspect-3/4 object-cover object-top grayscale"
               />
-              <div className="p-2 text-center text-xs font-mono text-[#4A3E3D]">
+              <div className="p-2 text-center text-xs font-mono text-[#687477]">
                 <span>NIÊN ĐẠI: </span>
-                <span className="font-bold text-[#8B0000]">{leader.lifespan}</span>
+                <span className="font-bold text-[#9C3B32]">{leader.lifespan}</span>
               </div>
             </div>
 
-            <div className="p-4 bg-[#ECE3D0]/60 border border-[#1A1615]/15 text-xs font-mono space-y-1.5">
-              <span className="block text-[#8B0000] font-bold uppercase">MỐC SON LỊCH SỬ GẮN LIỀN:</span>
-              <p className="text-[#1A1615] font-sans font-medium">{leader.historicalMilestone}</p>
+            <div className="p-4 bg-[#F3EFE5] border border-[rgba(16,37,43,0.16)] text-xs font-mono space-y-1.5">
+              <span className="block text-[#9C3B32] font-bold uppercase">MỐC SON LỊCH SỬ GẮN LIỀN:</span>
+              <p className="text-[#0A1418] font-sans font-medium">{leader.historicalMilestone}</p>
             </div>
           </div>
 
           {/* Right Column (7 Cols): Info, Quote & Contributions */}
           <div className="md:col-span-7 space-y-5">
             <div>
-              <span className="text-xs font-mono font-bold text-[#8B0000] uppercase tracking-wider block mb-1">
+              <span className="text-xs font-mono font-bold text-[#9C3B32] uppercase tracking-wider block mb-1">
                 LÃNH TỤ DÂN TỘC VIỆT NAM
               </span>
-              <h3 className="font-playfair text-2xl sm:text-3xl font-black text-[#1A1615] tracking-tight">
+              <h3 className="font-playfair text-2xl sm:text-3xl font-black text-[#0A1418] tracking-tight">
                 {leader.name}
               </h3>
-              <p className="text-sm font-serif italic text-[#4A3E3D] mt-1">
+              <p className="text-sm font-serif italic text-[#687477] mt-1">
                 {leader.role}
               </p>
             </div>
 
             {/* Quote */}
-            <div className="relative pl-5 py-2 border-l-3 border-[#8B0000] bg-[#ECE3D0]/30 pr-3">
-              <Quote className="w-5 h-5 text-[#8B0000]/30 absolute -top-2 left-1.5" />
-              <p className="font-serif italic text-sm sm:text-base text-[#1A1615] leading-relaxed">
+            <div className="relative pl-5 py-2 border-l-3 border-[#9C3B32] bg-[#F3EFE5] pr-3">
+              <Quote className="w-5 h-5 text-[#9C3B32]/30 absolute -top-2 left-1.5" />
+              <p className="font-serif italic text-sm sm:text-base text-[#0A1418] leading-relaxed">
                 {leader.quote}
               </p>
             </div>
 
             {/* Key Contributions */}
             <div className="space-y-3 pt-2">
-              <h4 className="text-xs font-mono font-bold uppercase tracking-wider text-[#1A1615] flex items-center gap-2">
-                <Award className="w-4 h-4 text-[#C59B27]" />
+              <h4 className="text-xs font-mono font-bold uppercase tracking-wider text-[#0A1418] flex items-center gap-2">
+                <Award className="w-4 h-4 text-[#C69A47]" />
                 <span>Những Cống Hiến Lịch Sử Vĩ Đại:</span>
               </h4>
               <div className="space-y-2.5">
                 {leader.contributions.map((item, idx) => (
-                  <div key={idx} className="flex items-start gap-2.5 text-xs sm:text-sm text-[#1A1615]">
-                    <CheckCircle2 className="w-4 h-4 text-[#8B0000] shrink-0 mt-0.5" />
-                    <span className="leading-relaxed">{item}</span>
+                  <div key={idx} className="flex items-start gap-2.5 text-xs sm:text-sm text-[#0A1418]">
+                    <CheckCircle2 className="w-4 h-4 text-[#486D5D] shrink-0 mt-0.5" />
+                    <span className="leading-relaxed font-sans">{item}</span>
                   </div>
                 ))}
               </div>
@@ -97,7 +97,7 @@ export const LeadersGalleryModal: React.FC<LeadersGalleryModalProps> = ({ leader
             <div className="pt-4 hairline-t flex justify-end">
               <button
                 onClick={onClose}
-                className="px-5 py-2 bg-[#1A1615] hover:bg-[#8B0000] text-white text-xs font-mono font-bold uppercase transition-colors cursor-pointer"
+                className="px-5 py-2 bg-[#0A1418] hover:bg-[#9C3B32] text-white text-xs font-mono font-bold uppercase transition-colors cursor-pointer"
               >
                 Đóng Hồ Sơ
               </button>

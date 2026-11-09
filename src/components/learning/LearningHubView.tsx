@@ -99,21 +99,21 @@ Chúc các em học sinh Khối ${res.grade} ôn tập hiệu quả và đạt �
   };
 
   return (
-    <div className="w-full py-10 lg:py-14 px-6 md:px-12 xl:px-16 bg-[#F6F0E4] animate-fadeSlideUp">
+    <div className="w-full py-10 lg:py-14 px-6 md:px-12 xl:px-16 bg-[#FAF8F1] animate-fadeSlideUp">
       
       {/* Top Breadcrumb & Page Banner */}
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8 pb-4 broadsheet-double-b text-left">
         <div>
-          <div className="flex items-center gap-2 text-xs font-mono font-bold tracking-widest text-[#8B0000] uppercase mb-1.5">
+          <div className="flex items-center gap-2 text-xs font-mono font-bold tracking-widest text-[#9C3B32] uppercase mb-1.5">
             <span>GIẢNG ĐƯỜNG SỐ HÓA</span>
             <span>•</span>
             <span>HỆ THỐNG BÀI TẬP & ĐỀ THI</span>
           </div>
-          <h2 className="font-playfair text-3xl sm:text-4xl md:text-5xl font-black text-[#1A1615] tracking-tight">
+          <h2 className="font-playfair text-3xl sm:text-4xl md:text-5xl font-black text-[#0A1418] tracking-tight">
             Không Gian Học Tập & Tương Tác Khối 10 · 11 · 12
           </h2>
         </div>
-        <p className="text-xs sm:text-sm font-sans text-[#4A3E3D] max-w-md italic">
+        <p className="text-xs sm:text-sm font-sans text-[#687477] max-w-md italic">
           "Đầy đủ bài tập về nhà theo tuần, đề thi học kỳ và đề thi thử THPT Quốc gia chuẩn cấu trúc Bộ GD&ĐT kèm giải thích chi tiết."
         </p>
       </div>

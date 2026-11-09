@@ -21,48 +21,48 @@ export const QuizStudioSection: React.FC<QuizStudioSectionProps> = ({
       {/* Section Sub-Header */}
       <div className="flex items-center justify-between pb-3 broadsheet-double-b">
         <div className="flex items-center gap-2">
-          <Award className="w-5 h-5 text-[#8B0000]" />
-          <h3 className="font-playfair text-xl sm:text-2xl font-black text-[#1A1615]">
+          <Award className="w-5 h-5 text-[#9C3B32]" />
+          <h3 className="font-playfair text-xl sm:text-2xl font-black text-[#0A1418]">
             Bảng Khảo Thí Trắc Nghiệm Trực Tuyến — Khối {grade}
           </h3>
         </div>
-        <span className="text-xs font-mono font-bold text-[#8B0000]">
+        <span className="text-xs font-mono font-bold text-[#9C3B32]">
           BẤM GIỜ & CHẤM ĐIỂM TỨC THÌ
         </span>
       </div>
 
       {/* Cardless Open Examination Rows */}
-      <div className="divide-y divide-[#1A1615]/20 border-b border-[#1A1615]/20">
+      <div className="divide-y divide-[#10252B]/20 border-b border-[#10252B]/20">
         {QUIZ_EXAMS.map((exam, idx) => (
           <div
             key={exam.id}
-            className="py-6 flex flex-col lg:flex-row lg:items-center justify-between gap-6 hover:bg-[#ECE3D0]/40 transition-colors px-2 -mx-2"
+            className="py-6 flex flex-col lg:flex-row lg:items-center justify-between gap-6 hover:bg-[#F3EFE5]/50 transition-colors px-2 -mx-2"
           >
             {/* Left: Index & Exam Info */}
             <div className="flex items-start gap-5 max-w-4xl">
-              <span className="font-playfair text-3xl sm:text-4xl font-black text-[#8B0000]/60 shrink-0 w-12 text-right">
+              <span className="font-playfair text-3xl sm:text-4xl font-black text-[#9C3B32]/60 shrink-0 w-12 text-right">
                 {String(idx + 1).padStart(2, '0')}
               </span>
 
               <div className="space-y-2">
                 <div className="flex flex-wrap items-center gap-3 text-xs font-mono">
-                  <span className="px-2 py-0.5 bg-[#8B0000] text-white font-bold text-[10px]">
+                  <span className="px-2 py-0.5 bg-[#9C3B32] text-white font-bold text-[10px]">
                     {exam.difficulty}
                   </span>
-                  <span className="flex items-center gap-1 text-[#1A1615] font-semibold">
-                    <Clock className="w-3.5 h-3.5 text-[#C59B27]" />
+                  <span className="flex items-center gap-1 text-[#0A1418] font-semibold">
+                    <Clock className="w-3.5 h-3.5 text-[#C69A47]" />
                     <span>{exam.timeLimitMinutes} Phút Làm Bài</span>
                   </span>
-                  <span className="text-[#8B0000] font-bold">
+                  <span className="text-[#9C3B32] font-bold">
                     • {exam.questionsCount} CÂU TRẮC NGHIỆM
                   </span>
                 </div>
 
-                <h4 className="font-playfair text-lg sm:text-xl font-bold text-[#1A1615] leading-snug">
+                <h4 className="font-playfair text-lg sm:text-xl font-bold text-[#0A1418] leading-snug">
                   {exam.title}
                 </h4>
 
-                <p className="font-sans text-xs sm:text-sm text-[#4A3E3D] leading-relaxed max-w-3xl">
+                <p className="font-sans text-xs sm:text-sm text-[#687477] leading-relaxed max-w-3xl">
                   {exam.description}
                 </p>
               </div>
@@ -72,17 +72,17 @@ export const QuizStudioSection: React.FC<QuizStudioSectionProps> = ({
             <div className="flex items-center gap-3 self-end lg:self-center shrink-0">
               <button
                 onClick={() => onOpenReport(exam.title)}
-                className="px-3 py-2 border border-[#1A1615]/30 hover:border-[#8B0000] hover:text-[#8B0000] text-xs font-mono uppercase transition-colors cursor-pointer flex items-center gap-1"
+                className="px-3 py-2 border border-[#10252B]/30 hover:border-[#9C3B32] hover:text-[#9C3B32] text-xs font-mono uppercase transition-colors cursor-pointer flex items-center gap-1"
               >
-                <AlertTriangle className="w-3.5 h-3.5 text-[#8B0000]" />
+                <AlertTriangle className="w-3.5 h-3.5 text-[#9C3B32]" />
                 <span className="hidden sm:inline">Báo Lỗi Đề</span>
               </button>
 
               <button
                 onClick={() => onSelectExam(exam)}
-                className="px-6 py-2.5 bg-[#8B0000] hover:bg-[#5E0000] text-white text-xs font-mono font-bold uppercase transition-all flex items-center gap-2 cursor-pointer shadow-xs active:scale-95"
+                className="px-6 py-2.5 bg-[#0A1418] hover:bg-[#9C3B32] text-white text-xs font-mono font-bold uppercase transition-all flex items-center gap-2 cursor-pointer shadow-xs active:scale-95 border border-[#E5C985]/30"
               >
-                <Play className="w-4 h-4" />
+                <Play className="w-4 h-4 text-[#E5C985]" />
                 <span>Vào Phòng Thi Ngay</span>
               </button>
             </div>

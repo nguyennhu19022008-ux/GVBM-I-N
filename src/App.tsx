@@ -189,7 +189,7 @@ export function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#F6F0E4] text-[#1A1615] flex flex-col font-sans selection:bg-[#C59B27]/30 selection:text-[#1A1615] w-full max-w-full overflow-x-hidden">
+    <div className="min-h-screen bg-[#FAF8F1] text-[#0A1418] flex flex-col font-sans selection:bg-[#E5C985]/30 selection:text-[#0A1418] w-full max-w-full overflow-x-hidden">
       
       {/* Top Broadsheet Masthead */}
       <Navbar

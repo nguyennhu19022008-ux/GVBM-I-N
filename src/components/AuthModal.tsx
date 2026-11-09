@@ -15,7 +15,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [school, setSchool] = useState('');
-  const [grade, setGrade] = useState<'11' | '12'>('12');
+  const [grade, setGrade] = useState<'10' | '11' | '12'>('12');
   const [isLoading, setIsLoading] = useState(false);
 
   if (!isOpen) return null;
@@ -51,21 +51,21 @@ export const AuthModal: React.FC<AuthModalProps> = ({
   return (
     <div className="fixed inset-0 z-50 overflow-y-auto bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 animate-fadeUp">
       <div 
-        className="relative w-full max-w-md bg-[#FDFBF7] border-2 border-[#D4A373] rounded-2xl shadow-2xl overflow-hidden text-left"
+        className="relative w-full max-w-md bg-[#FAF8F1] border-2 border-[#0A1418] shadow-2xl overflow-hidden text-left"
         role="dialog"
       >
         {/* Header */}
-        <div className="bg-[#582F0E] text-[#FAEDCD] px-6 py-4 flex items-center justify-between border-b border-[#D4A373]">
+        <div className="bg-[#0A1418] text-[#FAF8F1] px-6 py-4 flex items-center justify-between border-b border-[rgba(16,37,43,0.3)]">
           <div className="flex items-center gap-2">
-            <Lock className="w-4 h-4 text-[#D4A373]" />
-            <span className="font-cinzel text-base font-bold">
+            <Lock className="w-4 h-4 text-[#E5C985]" />
+            <span className="font-cinzel text-base font-bold text-[#FAF8F1]">
               XÁC THỰC LUYỆN THI TRẮC NGHIỆM
             </span>
           </div>
 
           <button
             onClick={onClose}
-            className="p-1 rounded text-[#FAEDCD] hover:bg-white/10 transition-colors cursor-pointer"
+            className="p-1 text-[#FAF8F1] hover:bg-white/10 transition-colors cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
@@ -73,7 +73,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
 
         {/* Content */}
         <div className="p-6 sm:p-7 space-y-5">
-          <div className="text-sm text-[#1E293B]/80 leading-relaxed">
+          <div className="text-sm text-[#0A1418]/80 leading-relaxed font-sans">
             Theo quy định hệ thống, học sinh đăng nhập tài khoản để <strong>lưu kết quả bài thi</strong>, nhận bảng giải thích chi tiết và theo dõi biểu đồ tiến bộ điểm số.
           </div>
 
@@ -81,7 +81,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
           <button
             onClick={handleGoogleLogin}
             disabled={isLoading}
-            className="w-full py-3 px-4 rounded-xl bg-white hover:bg-stone-50 border-2 border-stone-200 hover:border-[#780000] text-stone-800 font-semibold text-sm transition-all shadow-xs flex items-center justify-center gap-3 cursor-pointer disabled:opacity-50"
+            className="w-full py-3 px-4 bg-white hover:bg-[#F3EFE5] border-2 border-[rgba(16,37,43,0.2)] hover:border-[#9C3B32] text-[#0A1418] font-semibold text-sm transition-all shadow-xs flex items-center justify-center gap-3 cursor-pointer disabled:opacity-50"
           >
             <svg className="w-5 h-5" viewBox="0 0 24 24">
               <path
@@ -105,16 +105,16 @@ export const AuthModal: React.FC<AuthModalProps> = ({
           </button>
 
           <div className="flex items-center gap-3">
-            <div className="h-px flex-1 bg-[#D4A373]/30"></div>
-            <span className="text-xs font-mono text-stone-400 uppercase">Hoặc Nhập Nhanh Sĩ Tử</span>
-            <div className="h-px flex-1 bg-[#D4A373]/30"></div>
+            <div className="h-px flex-1 bg-[rgba(16,37,43,0.16)]"></div>
+            <span className="text-xs font-mono text-[#687477] uppercase">Hoặc Nhập Nhanh Sĩ Tử</span>
+            <div className="h-px flex-1 bg-[rgba(16,37,43,0.16)]"></div>
           </div>
 
           {/* Quick Registration Form */}
           <form onSubmit={handleSubmitForm} className="space-y-3.5">
             <div>
-              <label htmlFor="student-name" className="block text-xs font-bold text-[#582F0E] uppercase mb-1">
-                Họ và Tên Học Sinh <span className="text-[#780000]">*</span>
+              <label htmlFor="student-name" className="block text-xs font-bold text-[#0A1418] uppercase mb-1">
+                Họ và Tên Học Sinh <span className="text-[#9C3B32]">*</span>
               </label>
               <input
                 id="student-name"
@@ -124,13 +124,13 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 placeholder="Ví dụ: Trần Quốc Tuấn"
-                className="w-full px-3.5 py-2 rounded-lg bg-white border border-[#D4A373]/60 focus:border-[#780000] text-sm outline-none"
+                className="w-full px-3.5 py-2 bg-white border border-[rgba(16,37,43,0.3)] focus:border-[#9C3B32] text-sm outline-none text-[#0A1418]"
               />
             </div>
 
             <div className="grid grid-cols-2 gap-3">
               <div>
-                <label htmlFor="student-school" className="block text-xs font-bold text-[#582F0E] uppercase mb-1">
+                <label htmlFor="student-school" className="block text-xs font-bold text-[#0A1418] uppercase mb-1">
                   Trường THPT
                 </label>
                 <input
@@ -140,29 +140,30 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                   value={school}
                   onChange={(e) => setSchool(e.target.value)}
                   placeholder="Ví dụ: THPT Lê Hồng Phong"
-                  className="w-full px-3.5 py-2 rounded-lg bg-white border border-[#D4A373]/60 focus:border-[#780000] text-sm outline-none"
+                  className="w-full px-3.5 py-2 bg-white border border-[rgba(16,37,43,0.3)] focus:border-[#9C3B32] text-sm outline-none text-[#0A1418]"
                 />
               </div>
 
               <div>
-                <label htmlFor="student-grade" className="block text-xs font-bold text-[#582F0E] uppercase mb-1">
+                <label htmlFor="student-grade" className="block text-xs font-bold text-[#0A1418] uppercase mb-1">
                   Khối Lớp
                 </label>
                 <select
                   id="student-grade"
                   name="studentGrade"
                   value={grade}
-                  onChange={(e) => setGrade(e.target.value as '11' | '12')}
-                  className="w-full px-3 py-2 rounded-lg bg-white border border-[#D4A373]/60 focus:border-[#780000] text-sm outline-none"
+                  onChange={(e) => setGrade(e.target.value as '10' | '11' | '12')}
+                  className="w-full px-3 py-2 bg-white border border-[rgba(16,37,43,0.3)] focus:border-[#9C3B32] text-sm outline-none text-[#0A1418]"
                 >
                   <option value="12">Lớp 12 (Ôn thi TN)</option>
                   <option value="11">Lớp 11 (Cơ bản)</option>
+                  <option value="10">Lớp 10 (Nhập môn)</option>
                 </select>
               </div>
             </div>
 
             <div>
-              <label htmlFor="student-email" className="block text-xs font-bold text-[#582F0E] uppercase mb-1">
+              <label htmlFor="student-email" className="block text-xs font-bold text-[#0A1418] uppercase mb-1">
                 Email nhận bảng điểm (Tùy chọn)
               </label>
               <input
@@ -172,13 +173,13 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="email@example.com"
-                className="w-full px-3.5 py-2 rounded-lg bg-white border border-[#D4A373]/60 focus:border-[#780000] text-sm outline-none"
+                className="w-full px-3.5 py-2 bg-white border border-[rgba(16,37,43,0.3)] focus:border-[#9C3B32] text-sm outline-none text-[#0A1418]"
               />
             </div>
 
             <button
               type="submit"
-              className="w-full mt-2 py-3 bg-[#780000] hover:bg-[#5E0000] text-white font-bold text-sm rounded-xl transition-all shadow cursor-pointer active:scale-95 flex items-center justify-center gap-2"
+              className="w-full mt-2 py-3 bg-[#9C3B32] hover:bg-[#7e2e26] text-white font-bold text-sm transition-all shadow cursor-pointer active:scale-95 flex items-center justify-center gap-2"
             >
               <CheckCircle2 className="w-4 h-4" />
               <span>Bắt Đầu Làm Bài Ngay</span>
