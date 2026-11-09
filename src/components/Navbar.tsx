@@ -17,7 +17,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   onOpenAuth,
 }) => {
   return (
-    <header className="sticky top-0 z-40 bg-[#0a1418]/95 backdrop-blur-md border-b border-[#e5c985]/20 text-white transition-all">
+    <header className="sticky top-0 z-40 bg-[#0a1418]/95 backdrop-blur-md text-white transition-all shadow-md">
       <div className="w-full px-6 md:px-12 xl:px-16 h-20 flex items-center justify-between">
         
         {/* Brand Circular Monogram Mark & Title */}
@@ -33,7 +33,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               <span className="font-playfair text-xl sm:text-2xl font-black text-white tracking-tight group-hover:text-[#e5c985] transition-colors uppercase">
                 ĐAM MÊ LỊCH SỬ
               </span>
-              <span className="hidden sm:inline-block px-2 py-0.2 text-[10px] font-mono font-bold uppercase tracking-wider bg-[#14242a] text-[#e5c985] border border-[#e5c985]/30">
+              <span className="hidden sm:inline-block px-2.5 py-0.5 text-[10px] font-mono font-bold uppercase tracking-wider bg-[#14242a] text-[#e5c985] rounded">
                 KHỐI 10 · 11 · 12
               </span>
             </div>
@@ -44,15 +44,15 @@ export const Navbar: React.FC<NavbarProps> = ({
         </div>
 
         {/* 3 Core Zone Tabs (Matching Dien Bien Di San So navigation) */}
-        <nav className="hidden md:flex items-center gap-1 lg:gap-2">
+        <nav className="hidden md:flex items-center gap-1.5 lg:gap-2">
           
           {/* Tab 1: Cổng Kết Nối */}
           <button
             onClick={() => onChangeView('portal')}
-            className={`px-3.5 py-2 text-xs font-mono font-bold uppercase tracking-wider transition-all flex items-center gap-1.5 cursor-pointer border-b-2 ${
+            className={`px-4 py-2 text-xs font-mono font-bold uppercase tracking-wider transition-all flex items-center gap-1.5 cursor-pointer rounded-xl ${
               currentView === 'portal'
-                ? 'border-[#e5c985] text-[#e5c985] bg-white/5'
-                : 'border-transparent text-white/70 hover:text-white hover:bg-white/5'
+                ? 'bg-[#9C3B32] text-white shadow-sm'
+                : 'text-white/70 hover:text-white hover:bg-white/10'
             }`}
           >
             <Newspaper className="w-3.5 h-3.5 text-[#e5c985]" />
@@ -62,15 +62,15 @@ export const Navbar: React.FC<NavbarProps> = ({
           {/* Tab 2: Giảng Đường */}
           <button
             onClick={() => onChangeView('learning')}
-            className={`px-3.5 py-2 text-xs font-mono font-bold uppercase tracking-wider transition-all flex items-center gap-1.5 cursor-pointer border-b-2 ${
+            className={`px-4 py-2 text-xs font-mono font-bold uppercase tracking-wider transition-all flex items-center gap-1.5 cursor-pointer rounded-xl ${
               currentView === 'learning'
-                ? 'border-[#e5c985] text-[#e5c985] bg-white/5'
-                : 'border-transparent text-white/70 hover:text-white hover:bg-white/5'
+                ? 'bg-[#9C3B32] text-white shadow-sm'
+                : 'text-white/70 hover:text-white hover:bg-white/10'
             }`}
           >
-            <GraduationCap className="w-3.5 h-3.5 text-[#9c3b32]" />
+            <GraduationCap className="w-3.5 h-3.5 text-[#e5c985]" />
             <span>02. Giảng Đường 10-11-12</span>
-            <span className="px-1.5 py-0.2 text-[9px] font-mono font-bold bg-[#9c3b32] text-white">
+            <span className="px-1.5 py-0.2 text-[9px] font-mono font-bold bg-[#E5C985] text-[#0A1418] rounded">
               HỌC TẬP
             </span>
           </button>
@@ -78,10 +78,10 @@ export const Navbar: React.FC<NavbarProps> = ({
           {/* Tab 3: Khu Vực Quản Trị */}
           <button
             onClick={() => onChangeView('admin')}
-            className={`px-3.5 py-2 text-xs font-mono font-bold uppercase tracking-wider transition-all flex items-center gap-1.5 cursor-pointer border-b-2 ${
+            className={`px-4 py-2 text-xs font-mono font-bold uppercase tracking-wider transition-all flex items-center gap-1.5 cursor-pointer rounded-xl ${
               currentView === 'admin'
-                ? 'border-[#e5c985] text-[#e5c985] bg-white/5'
-                : 'border-transparent text-white/70 hover:text-white hover:bg-white/5'
+                ? 'bg-[#9C3B32] text-white shadow-sm'
+                : 'text-white/70 hover:text-white hover:bg-white/10'
             }`}
           >
             <Shield className="w-3.5 h-3.5 text-[#c69a47]" />
@@ -93,65 +93,32 @@ export const Navbar: React.FC<NavbarProps> = ({
         {/* Right Student Auth Status */}
         <div className="flex items-center gap-3">
           {user ? (
-            <div className="flex items-center gap-2.5 pl-3 border-l border-white/20">
-              <div className="w-8 h-8 bg-[#14242a] text-[#e5c985] flex items-center justify-center font-bold text-xs uppercase border border-[#c69a47]">
+            <div className="flex items-center gap-2.5 pl-3">
+              <div className="w-8 h-8 rounded-full bg-[#14242a] text-[#e5c985] flex items-center justify-center font-bold text-xs uppercase overflow-hidden shadow-xs">
                 {user.avatar ? (
                   <img src={user.avatar} alt={user.name} className="w-full h-full object-cover" />
                 ) : (
                   user.name.charAt(0)
                 )}
               </div>
-              <div className="hidden lg:block text-left leading-tight">
-                <span className="block text-xs font-bold text-white max-w-[120px] truncate">{user.name}</span>
-                <span className="block text-[10px] text-[#e5c985] font-mono font-semibold">Sĩ Tử Đang Ôn Thi</span>
+              <div className="hidden sm:block text-left">
+                <span className="block text-xs font-mono font-bold text-[#e5c985]">{user.name}</span>
+                <span className="text-[10px] font-mono text-white/50">{user.email}</span>
               </div>
             </div>
           ) : (
             <button
               onClick={onOpenAuth}
-              className="px-4 py-2 bg-[#9c3b32] hover:bg-[#7a2820] text-white font-mono text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-1.5 shadow-xs cursor-pointer border border-[#e5c985]/30 active:scale-95"
+              className="px-4 py-2 rounded-xl bg-white/10 hover:bg-[#9C3B32] text-white text-xs font-mono font-bold uppercase transition-all flex items-center gap-1.5 cursor-pointer shadow-xs"
             >
               <LogIn className="w-3.5 h-3.5 text-[#e5c985]" />
-              <span>Đăng Nhập Sĩ Tử</span>
+              <span className="hidden sm:inline">Học Viên</span>
+              <span>Đăng Nhập</span>
             </button>
           )}
         </div>
 
       </div>
-
-      {/* Mobile Sub-Navigation Bar */}
-      <div className="md:hidden flex items-center justify-around border-t border-white/10 bg-[#14242a] py-2 px-3 text-xs font-mono">
-        <button
-          onClick={() => onChangeView('portal')}
-          className={`flex items-center gap-1 py-1 px-2 cursor-pointer ${
-            currentView === 'portal' ? 'text-[#e5c985] font-bold border-b-2 border-[#e5c985]' : 'text-white/70'
-          }`}
-        >
-          <Newspaper className="w-3.5 h-3.5" />
-          <span>Ký Ức</span>
-        </button>
-
-        <button
-          onClick={() => onChangeView('learning')}
-          className={`flex items-center gap-1 py-1 px-2 cursor-pointer ${
-            currentView === 'learning' ? 'text-[#e5c985] font-bold border-b-2 border-[#e5c985]' : 'text-white/70'
-          }`}
-        >
-          <GraduationCap className="w-3.5 h-3.5" />
-          <span>Học Tập</span>
-        </button>
-
-        <button
-          onClick={() => onChangeView('admin')}
-          className={`flex items-center gap-1 py-1 px-2 cursor-pointer ${
-            currentView === 'admin' ? 'text-[#e5c985] font-bold border-b-2 border-[#e5c985]' : 'text-white/70'
-          }`}
-        >
-          <Shield className="w-3.5 h-3.5" />
-          <span>Quản Trị</span>
-        </button>
-      </div>
-
     </header>
   );
 };

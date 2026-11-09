@@ -17,7 +17,7 @@ export const HomeworkSection: React.FC<HomeworkSectionProps> = ({
 
   if (homeworkItems.length === 0) {
     return (
-      <div className="py-12 text-center text-[#687477] font-mono text-xs border border-dashed border-[#10252B]/30 p-8">
+      <div className="py-12 text-center text-[#687477] font-mono text-xs bg-[#F3EFE5]/40 rounded-2xl p-8">
         Chưa có phiếu bài tập cho tiêu chí lọc này. Thầy sẽ cập nhật sớm!
       </div>
     );
@@ -27,7 +27,7 @@ export const HomeworkSection: React.FC<HomeworkSectionProps> = ({
     <div className="space-y-6 text-left">
       
       {/* Section Sub-Header */}
-      <div className="flex items-center justify-between pb-3 broadsheet-double-b">
+      <div className="flex items-center justify-between pb-2">
         <div className="flex items-center gap-2">
           <BookOpen className="w-5 h-5 text-[#9C3B32]" />
           <h3 className="font-playfair text-xl sm:text-2xl font-black text-[#0A1418]">
@@ -39,12 +39,12 @@ export const HomeworkSection: React.FC<HomeworkSectionProps> = ({
         </span>
       </div>
 
-      {/* Cardless Open Register Rows */}
-      <div className="divide-y divide-[#10252B]/20 border-b border-[#10252B]/20">
+      {/* Modern Elevated Rows (Zero Dividing Lines) */}
+      <div className="space-y-3">
         {homeworkItems.map((item, idx) => (
           <div
             key={item.id}
-            className="py-6 flex flex-col lg:flex-row lg:items-center justify-between gap-6 hover:bg-[#F3EFE5]/50 transition-colors px-2 -mx-2"
+            className="p-5 sm:p-6 rounded-2xl bg-[#F3EFE5]/50 hover:bg-[#F3EFE5] transition-all shadow-xs flex flex-col lg:flex-row lg:items-center justify-between gap-6"
           >
             {/* Left: Index & Content */}
             <div className="flex items-start gap-5 max-w-4xl">
@@ -55,7 +55,7 @@ export const HomeworkSection: React.FC<HomeworkSectionProps> = ({
 
               <div className="space-y-2">
                 <div className="flex flex-wrap items-center gap-2 text-xs font-mono">
-                  <span className="px-2 py-0.5 bg-[#0A1418] text-[#FAF8F1] font-bold text-[10px]">
+                  <span className="px-2 py-0.5 bg-[#0A1418] text-[#FAF8F1] font-bold text-[10px] rounded">
                     {item.format} • {item.fileSize}
                   </span>
                   <span className="text-[#9C3B32] font-bold uppercase">
@@ -90,7 +90,7 @@ export const HomeworkSection: React.FC<HomeworkSectionProps> = ({
             <div className="flex items-center gap-3 self-end lg:self-center shrink-0">
               <button
                 onClick={() => onReportIssue(item)}
-                className="px-3 py-2 border border-[#10252B]/30 hover:border-[#9C3B32] hover:text-[#9C3B32] text-xs font-mono uppercase transition-colors cursor-pointer flex items-center gap-1"
+                className="px-3.5 py-2 bg-white/70 hover:bg-white text-xs font-mono uppercase transition-colors cursor-pointer rounded-xl flex items-center gap-1.5 shadow-2xs hover:text-[#9C3B32]"
                 title="Báo cáo câu hỏi chưa chuẩn hoặc sai sót"
               >
                 <AlertTriangle className="w-3.5 h-3.5 text-[#9C3B32]" />
@@ -99,10 +99,10 @@ export const HomeworkSection: React.FC<HomeworkSectionProps> = ({
 
               <button
                 onClick={() => onDownload(item)}
-                className="px-5 py-2.5 bg-[#9C3B32] hover:bg-[#7A2820] text-white text-xs font-mono font-bold uppercase transition-all flex items-center gap-2 cursor-pointer shadow-xs active:scale-95 border border-[#E5C985]/30"
+                className="px-5 py-2.5 bg-[#9C3B32] hover:bg-[#7e2e26] text-white text-xs font-mono font-bold uppercase tracking-wider transition-all flex items-center gap-2 cursor-pointer rounded-xl shadow-xs active:scale-95"
               >
-                <Download className="w-4 h-4 text-[#E5C985]" />
-                <span>Tải Phiếu (.DOCX)</span>
+                <Download className="w-3.5 h-3.5" />
+                <span>Tải Bản In / PDF</span>
               </button>
             </div>
           </div>

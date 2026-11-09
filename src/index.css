@@ -26,10 +26,10 @@
     --green: #486d5d;
     --blue: #476a7b;
 
-    /* Hairlines */
-    --line: rgba(16, 37, 43, 0.16);
-    --line-subtle: rgba(16, 37, 43, 0.08);
-    --line-gold: rgba(198, 154, 71, 0.45);
+    /* Line opacity reduced to zero/transparent to eliminate harsh stripes */
+    --line: transparent;
+    --line-subtle: transparent;
+    --line-gold: transparent;
   }
 
   html {
@@ -58,46 +58,60 @@
   }
 }
 
-/* Broadsheet Border Rules */
-.broadsheet-double-b {
-  border-bottom: 3px double var(--line);
-}
-
-.broadsheet-double-t {
-  border-top: 3px double var(--line);
-}
-
-.broadsheet-double-ink {
-  border-bottom: 3px double var(--ink);
-}
-
-.hairline-b {
-  border-bottom: 1px solid var(--line);
-}
-
-.hairline-t {
-  border-top: 1px solid var(--line);
-}
-
-.hairline-l {
-  border-left: 1px solid var(--line);
-}
-
-.hairline-r {
-  border-right: 1px solid var(--line);
-}
-
+/* Neutralized line borders (Eliminating harsh lines around text & images) */
+.broadsheet-double-b,
+.broadsheet-double-t,
+.broadsheet-double-ink,
+.hairline-b,
+.hairline-t,
+.hairline-l,
+.hairline-r,
 .hairline-all {
-  border: 1px solid var(--line);
+  border: none !important;
 }
 
-/* Museum Archival Media Frame */
+/* Atmospheric Image Blending Utilities (Cho ảnh hòa vào background) */
+.image-blend-fade-bottom {
+  mask-image: linear-gradient(to bottom, black 65%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, black 65%, transparent 100%);
+}
+
+.image-blend-hero {
+  mask-image: linear-gradient(to left, black 70%, transparent 100%), linear-gradient(to bottom, black 75%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to left, black 70%, transparent 100%), linear-gradient(to bottom, black 75%, transparent 100%);
+  mask-composite: intersect;
+  -webkit-mask-composite: source-in;
+}
+
+.image-blend-radial {
+  mask-image: radial-gradient(ellipse at center, black 60%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse at center, black 60%, transparent 100%);
+}
+
+.image-blend-ambient {
+  opacity: 0.18;
+  mix-blend-mode: multiply;
+  pointer-events: none;
+}
+
+/* Standout image presentation (Đảm bảo ảnh vẫn được làm nổi bật tự nhiên, không đóng khung hộp) */
+.image-standout {
+  box-shadow: 0 10px 30px -10px rgba(10, 20, 24, 0.12), 0 4px 6px -4px rgba(10, 20, 24, 0.05);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+}
+
+.image-standout:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 36px -12px rgba(10, 20, 24, 0.18);
+}
+
+/* Clean, borderless archival media frame */
 .archival-newspaper-frame {
   position: relative;
-  border: 1px solid var(--line);
-  padding: 4px;
-  background-color: var(--cream);
-  box-shadow: 1px 2px 0px rgba(10, 20, 24, 0.08);
+  border: none;
+  padding: 0;
+  background-color: transparent;
+  box-shadow: none;
 }
 
 .archival-newspaper-frame img {
@@ -138,47 +152,21 @@
   animation: fadeSlideUp 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-/* Font Classes */
-.font-cinzel {
-  font-family: 'Cinzel', Georgia, serif;
-}
-
-.font-playfair {
-  font-family: 'Playfair Display', Georgia, serif;
-}
-
-.font-mono {
-  font-family: var(--font-mono);
-}
-
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 7px;
-  height: 7px;
+  width: 6px;
+  height: 6px;
 }
+
 ::-webkit-scrollbar-track {
   background: var(--cream);
 }
+
 ::-webkit-scrollbar-thumb {
-  background: var(--gold);
-  border-radius: 2px;
+  background: rgba(10, 20, 24, 0.25);
+  border-radius: 0px;
 }
+
 ::-webkit-scrollbar-thumb:hover {
   background: var(--red);
-}
-
-/* Calm Mobile Directives */
-@media (max-width: 1024px) {
-  .animate-fadeSlideUp {
-    animation: none !important;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  * {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
 }

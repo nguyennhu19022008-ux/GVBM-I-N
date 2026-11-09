@@ -18,16 +18,16 @@ export const TimelineDetailModal: React.FC<TimelineDetailModalProps> = ({
   if (!event) return null;
 
   return (
-    <div className="fixed inset-0 z-50 overflow-y-auto bg-black/75 backdrop-blur-md flex items-center justify-center p-4 sm:p-6 animate-fadeUp">
+    <div className="fixed inset-0 z-50 overflow-y-auto bg-black/80 backdrop-blur-md flex items-center justify-center p-4 sm:p-6 animate-fadeUp">
       <div 
-        className="relative w-full max-w-5xl bg-[#FAF8F1] border-2 border-[#0A1418] shadow-2xl overflow-hidden my-6 text-left"
+        className="relative w-full max-w-5xl bg-[#FAF8F1] rounded-2xl shadow-2xl overflow-hidden my-6 text-left"
         role="dialog"
         aria-modal="true"
       >
         {/* Modal Header */}
-        <div className="bg-[#0A1418] text-[#FAF8F1] px-6 py-4 flex items-center justify-between border-b border-[rgba(16,37,43,0.3)]">
+        <div className="bg-[#0A1418] text-[#FAF8F1] px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <span className="px-3 py-1 bg-[#9C3B32] text-white font-mono text-xs font-black">
+            <span className="px-3 py-1 bg-[#9C3B32] text-white font-mono text-xs font-black rounded-md">
               NĂM {event.year}
             </span>
             <span className="text-xs sm:text-sm font-mono text-[#E5C985] font-bold">
@@ -40,10 +40,10 @@ export const TimelineDetailModal: React.FC<TimelineDetailModalProps> = ({
 
           <button
             onClick={onClose}
-            className="p-1.5 text-[#FAF8F1] hover:bg-white/10 hover:text-white transition-colors cursor-pointer"
+            className="w-8 h-8 rounded-full bg-white/10 hover:bg-[#9C3B32] text-[#FAF8F1] hover:text-white transition-colors cursor-pointer flex items-center justify-center"
             title="Đóng hồ sơ"
           >
-            <X className="w-5 h-5" />
+            <X className="w-4 h-4" />
           </button>
         </div>
 
@@ -59,7 +59,7 @@ export const TimelineDetailModal: React.FC<TimelineDetailModalProps> = ({
               <span>Khối Lớp {event.gradeLevel === 'all' ? '11 & 12' : event.gradeLevel}</span>
             </div>
 
-            <h2 className="font-cinzel text-2xl sm:text-4xl font-bold text-[#0A1418] leading-tight">
+            <h2 className="font-playfair text-2xl sm:text-4xl font-bold text-[#0A1418] leading-tight">
               {event.title}
             </h2>
             <p className="mt-3 text-base text-[#0A1418]/85 font-sans leading-relaxed">
@@ -67,18 +67,21 @@ export const TimelineDetailModal: React.FC<TimelineDetailModalProps> = ({
             </p>
           </div>
 
-          {/* Archival Media Frame */}
-          <div className="archival-frame shadow-xs">
+          {/* Archival Media: Standout Photo with Soft Vignette */}
+          <div className="rounded-2xl overflow-hidden image-standout bg-[#F3EFE5] shadow-lg group">
             <div className="relative aspect-21/9 w-full bg-stone-900 overflow-hidden">
               <img
                 src={event.imageUrl}
                 alt={event.title}
-                className="w-full h-full object-cover filter contrast-105"
+                className="w-full h-full object-cover filter contrast-105 group-hover:scale-102 transition-transform duration-500"
               />
-            </div>
-            <div className="p-3 text-xs text-[#0A1418] font-sans italic border-t border-[rgba(16,37,43,0.16)] bg-[#F3EFE5] flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-[#9C3B32] shrink-0"></span>
-              <span>{event.imageCaption}</span>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
+              <div className="absolute bottom-3 left-4 right-4 text-xs text-white font-sans italic flex items-center justify-between">
+                <span className="drop-shadow">{event.imageCaption}</span>
+                <span className="shrink-0 text-[10px] font-mono font-bold text-[#E5C985] uppercase bg-black/40 px-2 py-0.5 rounded">
+                  [ẢNH GỐC]
+                </span>
+              </div>
             </div>
           </div>
 
@@ -87,8 +90,8 @@ export const TimelineDetailModal: React.FC<TimelineDetailModalProps> = ({
             
             {/* Column 1: Context & Key Points */}
             <div className="space-y-4">
-              <div className="p-5 bg-[#F3EFE5] border-l-4 border-[#0A1418] border border-[rgba(16,37,43,0.16)]">
-                <h3 className="font-playfair font-bold text-base text-[#0A1418] mb-2 flex items-center gap-2">
+              <div className="p-5 bg-[#F3EFE5]/70 rounded-xl space-y-2">
+                <h3 className="font-playfair font-bold text-base text-[#0A1418] flex items-center gap-2">
                   <BookOpen className="w-4 h-4 text-[#9C3B32]" />
                   <span>Bối Cảnh Lịch Sử</span>
                 </h3>
@@ -97,8 +100,8 @@ export const TimelineDetailModal: React.FC<TimelineDetailModalProps> = ({
                 </p>
               </div>
 
-              <div>
-                <h3 className="font-playfair font-bold text-base text-[#0A1418] mb-3 flex items-center gap-2">
+              <div className="p-5 bg-[#F3EFE5]/70 rounded-xl space-y-3">
+                <h3 className="font-playfair font-bold text-base text-[#0A1418] flex items-center gap-2">
                   <Flag className="w-4 h-4 text-[#9C3B32]" />
                   <span>Diễn Biến & Quyết Sách Then Chốt</span>
                 </h3>
@@ -117,8 +120,8 @@ export const TimelineDetailModal: React.FC<TimelineDetailModalProps> = ({
 
             {/* Column 2: Significance & Exam Tips */}
             <div className="space-y-4">
-              <div className="p-5 bg-[#F3EFE5] border-l-4 border-[#9C3B32] border border-[rgba(16,37,43,0.16)]">
-                <h3 className="font-playfair font-bold text-base text-[#9C3B32] mb-2 flex items-center gap-2">
+              <div className="p-5 bg-[#F3EFE5]/70 rounded-xl space-y-2">
+                <h3 className="font-playfair font-bold text-base text-[#9C3B32] flex items-center gap-2">
                   <Lightbulb className="w-4 h-4 text-[#9C3B32]" />
                   <span>Ý Nghĩa Lịch Sử To Lớn</span>
                 </h3>
@@ -128,8 +131,8 @@ export const TimelineDetailModal: React.FC<TimelineDetailModalProps> = ({
               </div>
 
               {/* Crucial Exam Tips */}
-              <div className="p-5 bg-[#9C3B32]/10 border border-[#9C3B32]/30">
-                <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase text-[#9C3B32] mb-1.5">
+              <div className="p-5 bg-[#9C3B32]/10 rounded-xl space-y-1.5 shadow-2xs">
+                <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase text-[#9C3B32]">
                   <span>★ TRỌNG TÂM THI TỐT NGHIỆP THPT (TỪ KHÓA ĂN ĐIỂM)</span>
                 </div>
                 <p className="text-sm text-[#0A1418] font-medium leading-relaxed font-sans">
@@ -138,16 +141,16 @@ export const TimelineDetailModal: React.FC<TimelineDetailModalProps> = ({
               </div>
 
               {/* Key Figures */}
-              <div>
-                <h4 className="text-xs font-mono font-bold uppercase text-[#687477] mb-2 flex items-center gap-1.5">
-                  <User className="w-3.5 h-3.5" />
+              <div className="p-5 bg-[#F3EFE5]/70 rounded-xl space-y-2">
+                <h4 className="text-xs font-mono font-bold uppercase text-[#687477] flex items-center gap-1.5">
+                  <User className="w-3.5 h-3.5 text-[#486D5D]" />
                   <span>Nhân Vật Lịch Sử Gắn Liền:</span>
                 </h4>
-                <div className="flex flex-wrap gap-2">
+                <div className="flex flex-wrap gap-2 pt-1">
                   {event.keyFigures.map((fig, i) => (
                     <span
                       key={i}
-                      className="px-3 py-1 bg-white text-[#0A1418] text-xs font-medium border border-[rgba(16,37,43,0.16)] shadow-2xs font-mono"
+                      className="px-3 py-1 bg-white text-[#0A1418] text-xs font-medium rounded-md shadow-2xs font-mono"
                     >
                       {fig}
                     </span>
@@ -160,10 +163,10 @@ export const TimelineDetailModal: React.FC<TimelineDetailModalProps> = ({
           </div>
 
           {/* Action Footer */}
-          <div className="pt-6 hairline-t flex flex-col sm:flex-row items-center justify-between gap-4 font-mono uppercase">
+          <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 font-mono uppercase">
             <div className="flex flex-wrap gap-1.5">
               {event.tags.map((tag, i) => (
-                <span key={i} className="text-[11px] font-mono text-[#687477] bg-[#F3EFE5] px-2.5 py-0.5 border border-[rgba(16,37,43,0.1)]">
+                <span key={i} className="text-[11px] font-mono text-[#687477] bg-[#F3EFE5] px-2.5 py-1 rounded-md">
                   #{tag}
                 </span>
               ))}
@@ -175,7 +178,7 @@ export const TimelineDetailModal: React.FC<TimelineDetailModalProps> = ({
                   onClose();
                   onGoToDownload(event.relatedResourceId);
                 }}
-                className="w-1/2 sm:w-auto px-4 py-2.5 border border-[#0A1418]/30 text-[#0A1418] hover:bg-[#F3EFE5] text-xs sm:text-sm font-semibold transition-colors cursor-pointer flex items-center justify-center gap-1.5"
+                className="w-1/2 sm:w-auto px-4 py-2.5 bg-[#F3EFE5] hover:bg-[#EAE4D5] text-[#0A1418] text-xs sm:text-sm font-semibold transition-colors cursor-pointer rounded-xl flex items-center justify-center gap-1.5 shadow-xs"
               >
                 <Download className="w-4 h-4 text-[#9C3B32]" />
                 <span>Tài Liệu Mốc Này</span>
@@ -186,10 +189,10 @@ export const TimelineDetailModal: React.FC<TimelineDetailModalProps> = ({
                   onClose();
                   onGoToQuiz(event.relatedQuizId);
                 }}
-                className="w-1/2 sm:w-auto px-5 py-2.5 bg-[#9C3B32] hover:bg-[#7e2e26] text-white text-xs sm:text-sm font-bold transition-all shadow flex items-center justify-center gap-2 cursor-pointer"
+                className="w-1/2 sm:w-auto px-5 py-2.5 bg-[#9C3B32] hover:bg-[#7e2e26] text-white text-xs sm:text-sm font-bold transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer rounded-xl"
               >
                 <span>Luyện Trắc Nghiệm Ngay</span>
-                <ExternalLink className="w-4 h-4" />
+                <ExternalLink className="w-4 h-4 text-[#E5C985]" />
               </button>
             </div>
           </div>

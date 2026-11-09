@@ -99,10 +99,10 @@ Chúc các em học sinh Khối ${res.grade} ôn tập hiệu quả và đạt �
   };
 
   return (
-    <div className="w-full py-10 lg:py-14 px-6 md:px-12 xl:px-16 bg-[#FAF8F1] animate-fadeSlideUp">
+    <div className="w-full py-10 lg:py-14 px-6 md:px-12 xl:px-16 bg-[#FAF8F1] animate-fadeSlideUp relative overflow-hidden">
       
       {/* Top Breadcrumb & Page Banner */}
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8 pb-4 broadsheet-double-b text-left">
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8 pb-2 text-left relative z-10">
         <div>
           <div className="flex items-center gap-2 text-xs font-mono font-bold tracking-widest text-[#9C3B32] uppercase mb-1.5">
             <span>GIẢNG ĐƯỜNG SỐ HÓA</span>

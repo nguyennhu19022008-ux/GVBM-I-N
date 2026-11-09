@@ -12,11 +12,11 @@ export const WartimeStoriesSection: React.FC = () => {
   const currentStory = WARTIME_STORIES[activeStoryIndex];
 
   return (
-    <section className="w-full py-14 lg:py-20 hairline-b bg-[#FAF8F1]">
+    <section className="w-full py-16 lg:py-24 bg-[#FAF8F1] text-left">
       <div className="w-full px-6 md:px-12 xl:px-16 text-left">
         
-        {/* Section Header: Pure Editorial Broadsheet Headline */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10 pb-4 broadsheet-double-b">
+        {/* Section Header */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-12">
           <div>
             <div className="flex items-center gap-2 text-xs font-mono font-bold tracking-widest text-[#9C3B32] uppercase mb-1.5">
               <Flame className="w-4 h-4 text-[#9C3B32]" />
@@ -32,25 +32,25 @@ export const WartimeStoriesSection: React.FC = () => {
         </div>
 
         {/* ============================================================== */}
-        {/* CARDLESS PHOTOJOURNALISM FEATURE (BÁO ẢNH KHỔ LỚN 7:5)         */}
+        {/* PHOTOJOURNALISM FEATURE (BÁO ẢNH KHỔ LỚN 7:5 HÒA VÀO BACKGROUND) */}
         {/* ============================================================== */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 xl:gap-14 items-start mb-12">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 xl:gap-14 items-center mb-16">
           
-          {/* Left Column (7 Cols): Giant Authentic Wartime Photograph */}
+          {/* Left Column (7 Cols): Giant Authentic Wartime Photograph - Standout with Soft Background Merge */}
           <div className="lg:col-span-7 space-y-4">
-            <div className="archival-newspaper-frame relative group overflow-hidden">
+            <div className="relative group rounded-xl overflow-hidden image-standout bg-[#F3EFE5]">
               <img
                 src={currentStory.imageUrl}
                 alt={currentStory.title}
-                className="w-full aspect-16/10 object-cover grayscale contrast-110 brightness-95 transition-all duration-700"
+                className="w-full aspect-16/10 object-cover contrast-110 brightness-95 hover:scale-102 transition-all duration-700"
               />
-              <div className="absolute top-4 left-4 px-3 py-1 bg-[#0A1418]/90 text-[#E5C985] font-mono text-xs font-bold uppercase tracking-wider backdrop-blur-xs border border-[#E5C985]/30">
+              <div className="absolute top-4 left-4 px-3 py-1 bg-[#0A1418]/85 text-[#E5C985] font-mono text-xs font-bold uppercase tracking-wider backdrop-blur-sm rounded-xs">
                 NĂM {currentStory.year} • {currentStory.period}
               </div>
             </div>
 
-            {/* Photo Caption Ledger Strip */}
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 p-3 bg-[#F3EFE5] border-l-3 border-[#9C3B32] text-xs font-mono text-[#687477]">
+            {/* Photo Caption Strip without harsh borders */}
+            <div className="p-4 rounded-lg bg-[#F3EFE5]/70 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs font-mono text-[#687477]">
               <span className="italic font-sans text-sm text-[#0A1418]">
                 {currentStory.imageCaption}
               </span>
@@ -60,7 +60,7 @@ export const WartimeStoriesSection: React.FC = () => {
             </div>
           </div>
 
-          {/* Right Column (5 Cols): Cardless Open Editorial Narrative */}
+          {/* Right Column (5 Cols): Clean Open Narrative */}
           <div className="lg:col-span-5 space-y-6">
             
             {/* Tagline & Headline */}
@@ -73,8 +73,8 @@ export const WartimeStoriesSection: React.FC = () => {
               </h3>
             </div>
 
-            {/* Witness Pull Quote */}
-            <div className="py-3 border-y border-[#10252B]/20">
+            {/* Witness Pull Quote with Soft Accent */}
+            <div className="py-2 pl-4 border-l-4 border-[#9C3B32] bg-[#F3EFE5]/40 rounded-r-lg">
               <p className="font-serif italic text-base sm:text-lg text-[#9C3B32] leading-snug">
                 {currentStory.quote}
               </p>
@@ -85,14 +85,14 @@ export const WartimeStoriesSection: React.FC = () => {
               {currentStory.excerpt}
             </p>
 
-            {/* Heroes List: Cardless Hairline List */}
-            <div className="space-y-2 pt-2">
+            {/* Heroes List */}
+            <div className="space-y-2 pt-1">
               <span className="text-xs font-mono font-bold uppercase tracking-wider text-[#0A1418] block">
                 Những Người Con Bất Tử:
               </span>
               <div className="space-y-1.5 text-xs sm:text-sm font-sans text-[#0A1418]">
                 {currentStory.heroes.map((hero, idx) => (
-                  <div key={idx} className="flex items-center gap-2 pb-1.5 hairline-b">
+                  <div key={idx} className="flex items-center gap-2 p-1 rounded-sm hover:bg-[#F3EFE5]/50 transition-colors">
                     <span className="w-1.5 h-1.5 bg-[#9C3B32] rounded-full shrink-0"></span>
                     <span className="font-medium">{hero}</span>
                   </div>
@@ -104,7 +104,7 @@ export const WartimeStoriesSection: React.FC = () => {
             <div className="pt-2">
               <button
                 onClick={() => setSelectedStoryModal(currentStory)}
-                className="px-6 py-3 bg-[#0A1418] hover:bg-[#9C3B32] text-white text-xs font-mono font-bold uppercase transition-all flex items-center gap-2 cursor-pointer shadow-xs border border-[#E5C985]/30"
+                className="px-6 py-3 bg-[#0A1418] hover:bg-[#9C3B32] text-white text-xs font-mono font-bold uppercase transition-all flex items-center gap-2 cursor-pointer shadow-xs rounded-xs"
               >
                 <span>Đọc Trọn Vẹn Diễn Biến & Ý Nghĩa</span>
                 <ArrowRight className="w-4 h-4 text-[#E5C985]" />
@@ -116,10 +116,10 @@ export const WartimeStoriesSection: React.FC = () => {
         </div>
 
         {/* ============================================================== */}
-        {/* ARCHIVAL FILMSTRIP: OPEN BROADSHEET INDEX (NO CARD BOXES)      */}
+        {/* 4 MỐC LỊCH SỬ TIÊU BIỂU: CLEAN CAROUSEL/GRID (NO HARSH LINES) */}
         {/* ============================================================== */}
-        <div className="pt-6 pb-12 broadsheet-double-b">
-          <div className="flex items-center justify-between mb-4">
+        <div className="pt-4 pb-16">
+          <div className="flex items-center justify-between mb-5">
             <span className="text-xs font-mono font-bold uppercase text-[#687477] tracking-wider">
               CHỌN CUỘC KHÁNG CHIẾN / CHIẾN DỊCH ĐỂ XEM BÁO ẢNH:
             </span>
@@ -128,33 +128,30 @@ export const WartimeStoriesSection: React.FC = () => {
             </span>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 divide-y sm:divide-y-0 sm:divide-x divide-[#10252B]/20 border-y border-[#10252B]/20">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {WARTIME_STORIES.map((story, idx) => {
               const isActive = idx === activeStoryIndex;
               return (
                 <button
                   key={story.id}
                   onClick={() => setActiveStoryIndex(idx)}
-                  className={`p-4 text-left transition-all cursor-pointer relative ${
+                  className={`p-4 text-left transition-all cursor-pointer rounded-xl ${
                     isActive
-                      ? 'bg-[#F3EFE5]'
-                      : 'hover:bg-[#F3EFE5]/50'
+                      ? 'bg-[#F3EFE5] ring-2 ring-[#9C3B32] shadow-sm'
+                      : 'bg-[#F3EFE5]/40 hover:bg-[#F3EFE5]/80'
                   }`}
                 >
-                  {isActive && (
-                    <div className="absolute top-0 left-0 right-0 h-1 bg-[#9C3B32]" />
-                  )}
                   <div className="flex items-baseline justify-between mb-2">
                     <span className="font-mono text-xs font-bold text-[#9C3B32]">
                       0{idx + 1}. MỐC NĂM {story.year}
                     </span>
                     <span className="text-[10px] font-mono text-[#687477]">TƯ LIỆU</span>
                   </div>
-                  <div className="aspect-16/9 overflow-hidden mb-2.5 relative border border-[#10252B]/25">
+                  <div className="aspect-16/9 overflow-hidden mb-3 rounded-lg bg-stone-900">
                     <img
                       src={story.imageUrl}
                       alt={story.title}
-                      className={`w-full h-full object-cover grayscale ${isActive ? 'contrast-125' : 'contrast-90'}`}
+                      className={`w-full h-full object-cover transition-all duration-500 ${isActive ? 'contrast-115 scale-103' : 'contrast-95 opacity-85 hover:opacity-100'}`}
                     />
                   </div>
                   <h5 className={`font-playfair text-sm font-bold line-clamp-1 ${isActive ? 'text-[#9C3B32]' : 'text-[#0A1418]'}`}>
@@ -170,16 +167,16 @@ export const WartimeStoriesSection: React.FC = () => {
         </div>
 
         {/* ============================================================== */}
-        {/* LEADERS GALLERY: OPEN BROADSHEET PORTRAIT STRIP (CARDLESS)     */}
+        {/* LEADERS GALLERY: STANDOUT PORTRAITS (PROMINENT & ELEVATED)     */}
         {/* ============================================================== */}
-        <div className="pt-12">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 mb-8 pb-3 hairline-b">
+        <div className="pt-8">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 mb-10">
             <div>
               <div className="flex items-center gap-2 text-xs font-mono font-bold tracking-widest text-[#9C3B32] uppercase mb-1">
                 <Shield className="w-4 h-4 text-[#C69A47]" />
                 <span>CHÂN DUNG LÃNH TỤ & KIẾN TRÚC SƯ ĐỘC LẬP</span>
               </div>
-              <h3 className="font-playfair text-2xl sm:text-3xl font-black text-[#0A1418]">
+              <h3 className="font-playfair text-2xl sm:text-3xl md:text-4xl font-black text-[#0A1418]">
                 Những Người Đặt Nền Móng Cho Độc Lập Dân Tộc
               </h3>
             </div>
@@ -188,40 +185,40 @@ export const WartimeStoriesSection: React.FC = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 divide-y sm:divide-y-0 sm:divide-x divide-[#10252B]/20 border-y border-[#10252B]/20">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {HISTORICAL_LEADERS.map((leader) => (
               <div
                 key={leader.id}
                 onClick={() => setSelectedLeader(leader)}
-                className="group cursor-pointer text-left p-4 sm:p-5 space-y-3 hover:bg-[#F3EFE5]/50 transition-colors"
+                className="group cursor-pointer text-left p-5 rounded-2xl bg-[#F3EFE5]/50 hover:bg-[#F3EFE5] transition-all space-y-4 image-standout"
               >
-                {/* Archival framed portrait */}
-                <div className="archival-newspaper-frame overflow-hidden">
+                {/* Standout Prominent Portrait without ugly border lines */}
+                <div className="overflow-hidden rounded-xl bg-stone-900 shadow-sm">
                   <img
                     src={leader.imageUrl}
                     alt={leader.name}
-                    className="w-full aspect-4/5 object-cover object-top grayscale group-hover:grayscale-0 group-hover:scale-102 transition-all duration-500"
+                    className="w-full aspect-4/5 object-cover object-top contrast-110 group-hover:scale-104 transition-all duration-500"
                   />
-                  <div className="p-1.5 text-center bg-[#F3EFE5] text-[10px] font-mono text-[#687477]">
-                    {leader.lifespan}
+                  <div className="p-2 text-center bg-[#0A1418] text-[#E5C985] text-[10px] font-mono font-bold">
+                    NIÊN ĐẠI: {leader.lifespan}
                   </div>
                 </div>
 
-                {/* Open text (Cardless) */}
+                {/* Open text */}
                 <div>
-                  <h4 className="font-playfair text-lg font-bold text-[#0A1418] group-hover:text-[#9C3B32] transition-colors leading-snug">
+                  <h4 className="font-playfair text-lg sm:text-xl font-bold text-[#0A1418] group-hover:text-[#9C3B32] transition-colors leading-snug">
                     {leader.name}
                   </h4>
-                  <p className="text-xs text-[#9C3B32] font-mono mt-0.5 line-clamp-1">
+                  <p className="text-xs text-[#9C3B32] font-mono mt-1 font-semibold line-clamp-1">
                     {leader.historicalMilestone}
                   </p>
-                  <p className="text-xs text-[#687477] font-serif italic mt-2 line-clamp-2">
+                  <p className="text-xs text-[#687477] font-serif italic mt-2.5 line-clamp-2 leading-relaxed">
                     "{leader.quote}"
                   </p>
                 </div>
 
-                <div className="pt-2 hairline-t flex items-center justify-between text-[11px] font-mono text-[#9C3B32]">
-                  <span>XEM HỒ SƠ</span>
+                <div className="pt-2 flex items-center justify-between text-[11px] font-mono font-bold text-[#9C3B32]">
+                  <span>XEM TIỂU SỬ & CỐNG HIẾN</span>
                   <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
                 </div>
               </div>
@@ -238,16 +235,16 @@ export const WartimeStoriesSection: React.FC = () => {
           onClick={() => setSelectedStoryModal(null)}
         >
           <div 
-            className="relative w-full max-w-3xl max-h-[90vh] overflow-y-auto bg-[#FAF8F1] border-2 border-[#0A1418] shadow-2xl p-6 sm:p-8 text-left"
+            className="relative w-full max-w-3xl max-h-[90vh] overflow-y-auto bg-[#FAF8F1] rounded-2xl shadow-2xl p-6 sm:p-8 text-left"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="flex items-center justify-between pb-4 mb-6 broadsheet-double-b">
+            <div className="flex items-center justify-between pb-4 mb-6">
               <div className="flex items-center gap-2 text-xs font-mono font-bold tracking-widest text-[#9C3B32] uppercase">
                 <span>HỒ SƠ CHIẾN DỊCH • NĂM {selectedStoryModal.year}</span>
               </div>
               <button
                 onClick={() => setSelectedStoryModal(null)}
-                className="w-8 h-8 rounded-full border border-[#0A1418]/30 hover:border-[#0A1418] hover:bg-[#9C3B32] hover:text-white flex items-center justify-center transition-colors cursor-pointer"
+                className="w-8 h-8 rounded-full bg-[#F3EFE5] hover:bg-[#9C3B32] hover:text-white flex items-center justify-center transition-colors cursor-pointer text-[#0A1418]"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -263,13 +260,13 @@ export const WartimeStoriesSection: React.FC = () => {
               {selectedStoryModal.quote}
             </p>
 
-            <div className="archival-newspaper-frame mb-6">
+            <div className="rounded-xl overflow-hidden mb-6 image-standout">
               <img
                 src={selectedStoryModal.imageUrl}
                 alt={selectedStoryModal.title}
-                className="w-full aspect-16/9 object-cover grayscale contrast-105"
+                className="w-full aspect-16/9 object-cover contrast-105"
               />
-              <p className="text-xs font-mono text-[#687477] mt-2 italic px-1">
+              <p className="text-xs font-mono text-[#687477] p-3 bg-[#F3EFE5] italic">
                 {selectedStoryModal.imageCaption}
               </p>
             </div>
@@ -280,28 +277,28 @@ export const WartimeStoriesSection: React.FC = () => {
               ))}
             </div>
 
-            <div className="p-4 bg-[#F3EFE5] border-l-4 border-[#9C3B32] mb-6 space-y-2">
+            <div className="p-5 bg-[#F3EFE5] rounded-xl mb-6 space-y-2">
               <span className="text-xs font-mono font-bold uppercase text-[#9C3B32] block">
                 NHỮNG TẤM GƯƠNG ANH DŨNG GẮN LIỀN:
               </span>
-              <div className="flex flex-wrap gap-2">
+              <div className="flex flex-wrap gap-2 pt-1">
                 {selectedStoryModal.heroes.map((hero, idx) => (
-                  <span key={idx} className="px-2.5 py-1 bg-[#FAF8F1] border border-[#10252B]/30 text-xs font-mono text-[#0A1418]">
+                  <span key={idx} className="px-3 py-1 bg-white rounded-lg text-xs font-mono text-[#0A1418] shadow-2xs">
                     {hero}
                   </span>
                 ))}
               </div>
             </div>
 
-            <div className="p-4 bg-[#F3EFE5] border-l-4 border-[#0A1418] text-xs font-sans text-[#687477] mb-6">
+            <div className="p-5 bg-[#F3EFE5] rounded-xl text-xs font-sans text-[#687477] mb-6">
               <span className="font-bold text-[#0A1418] uppercase block mb-1 font-mono">Ý NGHĨA LỊCH SỬ SÂU SẮC:</span>
-              <p>{selectedStoryModal.significance}</p>
+              <p className="leading-relaxed">{selectedStoryModal.significance}</p>
             </div>
 
-            <div className="flex justify-end pt-4 hairline-t">
+            <div className="flex justify-end pt-2">
               <button
                 onClick={() => setSelectedStoryModal(null)}
-                className="px-5 py-2 bg-[#0A1418] hover:bg-[#9C3B32] text-white text-xs font-mono font-bold uppercase transition-colors cursor-pointer"
+                className="px-6 py-2.5 bg-[#0A1418] hover:bg-[#9C3B32] text-white text-xs font-mono font-bold uppercase transition-colors cursor-pointer rounded-xs"
               >
                 Đóng Câu Chuyện
               </button>

@@ -19,7 +19,7 @@ export const QuizStudioSection: React.FC<QuizStudioSectionProps> = ({
     <div className="space-y-6 text-left">
       
       {/* Section Sub-Header */}
-      <div className="flex items-center justify-between pb-3 broadsheet-double-b">
+      <div className="flex items-center justify-between pb-2">
         <div className="flex items-center gap-2">
           <Award className="w-5 h-5 text-[#9C3B32]" />
           <h3 className="font-playfair text-xl sm:text-2xl font-black text-[#0A1418]">
@@ -31,12 +31,12 @@ export const QuizStudioSection: React.FC<QuizStudioSectionProps> = ({
         </span>
       </div>
 
-      {/* Cardless Open Examination Rows */}
-      <div className="divide-y divide-[#10252B]/20 border-b border-[#10252B]/20">
+      {/* Modern Elevated Rows (Zero Dividing Lines) */}
+      <div className="space-y-3">
         {QUIZ_EXAMS.map((exam, idx) => (
           <div
             key={exam.id}
-            className="py-6 flex flex-col lg:flex-row lg:items-center justify-between gap-6 hover:bg-[#F3EFE5]/50 transition-colors px-2 -mx-2"
+            className="p-5 sm:p-6 rounded-2xl bg-[#F3EFE5]/50 hover:bg-[#F3EFE5] transition-all shadow-xs flex flex-col lg:flex-row lg:items-center justify-between gap-6"
           >
             {/* Left: Index & Exam Info */}
             <div className="flex items-start gap-5 max-w-4xl">
@@ -46,7 +46,7 @@ export const QuizStudioSection: React.FC<QuizStudioSectionProps> = ({
 
               <div className="space-y-2">
                 <div className="flex flex-wrap items-center gap-3 text-xs font-mono">
-                  <span className="px-2 py-0.5 bg-[#9C3B32] text-white font-bold text-[10px]">
+                  <span className="px-2 py-0.5 bg-[#9C3B32] text-white font-bold text-[10px] rounded">
                     {exam.difficulty}
                   </span>
                   <span className="flex items-center gap-1 text-[#0A1418] font-semibold">
@@ -72,7 +72,7 @@ export const QuizStudioSection: React.FC<QuizStudioSectionProps> = ({
             <div className="flex items-center gap-3 self-end lg:self-center shrink-0">
               <button
                 onClick={() => onOpenReport(exam.title)}
-                className="px-3 py-2 border border-[#10252B]/30 hover:border-[#9C3B32] hover:text-[#9C3B32] text-xs font-mono uppercase transition-colors cursor-pointer flex items-center gap-1"
+                className="px-3.5 py-2 bg-white/70 hover:bg-white text-xs font-mono uppercase transition-colors cursor-pointer rounded-xl flex items-center gap-1.5 shadow-2xs hover:text-[#9C3B32]"
               >
                 <AlertTriangle className="w-3.5 h-3.5 text-[#9C3B32]" />
                 <span className="hidden sm:inline">Báo Lỗi Đề</span>
@@ -80,7 +80,7 @@ export const QuizStudioSection: React.FC<QuizStudioSectionProps> = ({
 
               <button
                 onClick={() => onSelectExam(exam)}
-                className="px-6 py-2.5 bg-[#0A1418] hover:bg-[#9C3B32] text-white text-xs font-mono font-bold uppercase transition-all flex items-center gap-2 cursor-pointer shadow-xs active:scale-95 border border-[#E5C985]/30"
+                className="px-6 py-2.5 bg-[#0A1418] hover:bg-[#9C3B32] text-white text-xs font-mono font-bold uppercase transition-all flex items-center gap-2 cursor-pointer shadow-md active:scale-95 rounded-xl"
               >
                 <Play className="w-4 h-4 text-[#E5C985]" />
                 <span>Vào Phòng Thi Ngay</span>
