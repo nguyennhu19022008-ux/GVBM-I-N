@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { createPortal } from 'react-dom';
 import { X, Clock, Award, CheckCircle, AlertCircle, RefreshCw, ChevronLeft, ChevronRight, Check } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import type { QuizExam } from '../data/quizData';
@@ -19,6 +20,15 @@ export const QuizModal: React.FC<QuizModalProps> = ({ exam, onClose, user }) => 
   const [showConfirmSubmit, setShowConfirmSubmit] = useState(false);
 
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
+  // Lock background body scroll while exam studio is active
+  useEffect(() => {
+    const orig = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = orig;
+    };
+  }, []);
 
   // Countdown timer
   useEffect(() => {
@@ -119,7 +129,7 @@ export const QuizModal: React.FC<QuizModalProps> = ({ exam, onClose, user }) => 
     setTimeLeft(exam.timeLimitMinutes * 60);
   };
 
-  return (
+  return createPortal(
     <div className="fixed inset-0 z-50 overflow-y-auto bg-black/75 backdrop-blur-md flex items-center justify-center p-3 sm:p-6 animate-fadeUp text-left">
       <div className="relative w-full max-w-7xl bg-[#FAF8F1] border-2 border-[#0A1418] shadow-2xl overflow-hidden my-4 flex flex-col max-h-[94vh]">
         
@@ -170,8 +180,8 @@ export const QuizModal: React.FC<QuizModalProps> = ({ exam, onClose, user }) => 
             /* ================= TESTING IN PROGRESS ================= */
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
               
-              {/* Left 4 Columns: Examination Navigator & Controls */}
-              <div className="lg:col-span-4 bg-white border border-[rgba(16,37,43,0.16)] p-5 sm:p-6 shadow-xs space-y-5">
+              {/* Examination Navigator & Controls (Order 2 on mobile, Left 4 cols on desktop) */}
+              <div className="order-2 lg:order-1 lg:col-span-4 bg-white border border-[rgba(16,37,43,0.16)] p-5 sm:p-6 shadow-xs space-y-5">
                 <div className="flex items-center justify-between text-xs font-bold text-[#0A1418]">
                   <span className="font-mono uppercase tracking-wider">MA TRẬN CÂU HỎI</span>
                   <span className="font-mono text-[#687477]">{answeredCount}/{totalQuestions} đã chọn</span>
@@ -220,8 +230,8 @@ export const QuizModal: React.FC<QuizModalProps> = ({ exam, onClose, user }) => 
                 </button>
               </div>
 
-              {/* Right 8 Columns: Question & Interactive Options Reading Zone */}
-              <div className="lg:col-span-8 space-y-6">
+              {/* Question & Interactive Options Reading Zone (Order 1 on mobile, Right 8 cols on desktop) */}
+              <div className="order-1 lg:order-2 lg:col-span-8 space-y-6">
                 
                 {/* Question Box */}
                 <div className="p-6 sm:p-7 bg-white border border-[rgba(16,37,43,0.16)] shadow-xs">
@@ -479,6 +489,7 @@ export const QuizModal: React.FC<QuizModalProps> = ({ exam, onClose, user }) => 
         </div>
       )}
 
-    </div>
+    </div>,
+    document.body
   );
 };
