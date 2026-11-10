@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { X, AlertTriangle, Send, CheckCircle2 } from 'lucide-react';
 import type { IssueType, StudentFeedback } from '../../data/feedbackData';
 import { ISSUE_TYPE_LABELS } from '../../data/feedbackData';
@@ -24,6 +25,16 @@ export const ReportIssueModal: React.FC<ReportIssueModalProps> = ({
   const [studentEmail, setStudentEmail] = useState<string>('');
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
 
+  useEffect(() => {
+    if (isOpen) {
+      const orig = document.body.style.overflow;
+      document.body.style.overflow = 'hidden';
+      return () => {
+        document.body.style.overflow = orig;
+      };
+    }
+  }, [isOpen]);
+
   if (!isOpen) return null;
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -47,8 +58,11 @@ export const ReportIssueModal: React.FC<ReportIssueModalProps> = ({
     }, 2000);
   };
 
-  return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-xs animate-fadeSlideUp">
+  return createPortal(
+    <div 
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-xs animate-fadeSlideUp"
+      onClick={onClose}
+    >
       <div 
         className="relative w-full max-w-lg bg-[#FAF8F1] border-2 border-[#0A1418] shadow-2xl p-6 sm:p-7 text-left"
         onClick={(e) => e.stopPropagation()}
@@ -178,6 +192,7 @@ export const ReportIssueModal: React.FC<ReportIssueModalProps> = ({
         )}
 
       </div>
-    </div>
+    </div>,
+    document.body
   );
 };

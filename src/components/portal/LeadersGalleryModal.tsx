@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { X, Award, CheckCircle2, Quote } from 'lucide-react';
 import type { LeaderProfile } from '../../data/storiesData';
 
@@ -8,10 +9,23 @@ interface LeadersGalleryModalProps {
 }
 
 export const LeadersGalleryModal: React.FC<LeadersGalleryModalProps> = ({ leader, onClose }) => {
+  useEffect(() => {
+    if (leader) {
+      const origOverflow = document.body.style.overflow;
+      document.body.style.overflow = 'hidden';
+      return () => {
+        document.body.style.overflow = origOverflow;
+      };
+    }
+  }, [leader]);
+
   if (!leader) return null;
 
-  return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/85 backdrop-blur-sm animate-fadeSlideUp">
+  return createPortal(
+    <div 
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/85 backdrop-blur-sm animate-fadeSlideUp"
+      onClick={onClose}
+    >
       <div 
         className="relative w-full max-w-4xl max-h-[90vh] overflow-y-auto bg-[#FAF8F1] shadow-2xl p-6 sm:p-8 text-left text-[#0A1418]"
         onClick={(e) => e.stopPropagation()}
@@ -108,6 +122,7 @@ export const LeadersGalleryModal: React.FC<LeadersGalleryModalProps> = ({ leader
         </div>
 
       </div>
-    </div>
+    </div>,
+    document.body
   );
 };

@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { Flame, X, Shield, ArrowRight } from 'lucide-react';
 import { WARTIME_STORIES, HISTORICAL_LEADERS } from '../../data/storiesData';
 import type { WartimeStory, LeaderProfile } from '../../data/storiesData';
@@ -8,6 +9,16 @@ export const WartimeStoriesSection: React.FC = () => {
   const [activeStoryIndex, setActiveStoryIndex] = useState<number>(0);
   const [selectedStoryModal, setSelectedStoryModal] = useState<WartimeStory | null>(null);
   const [selectedLeader, setSelectedLeader] = useState<LeaderProfile | null>(null);
+
+  useEffect(() => {
+    if (selectedStoryModal) {
+      const orig = document.body.style.overflow;
+      document.body.style.overflow = 'hidden';
+      return () => {
+        document.body.style.overflow = orig;
+      };
+    }
+  }, [selectedStoryModal]);
 
   const currentStory = WARTIME_STORIES[activeStoryIndex];
 
@@ -234,8 +245,8 @@ export const WartimeStoriesSection: React.FC = () => {
 
       </div>
 
-      {/* Modal 1: Full-Screen Wartime Story Reader (Góc vuông dứt khoát, phong cách báo chí) */}
-      {selectedStoryModal && (
+      {/* Modal 1: Full-Screen Wartime Story Reader (Teleported to document.body via Portal) */}
+      {selectedStoryModal && createPortal(
         <div 
           className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/85 backdrop-blur-sm animate-fadeSlideUp"
           onClick={() => setSelectedStoryModal(null)}
@@ -311,7 +322,8 @@ export const WartimeStoriesSection: React.FC = () => {
             </div>
 
           </div>
-        </div>
+        </div>,
+        document.body
       )}
 
       {/* Modal 2: Leaders Gallery */}
