@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
-import { Flame, X, Shield, ArrowRight } from 'lucide-react';
+import { Flame, X, Shield, ArrowRight, ArrowLeft } from 'lucide-react';
 import { WARTIME_STORIES, HISTORICAL_LEADERS } from '../../data/storiesData';
 import type { WartimeStory, LeaderProfile } from '../../data/storiesData';
 import { LeadersGalleryModal } from './LeadersGalleryModal';
@@ -21,6 +21,16 @@ export const WartimeStoriesSection: React.FC = () => {
   }, [selectedStoryModal]);
 
   const currentStory = WARTIME_STORIES[activeStoryIndex];
+
+  // Modal navigation indices between the 4 historical wartime stories
+  const currentModalIndex = selectedStoryModal
+    ? WARTIME_STORIES.findIndex((s) => s.id === selectedStoryModal.id)
+    : -1;
+  const prevStory = currentModalIndex > 0 ? WARTIME_STORIES[currentModalIndex - 1] : null;
+  const nextStory =
+    currentModalIndex >= 0 && currentModalIndex < WARTIME_STORIES.length - 1
+      ? WARTIME_STORIES[currentModalIndex + 1]
+      : null;
 
   return (
     <section className="w-full py-16 lg:py-24 bg-[#0A1418] text-[#FAF8F1] text-left relative overflow-hidden">
@@ -62,15 +72,23 @@ export const WartimeStoriesSection: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 xl:gap-14 items-center mb-16">
           
           {/* Left Column (7 Cols): Giant Authentic Wartime Photograph - Sắc Cạnh Góc Vuông, Không Bọc Card */}
-          <div key={`photo-${currentStory.id}`} className="lg:col-span-7 space-y-3 animate-fadeSlideUp">
-            <div className="relative group overflow-hidden bg-stone-900 shadow-xl">
+          <div 
+            key={`photo-${currentStory.id}`} 
+            onClick={() => setSelectedStoryModal(currentStory)}
+            className="lg:col-span-7 space-y-3 animate-fadeSlideUp cursor-pointer group"
+          >
+            <div className="relative overflow-hidden bg-stone-900 shadow-xl">
               <img
                 src={currentStory.imageUrl}
                 alt={currentStory.title}
-                className="w-full aspect-16/10 object-cover contrast-110 brightness-95 hover:scale-101 transition-transform duration-700"
+                className="w-full aspect-16/10 object-cover contrast-110 brightness-95 group-hover:scale-101 transition-transform duration-700"
               />
               <div className="absolute top-3 left-3 px-3 py-1 bg-[#0A1418] text-[#E5C985] font-mono text-xs font-bold uppercase tracking-wider">
                 NĂM {currentStory.year} • {currentStory.period}
+              </div>
+              <div className="absolute bottom-3 right-3 px-3 py-1.5 bg-[#9C3B32] text-white text-[11px] font-mono font-bold uppercase tracking-wider flex items-center gap-1.5 shadow-md group-hover:bg-[#7A2820] transition-colors">
+                <span>BẤM ĐỌC HỒ SƠ</span>
+                <ArrowRight className="w-3.5 h-3.5 text-[#E5C985]" />
               </div>
             </div>
 
@@ -157,23 +175,43 @@ export const WartimeStoriesSection: React.FC = () => {
             {WARTIME_STORIES.map((story, idx) => {
               const isActive = idx === activeStoryIndex;
               return (
-                <button
+                <div
                   key={story.id}
-                  onClick={() => setActiveStoryIndex(idx)}
+                  onClick={() => {
+                    setActiveStoryIndex(idx);
+                    setSelectedStoryModal(story);
+                  }}
                   className="campaign-card-stagger text-left cursor-pointer group transition-transform hover:-translate-y-0.5"
+                  role="button"
+                  tabIndex={0}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
+                      setActiveStoryIndex(idx);
+                      setSelectedStoryModal(story);
+                    }
+                  }}
                 >
                   <div className="flex items-baseline justify-between mb-2">
                     <span className={`font-mono text-xs font-bold ${isActive ? 'text-[#E5C985]' : 'text-[#FAF8F1]/80'}`}>
                       0{idx + 1}. MỐC NĂM {story.year}
                     </span>
-                    <span className="text-[10px] font-mono text-[#FAF8F1]/50">TƯ LIỆU</span>
+                    <span className="text-[10px] font-mono text-[#E5C985] group-hover:underline flex items-center gap-0.5">
+                      <span>ĐỌC HỒ SƠ</span>
+                      <ArrowRight className="w-2.5 h-2.5" />
+                    </span>
                   </div>
-                  <div className={`aspect-16/9 overflow-hidden mb-3 bg-stone-900 ${isActive ? 'ring-2 ring-[#E5C985]' : ''}`}>
+                  <div className={`relative aspect-16/9 overflow-hidden mb-3 bg-stone-900 ${isActive ? 'ring-2 ring-[#E5C985]' : ''}`}>
                     <img
                       src={story.imageUrl}
                       alt={story.title}
-                      className={`w-full h-full object-cover transition-all duration-500 ${isActive ? 'contrast-115 scale-102' : 'contrast-95 opacity-80 group-hover:opacity-100'}`}
+                      className={`w-full h-full object-cover transition-all duration-500 ${isActive ? 'contrast-115 scale-102' : 'contrast-95 opacity-85 group-hover:opacity-100 group-hover:scale-102'}`}
                     />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
+                    <div className="absolute bottom-2 right-2 px-2 py-1 bg-[#9C3B32] group-hover:bg-[#7A2820] text-white text-[10px] font-mono font-bold uppercase tracking-wider flex items-center gap-1 shadow-sm transition-colors">
+                      <span>BẤM ĐỌC NGAY</span>
+                      <ArrowRight className="w-3 h-3 text-[#E5C985]" />
+                    </div>
                   </div>
                   <h5 className={`font-playfair text-sm font-bold line-clamp-1 ${isActive ? 'text-[#E5C985]' : 'text-white group-hover:text-[#E5C985]'}`}>
                     {story.title}
@@ -181,7 +219,7 @@ export const WartimeStoriesSection: React.FC = () => {
                   <p className="text-[10px] font-mono text-[#FAF8F1]/60 truncate mt-1">
                     {story.period}
                   </p>
-                </button>
+                </div>
               );
             })}
           </div>
@@ -312,13 +350,44 @@ export const WartimeStoriesSection: React.FC = () => {
               <p className="leading-relaxed">{selectedStoryModal.significance}</p>
             </div>
 
-            <div className="flex justify-end pt-2">
-              <button
-                onClick={() => setSelectedStoryModal(null)}
-                className="px-6 py-2.5 bg-[#0A1418] hover:bg-[#9C3B32] text-white text-xs font-mono font-bold uppercase transition-colors cursor-pointer"
-              >
-                Đóng Câu Chuyện
-              </button>
+            {/* Modal Bottom Navigation (Tua qua lại giữa 4 chiến dịch không cần tắt modal) */}
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 pt-4 border-t border-[#0A1418]/15 mt-6">
+              {prevStory ? (
+                <button
+                  onClick={() => {
+                    setSelectedStoryModal(prevStory);
+                    setActiveStoryIndex(currentModalIndex - 1);
+                  }}
+                  className="px-3.5 py-2.5 bg-[#F3EFE5] hover:bg-[#0A1418] text-[#0A1418] hover:text-[#FAF8F1] text-xs font-mono font-bold uppercase transition-colors flex items-center justify-center gap-1.5 cursor-pointer order-2 sm:order-1"
+                >
+                  <ArrowLeft className="w-3.5 h-3.5 text-[#9C3B32]" />
+                  <span>← MỐC {prevStory.year}</span>
+                </button>
+              ) : (
+                <div className="hidden sm:block" />
+              )}
+
+              <div className="flex items-center justify-between sm:justify-end gap-2.5 order-1 sm:order-2">
+                <button
+                  onClick={() => setSelectedStoryModal(null)}
+                  className="px-5 py-2.5 bg-[#0A1418] hover:bg-[#9C3B32] text-white text-xs font-mono font-bold uppercase transition-colors cursor-pointer"
+                >
+                  Đóng Hồ Sơ
+                </button>
+
+                {nextStory && (
+                  <button
+                    onClick={() => {
+                      setSelectedStoryModal(nextStory);
+                      setActiveStoryIndex(currentModalIndex + 1);
+                    }}
+                    className="px-3.5 py-2.5 bg-[#9C3B32] hover:bg-[#7A2820] text-white text-xs font-mono font-bold uppercase transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
+                  >
+                    <span>MỐC {nextStory.year} →</span>
+                    <ArrowRight className="w-3.5 h-3.5 text-[#E5C985]" />
+                  </button>
+                )}
+              </div>
             </div>
 
           </div>
