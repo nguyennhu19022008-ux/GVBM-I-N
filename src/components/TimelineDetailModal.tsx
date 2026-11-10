@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { X, Calendar, Flag, BookOpen, User, Lightbulb, ExternalLink, Download } from 'lucide-react';
 import type { TimelineEvent } from '../data/historyData';
 
@@ -15,14 +16,28 @@ export const TimelineDetailModal: React.FC<TimelineDetailModalProps> = ({
   onGoToQuiz,
   onGoToDownload,
 }) => {
+  useEffect(() => {
+    if (event) {
+      const orig = document.body.style.overflow;
+      document.body.style.overflow = 'hidden';
+      return () => {
+        document.body.style.overflow = orig;
+      };
+    }
+  }, [event]);
+
   if (!event) return null;
 
-  return (
-    <div className="fixed inset-0 z-50 overflow-y-auto bg-black/80 backdrop-blur-md flex items-center justify-center p-4 sm:p-6 animate-fadeUp">
+  return createPortal(
+    <div 
+      className="fixed inset-0 z-50 overflow-y-auto bg-black/80 backdrop-blur-md flex items-center justify-center p-4 sm:p-6 animate-fadeUp"
+      onClick={onClose}
+    >
       <div 
         className="relative w-full max-w-5xl bg-[#FAF8F1] rounded-none border border-[#0A1418] shadow-2xl overflow-hidden my-6 text-left"
         role="dialog"
         aria-modal="true"
+        onClick={(e) => e.stopPropagation()}
       >
         {/* Modal Header */}
         <div className="bg-[#0A1418] text-[#FAF8F1] px-6 py-4 flex items-center justify-between">
@@ -200,6 +215,7 @@ export const TimelineDetailModal: React.FC<TimelineDetailModalProps> = ({
         </div>
 
       </div>
-    </div>
+    </div>,
+    document.body
   );
 };

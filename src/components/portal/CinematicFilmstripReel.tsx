@@ -23,7 +23,7 @@ const ARCHIVAL_FRAMES: FilmstripFrame[] = [
     subtitle: 'Khai sinh nước Việt Nam Dân chủ Cộng hòa',
     imageUrl: '/images/ba-dinh-1945.jpg',
     caption: 'Chủ tịch Hồ Chí Minh đọc bản Tuyên ngôn Độc lập tại Quảng trường Ba Đình lịch sử.',
-    eventRefId: '1945-tuyen-ngon-doc-lap',
+    eventRefId: 'cach-mang-thang-tam-1945',
   },
   {
     id: 'frame-1954',
@@ -33,7 +33,7 @@ const ARCHIVAL_FRAMES: FilmstripFrame[] = [
     subtitle: 'Lừng lẫy năm châu, chấn động địa cầu',
     imageUrl: '/images/dien-bien-phu-1954.jpg',
     caption: 'Lá cờ Quyết chiến Quyết thắng tung bay trên nóc hầm De Castries chiều 7/5/1954.',
-    eventRefId: '1954-dien-bien-phu',
+    eventRefId: 'dien-bien-phu-1954',
   },
   {
     id: 'frame-1959',
@@ -43,7 +43,7 @@ const ARCHIVAL_FRAMES: FilmstripFrame[] = [
     subtitle: 'Đoàn 559 xẻ dọc Trường Sơn đi cứu nước',
     imageUrl: '/images/duong-truong-son.jpg',
     caption: 'Đoàn xe vận tải vượt mưa bom bão đạn chi viện sức người sức của cho tiền tuyến.',
-    eventRefId: '1959-duong-truong-son',
+    eventRefId: 'dong-khoi-1960',
   },
   {
     id: 'frame-1968',
@@ -53,7 +53,7 @@ const ARCHIVAL_FRAMES: FilmstripFrame[] = [
     subtitle: 'Đòn sấm sét đánh sập ý chí xâm lược của đế quốc',
     imageUrl: '/images/tet-mau-than-1968.jpg',
     caption: 'Cuộc tổng tiến công và nổi dậy đồng loạt tại khắp các đô thị miền Nam.',
-    eventRefId: '1968-tet-mau-than',
+    eventRefId: 'mau-than-1968',
   },
   {
     id: 'frame-1972',
@@ -63,7 +63,7 @@ const ARCHIVAL_FRAMES: FilmstripFrame[] = [
     subtitle: '12 ngày đêm rực lửa bảo vệ bầu trời Thủ đô',
     imageUrl: '/images/ha-noi-1972.jpg',
     caption: 'Quân dân Hà Nội bắn rơi pháo đài bay B-52, buộc Mỹ ký kết Hiệp định Paris.',
-    eventRefId: '1972-dien-bien-phu-tren-khong',
+    eventRefId: 'dien-bien-phu-tren-khong-1972',
   },
   {
     id: 'frame-1973',
@@ -73,7 +73,7 @@ const ARCHIVAL_FRAMES: FilmstripFrame[] = [
     subtitle: 'Thắng lợi trên bàn đàm phán, Mỹ rút quân',
     imageUrl: '/images/hiep-dinh-paris-1973.jpg',
     caption: 'Ký kết hiệp định chấm dứt chiến tranh, lập lại hòa bình ở Việt Nam.',
-    eventRefId: '1973-hiep-dinh-paris',
+    eventRefId: 'dien-bien-phu-tren-khong-1972',
   },
   {
     id: 'frame-1975',
@@ -83,7 +83,7 @@ const ARCHIVAL_FRAMES: FilmstripFrame[] = [
     subtitle: 'Chiến dịch Hồ Chí Minh giải phóng miền Nam',
     imageUrl: '/images/giai-phong-1975.jpg',
     caption: 'Xe tăng 390 húc đổ cổng Dinh Độc Lập trưa 30/4/1975, giang sơn thu về một mối.',
-    eventRefId: '1975-giai-phong-mien-nam',
+    eventRefId: 'dai-thang-mua-xuan-1975',
   },
   {
     id: 'frame-1976',
@@ -93,7 +93,7 @@ const ARCHIVAL_FRAMES: FilmstripFrame[] = [
     subtitle: 'Nước Cộng hòa XHCN Việt Nam thống nhất',
     imageUrl: '/images/cot-co-ha-noi.jpg',
     caption: 'Lá cờ đỏ sao vàng kiêu hãnh trên đỉnh Cột cờ Hà Nội chào đón kỷ nguyên hòa bình.',
-    eventRefId: '1975-giai-phong-mien-nam',
+    eventRefId: 'dai-thang-mua-xuan-1975',
   },
 ];
 
