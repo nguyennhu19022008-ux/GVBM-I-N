@@ -45,24 +45,26 @@ export const TeacherProfileSection: React.FC = () => {
           </p>
         </div>
 
-        {/* 4:8 Asymmetrical Editorial Grid */}
+        {/* 4:8 Asymmetrical Editorial Grid (Cardless & Crisp) */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 xl:gap-14 items-start">
           
           {/* Left Column (4 Cols): Large Portrait & Open Contact Info */}
           <div className="lg:col-span-4 space-y-6">
-            <div className="image-standout rounded-xl overflow-hidden bg-[#FAF8F1]">
-              <img
-                src={TEACHER_DATA.avatarUrl}
-                alt={TEACHER_DATA.name}
-                className="w-full aspect-4/5 object-cover object-center contrast-105 hover:scale-102 transition-all duration-700"
-              />
-              <div className="p-3 bg-[#FAF8F1] flex items-center justify-between text-xs font-mono text-[#687477]">
+            <div className="space-y-2">
+              <div className="overflow-hidden bg-stone-900 shadow-sm aspect-4/5">
+                <img
+                  src={TEACHER_DATA.avatarUrl}
+                  alt={TEACHER_DATA.name}
+                  className="w-full h-full object-cover object-center contrast-105 hover:scale-101 transition-transform duration-700"
+                />
+              </div>
+              <div className="pt-1 flex items-center justify-between text-xs font-mono text-[#687477]">
                 <span>ẢNH LƯU CHIỂU SƯ PHẠM</span>
                 <span className="font-bold text-[#9C3B32]">NIÊN KHÓA 2025 - 2026</span>
               </div>
             </div>
 
-            {/* Open Contact Strip (No Card Boxes, Clean Airy Spacing) */}
+            {/* Open Contact Strip (No Card Boxes, Clean Free-Standing Rows) */}
             <div className="space-y-3 pt-2">
               <h4 className="text-xs font-mono font-bold uppercase tracking-wider text-[#0A1418] flex items-center gap-2">
                 <BookOpen className="w-4 h-4 text-[#9C3B32]" />
@@ -70,30 +72,30 @@ export const TeacherProfileSection: React.FC = () => {
               </h4>
 
               {/* Email Row */}
-              <div className="flex items-center justify-between p-3 rounded-lg bg-[#FAF8F1] text-xs font-mono">
+              <div className="flex items-center justify-between py-2 text-xs font-mono">
                 <div className="flex items-center gap-2 min-w-0">
                   <Mail className="w-4 h-4 text-[#9C3B32] shrink-0" />
                   <span className="text-[#0A1418] truncate font-sans">{TEACHER_DATA.email}</span>
                 </div>
                 <button
                   onClick={() => handleCopy(TEACHER_DATA.email, 'email')}
-                  className="px-2.5 py-1 text-[10px] font-mono font-bold uppercase bg-[#0A1418] text-[#FAF8F1] hover:bg-[#9C3B32] transition-colors cursor-pointer shrink-0 rounded-xs"
+                  className="px-2.5 py-1 text-[10px] font-mono font-bold uppercase bg-[#0A1418] text-[#FAF8F1] hover:bg-[#9C3B32] transition-colors cursor-pointer shrink-0"
                 >
                   {copiedType === 'email' ? 'ĐÃ CHÉP' : 'CHÉP'}
                 </button>
               </div>
 
               {/* Phone / Zalo Row */}
-              <div className="flex items-center justify-between p-3 rounded-lg bg-[#FAF8F1] text-xs font-mono">
+              <div className="flex items-center justify-between py-2 text-xs font-mono">
                 <div className="flex items-center gap-2 min-w-0">
                   <Phone className="w-4 h-4 text-[#C69A47] shrink-0" />
                   <span className="text-[#0A1418] font-bold">{TEACHER_DATA.phone}</span>
-                  <span className="text-[10px] px-1.5 py-0.5 bg-[#0A1418] text-[#FAF8F1] rounded-2xs">Zalo</span>
+                  <span className="text-[10px] px-1.5 py-0.5 bg-[#0A1418] text-[#FAF8F1]">Zalo</span>
                 </div>
                 <div className="flex items-center gap-1.5 shrink-0">
                   <button
                     onClick={() => handleCopy(TEACHER_DATA.phone, 'phone')}
-                    className="px-2.5 py-1 text-[10px] font-mono font-bold uppercase bg-[#0A1418] text-[#FAF8F1] hover:bg-[#9C3B32] transition-colors cursor-pointer rounded-xs"
+                    className="px-2.5 py-1 text-[10px] font-mono font-bold uppercase bg-[#0A1418] text-[#FAF8F1] hover:bg-[#9C3B32] transition-colors cursor-pointer"
                   >
                     {copiedType === 'phone' ? 'ĐÃ CHÉP' : 'CHÉP'}
                   </button>
@@ -101,7 +103,7 @@ export const TeacherProfileSection: React.FC = () => {
                     href={TEACHER_DATA.zalo}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="px-2.5 py-1 text-[10px] font-mono font-bold uppercase bg-[#9C3B32] text-white hover:bg-[#7A2820] transition-colors flex items-center gap-1 cursor-pointer rounded-xs"
+                    className="px-2.5 py-1 text-[10px] font-mono font-bold uppercase bg-[#9C3B32] text-white hover:bg-[#7A2820] transition-colors flex items-center gap-1 cursor-pointer"
                   >
                     <span>NHẮN</span>
                     <ExternalLink className="w-3 h-3" />
@@ -116,19 +118,19 @@ export const TeacherProfileSection: React.FC = () => {
             
             {/* Identity */}
             <div>
-              <div className="inline-block px-3 py-1 bg-[#9C3B32] text-white text-[11px] font-mono font-bold uppercase tracking-wider mb-2 rounded-xs">
+              <div className="inline-block px-3 py-1 bg-[#9C3B32] text-white text-[11px] font-mono font-bold uppercase tracking-wider mb-2">
                 {TEACHER_DATA.school}
               </div>
               <h3 className="font-playfair text-3xl sm:text-4xl md:text-5xl font-black text-[#0A1418] tracking-tight">
                 {TEACHER_DATA.name}
               </h3>
-              <p className="text-sm sm:text-base font-serif italic text-[#9C3B32] mt-1 font-semibold">
+              <p className="text-sm sm:text-base font-sans text-[#9C3B32] mt-1 font-semibold">
                 {TEACHER_DATA.title}
               </p>
             </div>
 
-            {/* Editorial Pull Quote with Soft Accent */}
-            <div className="pl-6 py-4 border-l-4 border-[#9C3B32] bg-[#FAF8F1]/50 rounded-r-lg">
+            {/* Editorial Pull Quote with Soft Accent (No Card Box) */}
+            <div className="pl-6 py-3 border-l-4 border-[#9C3B32]">
               <p className="font-serif italic text-lg sm:text-xl text-[#0A1418] leading-relaxed">
                 "{TEACHER_DATA.quote}"
               </p>
@@ -139,14 +141,14 @@ export const TeacherProfileSection: React.FC = () => {
               {TEACHER_DATA.bio}
             </p>
 
-            {/* Principles of Teaching */}
+            {/* Principles of Teaching (Cardless list) */}
             <div className="space-y-3 pt-2">
               <h4 className="text-xs font-mono font-bold uppercase tracking-wider text-[#0A1418]">
                 Nguyên Tắc Giảng Dạy & Đồng Hành Sĩ Tử:
               </h4>
               <div className="space-y-2 text-sm text-[#0A1418]">
                 {TEACHER_DATA.teachingPhilosophy.map((item, idx) => (
-                  <div key={idx} className="flex items-start gap-3 p-2.5 rounded-lg hover:bg-[#FAF8F1]/60 transition-colors">
+                  <div key={idx} className="flex items-start gap-3 py-1.5">
                     <CheckCircle2 className="w-4 h-4 text-[#486D5D] shrink-0 mt-0.5" />
                     <span>{item}</span>
                   </div>
@@ -154,16 +156,16 @@ export const TeacherProfileSection: React.FC = () => {
               </div>
             </div>
 
-            {/* Notable Achievements: Clean Open Rows (No Dividing Lines) */}
+            {/* Notable Achievements: Open Rows (Zero Boxed Cards) */}
             <div className="pt-4 space-y-3">
               <h4 className="text-xs font-mono font-bold uppercase tracking-wider text-[#0A1418] flex items-center gap-2">
                 <Award className="w-4 h-4 text-[#C69A47]" />
                 <span>Thành Tích & Dấu Ấn Sư Phạm Nổi Bật:</span>
               </h4>
 
-              <div className="space-y-2.5">
+              <div className="space-y-3">
                 {TEACHER_DATA.achievements.map((ach, idx) => (
-                  <div key={idx} className="p-3.5 rounded-lg bg-[#FAF8F1] flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 hover:bg-white transition-colors">
+                  <div key={idx} className="py-2.5 flex flex-col sm:flex-row sm:items-baseline justify-between gap-2">
                     <div className="flex items-baseline gap-3">
                       <span className="font-mono text-xs font-bold text-[#9C3B32] shrink-0">
                         [{ach.year}]

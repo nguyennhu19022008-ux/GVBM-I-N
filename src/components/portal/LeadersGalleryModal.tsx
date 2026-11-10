@@ -11,9 +11,9 @@ export const LeadersGalleryModal: React.FC<LeadersGalleryModalProps> = ({ leader
   if (!leader) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/80 backdrop-blur-sm animate-fadeSlideUp">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/85 backdrop-blur-sm animate-fadeSlideUp">
       <div 
-        className="relative w-full max-w-4xl max-h-[90vh] overflow-y-auto bg-[#FAF8F1] rounded-2xl shadow-2xl p-6 sm:p-8 text-left"
+        className="relative w-full max-w-4xl max-h-[90vh] overflow-y-auto bg-[#FAF8F1] shadow-2xl p-6 sm:p-8 text-left text-[#0A1418]"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header Ribbon */}
@@ -25,7 +25,7 @@ export const LeadersGalleryModal: React.FC<LeadersGalleryModalProps> = ({ leader
           </div>
           <button
             onClick={onClose}
-            className="w-9 h-9 rounded-full bg-[#F3EFE5] hover:bg-[#9C3B32] hover:text-white flex items-center justify-center transition-colors cursor-pointer text-[#0A1418] shadow-xs"
+            className="w-8 h-8 bg-[#0A1418] text-[#FAF8F1] hover:bg-[#9C3B32] hover:text-white flex items-center justify-center transition-colors cursor-pointer"
             title="Đóng cửa sổ"
           >
             <X className="w-5 h-5" />
@@ -35,21 +35,21 @@ export const LeadersGalleryModal: React.FC<LeadersGalleryModalProps> = ({ leader
         {/* 5:7 Grid Layout */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-6 sm:gap-8 items-start">
           
-          {/* Left Column (5 Cols): Standout Portrait */}
-          <div className="md:col-span-5 space-y-4">
-            <div className="rounded-xl overflow-hidden image-standout bg-[#F3EFE5] shadow-lg">
+          {/* Left Column (5 Cols): Standout Portrait (Crisp Square) */}
+          <div className="md:col-span-5 space-y-3">
+            <div className="overflow-hidden bg-stone-900 shadow-md">
               <img
                 src={leader.imageUrl}
                 alt={leader.name}
                 className="w-full aspect-3/4 object-cover object-top grayscale contrast-110"
               />
-              <div className="p-3 text-center text-xs font-mono text-[#687477] bg-[#F3EFE5]">
+              <div className="p-2 text-center text-xs font-mono text-[#FAF8F1] bg-[#0A1418]">
                 <span>NIÊN ĐẠI: </span>
-                <span className="font-bold text-[#9C3B32]">{leader.lifespan}</span>
+                <span className="font-bold text-[#E5C985]">{leader.lifespan}</span>
               </div>
             </div>
 
-            <div className="p-4 bg-[#F3EFE5]/70 rounded-xl text-xs font-mono space-y-1.5 shadow-2xs">
+            <div className="pt-1 text-xs font-mono space-y-1">
               <span className="block text-[#9C3B32] font-bold uppercase">MỐC SON LỊCH SỬ GẮN LIỀN:</span>
               <p className="text-[#0A1418] font-sans font-medium">{leader.historicalMilestone}</p>
             </div>
@@ -64,13 +64,13 @@ export const LeadersGalleryModal: React.FC<LeadersGalleryModalProps> = ({ leader
               <h3 className="font-playfair text-2xl sm:text-3xl font-black text-[#0A1418] tracking-tight">
                 {leader.name}
               </h3>
-              <p className="text-sm font-serif italic text-[#687477] mt-1">
+              <p className="text-sm font-sans text-[#687477] mt-1">
                 {leader.role}
               </p>
             </div>
 
             {/* Quote */}
-            <div className="relative p-4 rounded-xl bg-[#F3EFE5]/80 space-y-1 shadow-2xs">
+            <div className="py-2 pl-4 border-l-3 border-[#9C3B32] space-y-1">
               <Quote className="w-5 h-5 text-[#9C3B32]/30 mb-1" />
               <p className="font-serif italic text-sm sm:text-base text-[#0A1418] leading-relaxed">
                 "{leader.quote}"
@@ -97,7 +97,7 @@ export const LeadersGalleryModal: React.FC<LeadersGalleryModalProps> = ({ leader
             <div className="pt-6 flex justify-end">
               <button
                 onClick={onClose}
-                className="px-6 py-2.5 bg-[#0A1418] hover:bg-[#9C3B32] text-white text-xs font-mono font-bold uppercase transition-colors cursor-pointer rounded-xl shadow-sm"
+                className="px-6 py-2.5 bg-[#0A1418] hover:bg-[#9C3B32] text-white text-xs font-mono font-bold uppercase transition-colors cursor-pointer"
               >
                 Đóng Hồ Sơ
               </button>

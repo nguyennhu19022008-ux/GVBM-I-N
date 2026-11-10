@@ -61,7 +61,7 @@ export const ReportIssueModal: React.FC<ReportIssueModalProps> = ({
           </div>
           <button
             onClick={onClose}
-            className="w-7 h-7 rounded-full border border-[rgba(16,37,43,0.3)] hover:border-[#0A1418] hover:bg-[#9C3B32] hover:text-white flex items-center justify-center transition-colors cursor-pointer text-[#0A1418]"
+            className="w-7 h-7 rounded-none border border-[rgba(16,37,43,0.3)] hover:border-[#0A1418] hover:bg-[#9C3B32] hover:text-white flex items-center justify-center transition-colors cursor-pointer text-[#0A1418]"
           >
             <X className="w-4 h-4" />
           </button>

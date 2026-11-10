@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Flame, ChevronRight, X, Shield, ArrowRight } from 'lucide-react';
+import { Flame, X, Shield, ArrowRight } from 'lucide-react';
 import { WARTIME_STORIES, HISTORICAL_LEADERS } from '../../data/storiesData';
 import type { WartimeStory, LeaderProfile } from '../../data/storiesData';
 import { LeadersGalleryModal } from './LeadersGalleryModal';
@@ -50,21 +50,21 @@ export const WartimeStoriesSection: React.FC = () => {
         {/* ============================================================== */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 xl:gap-14 items-center mb-16">
           
-          {/* Left Column (7 Cols): Giant Authentic Wartime Photograph - Standout with Soft Background Merge */}
-          <div className="lg:col-span-7 space-y-4">
-            <div className="relative group rounded-2xl overflow-hidden image-standout bg-[#14242A] shadow-2xl">
+          {/* Left Column (7 Cols): Giant Authentic Wartime Photograph - Sắc Cạnh Góc Vuông, Không Bọc Card */}
+          <div className="lg:col-span-7 space-y-3">
+            <div className="relative group overflow-hidden bg-stone-900 shadow-xl">
               <img
                 src={currentStory.imageUrl}
                 alt={currentStory.title}
-                className="w-full aspect-16/10 object-cover contrast-110 brightness-95 hover:scale-102 transition-all duration-700"
+                className="w-full aspect-16/10 object-cover contrast-110 brightness-95 hover:scale-101 transition-transform duration-700"
               />
-              <div className="absolute top-4 left-4 px-3.5 py-1 bg-[#0A1418]/90 text-[#E5C985] font-mono text-xs font-bold uppercase tracking-wider backdrop-blur-sm rounded-md shadow-xs">
+              <div className="absolute top-3 left-3 px-3 py-1 bg-[#0A1418] text-[#E5C985] font-mono text-xs font-bold uppercase tracking-wider">
                 NĂM {currentStory.year} • {currentStory.period}
               </div>
             </div>
 
-            {/* Photo Caption Strip */}
-            <div className="p-4 rounded-xl bg-[#14242A]/85 backdrop-blur-sm flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs font-mono text-[#FAF8F1]/80 shadow-xs">
+            {/* Photo Caption directly underneath */}
+            <div className="pt-1 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs font-mono text-[#FAF8F1]/80">
               <span className="italic font-sans text-sm text-[#FAF8F1]">
                 {currentStory.imageCaption}
               </span>
@@ -88,7 +88,7 @@ export const WartimeStoriesSection: React.FC = () => {
             </div>
 
             {/* Witness Pull Quote with Crimson Accent */}
-            <div className="py-3 pl-4 border-l-4 border-[#9C3B32] bg-[#14242A]/70 backdrop-blur-sm rounded-r-xl">
+            <div className="py-2 pl-4 border-l-3 border-[#9C3B32]">
               <p className="font-serif italic text-base sm:text-lg text-[#E5C985] leading-snug">
                 "{currentStory.quote}"
               </p>
@@ -106,8 +106,8 @@ export const WartimeStoriesSection: React.FC = () => {
               </span>
               <div className="space-y-1.5 text-xs sm:text-sm font-sans text-[#FAF8F1]">
                 {currentStory.heroes.map((hero, idx) => (
-                  <div key={idx} className="flex items-center gap-2 p-2 rounded-lg bg-[#14242A]/60 hover:bg-[#1E353D] transition-colors">
-                    <span className="w-1.5 h-1.5 bg-[#9C3B32] rounded-full shrink-0"></span>
+                  <div key={idx} className="flex items-center gap-2 py-1">
+                    <span className="w-1.5 h-1.5 bg-[#9C3B32] shrink-0"></span>
                     <span className="font-medium">{hero}</span>
                   </div>
                 ))}
@@ -118,7 +118,7 @@ export const WartimeStoriesSection: React.FC = () => {
             <div className="pt-2">
               <button
                 onClick={() => setSelectedStoryModal(currentStory)}
-                className="px-6 py-3.5 bg-[#9C3B32] hover:bg-[#7A2820] text-white text-xs font-mono font-bold uppercase tracking-wider transition-all flex items-center gap-2 cursor-pointer shadow-lg rounded-xl"
+                className="px-6 py-3.5 bg-[#9C3B32] hover:bg-[#7A2820] text-white text-xs font-mono font-bold uppercase tracking-wider transition-all flex items-center gap-2 cursor-pointer shadow-xs active:scale-98"
               >
                 <span>Đọc Trọn Vẹn Diễn Biến & Ý Nghĩa</span>
                 <ArrowRight className="w-4 h-4 text-[#E5C985]" />
@@ -130,7 +130,7 @@ export const WartimeStoriesSection: React.FC = () => {
         </div>
 
         {/* ============================================================== */}
-        {/* 4 MỐC LỊCH SỬ TIÊU BIỂU: CLEAN CAROUSEL/GRID (NO HARSH LINES) */}
+        {/* 4 MỐC LỊCH SỬ TIÊU BIỂU: CARDLESS EDITORIAL THUMBNAILS         */}
         {/* ============================================================== */}
         <div className="pt-4 pb-16">
           <div className="flex items-center justify-between mb-5">
@@ -142,18 +142,14 @@ export const WartimeStoriesSection: React.FC = () => {
             </span>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {WARTIME_STORIES.map((story, idx) => {
               const isActive = idx === activeStoryIndex;
               return (
                 <button
                   key={story.id}
                   onClick={() => setActiveStoryIndex(idx)}
-                  className={`p-4 text-left transition-all cursor-pointer rounded-2xl ${
-                    isActive
-                      ? 'bg-[#1E353D] ring-2 ring-[#E5C985] shadow-lg scale-102'
-                      : 'bg-[#14242A]/70 hover:bg-[#1E353D]/90'
-                  }`}
+                  className="text-left cursor-pointer group transition-transform hover:-translate-y-0.5"
                 >
                   <div className="flex items-baseline justify-between mb-2">
                     <span className={`font-mono text-xs font-bold ${isActive ? 'text-[#E5C985]' : 'text-[#FAF8F1]/80'}`}>
@@ -161,14 +157,14 @@ export const WartimeStoriesSection: React.FC = () => {
                     </span>
                     <span className="text-[10px] font-mono text-[#FAF8F1]/50">TƯ LIỆU</span>
                   </div>
-                  <div className="aspect-16/9 overflow-hidden mb-3 rounded-xl bg-stone-900 shadow-xs">
+                  <div className={`aspect-16/9 overflow-hidden mb-3 bg-stone-900 ${isActive ? 'ring-2 ring-[#E5C985]' : ''}`}>
                     <img
                       src={story.imageUrl}
                       alt={story.title}
-                      className={`w-full h-full object-cover transition-all duration-500 ${isActive ? 'contrast-115 scale-104' : 'contrast-95 opacity-80 hover:opacity-100'}`}
+                      className={`w-full h-full object-cover transition-all duration-500 ${isActive ? 'contrast-115 scale-102' : 'contrast-95 opacity-80 group-hover:opacity-100'}`}
                     />
                   </div>
-                  <h5 className={`font-playfair text-sm font-bold line-clamp-1 ${isActive ? 'text-[#E5C985]' : 'text-white'}`}>
+                  <h5 className={`font-playfair text-sm font-bold line-clamp-1 ${isActive ? 'text-[#E5C985]' : 'text-white group-hover:text-[#E5C985]'}`}>
                     {story.title}
                   </h5>
                   <p className="text-[10px] font-mono text-[#FAF8F1]/60 truncate mt-1">
@@ -181,7 +177,7 @@ export const WartimeStoriesSection: React.FC = () => {
         </div>
 
         {/* ============================================================== */}
-        {/* LEADERS GALLERY: STANDOUT PORTRAITS (PROMINENT & ELEVATED)     */}
+        {/* LEADERS GALLERY: CARDLESS OPEN PORTRAITS                      */}
         {/* ============================================================== */}
         <div className="pt-8">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 mb-10">
@@ -199,41 +195,37 @@ export const WartimeStoriesSection: React.FC = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {HISTORICAL_LEADERS.map((leader) => (
               <div
                 key={leader.id}
                 onClick={() => setSelectedLeader(leader)}
-                className="group cursor-pointer text-left p-5 rounded-2xl bg-[#14242A]/85 hover:bg-[#1E353D] transition-all space-y-4 image-standout shadow-xl"
+                className="group cursor-pointer text-left space-y-3 transition-transform hover:-translate-y-0.5"
               >
-                {/* Standout Prominent Portrait */}
-                <div className="overflow-hidden rounded-xl bg-stone-900 shadow-md">
+                {/* Crisp Square Portrait */}
+                <div className="overflow-hidden bg-stone-900 shadow-sm aspect-4/5">
                   <img
                     src={leader.imageUrl}
                     alt={leader.name}
-                    className="w-full aspect-4/5 object-cover object-top contrast-110 group-hover:scale-104 transition-all duration-500"
+                    className="w-full h-full object-cover object-top contrast-110 group-hover:scale-102 transition-transform duration-500"
                   />
-                  <div className="p-2 text-center bg-[#0A1418] text-[#E5C985] text-[10px] font-mono font-bold">
-                    NIÊN ĐẠI: {leader.lifespan}
-                  </div>
                 </div>
 
-                {/* Text information */}
+                {/* Text information standing freely on the canvas */}
                 <div>
+                  <div className="flex items-center justify-between text-[10px] font-mono text-[#E5C985] uppercase mb-1">
+                    <span>NIÊN ĐẠI: {leader.lifespan}</span>
+                    <span className="font-bold">HỒ SƠ →</span>
+                  </div>
                   <h4 className="font-playfair text-lg sm:text-xl font-bold text-white group-hover:text-[#E5C985] transition-colors leading-snug">
                     {leader.name}
                   </h4>
                   <p className="text-xs text-[#E5C985] font-mono mt-1 font-semibold line-clamp-1">
                     {leader.historicalMilestone}
                   </p>
-                  <p className="text-xs text-[#FAF8F1]/80 font-serif italic mt-2.5 line-clamp-2 leading-relaxed">
+                  <p className="text-xs text-[#FAF8F1]/70 italic mt-2 line-clamp-2 leading-relaxed font-sans">
                     "{leader.quote}"
                   </p>
-                </div>
-
-                <div className="pt-2 flex items-center justify-between text-[11px] font-mono font-bold text-[#E5C985]">
-                  <span>XEM TIỂU SỬ & CỐNG HIẾN</span>
-                  <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
                 </div>
               </div>
             ))}
@@ -242,14 +234,14 @@ export const WartimeStoriesSection: React.FC = () => {
 
       </div>
 
-      {/* Modal 1: Full-Screen Wartime Story Reader */}
+      {/* Modal 1: Full-Screen Wartime Story Reader (Góc vuông dứt khoát, phong cách báo chí) */}
       {selectedStoryModal && (
         <div 
           className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/85 backdrop-blur-sm animate-fadeSlideUp"
           onClick={() => setSelectedStoryModal(null)}
         >
           <div 
-            className="relative w-full max-w-3xl max-h-[90vh] overflow-y-auto bg-[#FAF8F1] rounded-2xl shadow-2xl p-6 sm:p-8 text-left text-[#0A1418]"
+            className="relative w-full max-w-3xl max-h-[90vh] overflow-y-auto bg-[#FAF8F1] shadow-2xl p-6 sm:p-8 text-left text-[#0A1418]"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex items-center justify-between pb-4 mb-6">
@@ -258,7 +250,7 @@ export const WartimeStoriesSection: React.FC = () => {
               </div>
               <button
                 onClick={() => setSelectedStoryModal(null)}
-                className="w-8 h-8 rounded-full bg-[#F3EFE5] hover:bg-[#9C3B32] hover:text-white flex items-center justify-center transition-colors cursor-pointer text-[#0A1418]"
+                className="w-8 h-8 bg-[#0A1418] text-[#FAF8F1] hover:bg-[#9C3B32] hover:text-white flex items-center justify-center transition-colors cursor-pointer"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -274,7 +266,7 @@ export const WartimeStoriesSection: React.FC = () => {
               {selectedStoryModal.quote}
             </p>
 
-            <div className="rounded-xl overflow-hidden mb-6 image-standout">
+            <div className="overflow-hidden mb-6 bg-stone-900 shadow-sm">
               <img
                 src={selectedStoryModal.imageUrl}
                 alt={selectedStoryModal.title}
@@ -291,20 +283,20 @@ export const WartimeStoriesSection: React.FC = () => {
               ))}
             </div>
 
-            <div className="p-5 bg-[#F3EFE5] rounded-xl mb-6 space-y-2">
+            <div className="py-4 space-y-2">
               <span className="text-xs font-mono font-bold uppercase text-[#9C3B32] block">
                 NHỮNG TẤM GƯƠNG ANH DŨNG GẮN LIỀN:
               </span>
               <div className="flex flex-wrap gap-2 pt-1">
                 {selectedStoryModal.heroes.map((hero, idx) => (
-                  <span key={idx} className="px-3 py-1 bg-white rounded-lg text-xs font-mono text-[#0A1418] shadow-2xs">
+                  <span key={idx} className="px-3 py-1 bg-[#0A1418] text-[#FAF8F1] text-xs font-mono">
                     {hero}
                   </span>
                 ))}
               </div>
             </div>
 
-            <div className="p-5 bg-[#F3EFE5] rounded-xl text-xs font-sans text-[#687477] mb-6">
+            <div className="py-3 text-xs font-sans text-[#687477] mb-6">
               <span className="font-bold text-[#0A1418] uppercase block mb-1 font-mono">Ý NGHĨA LỊCH SỬ SÂU SẮC:</span>
               <p className="leading-relaxed">{selectedStoryModal.significance}</p>
             </div>
@@ -312,7 +304,7 @@ export const WartimeStoriesSection: React.FC = () => {
             <div className="flex justify-end pt-2">
               <button
                 onClick={() => setSelectedStoryModal(null)}
-                className="px-6 py-2.5 bg-[#0A1418] hover:bg-[#9C3B32] text-white text-xs font-mono font-bold uppercase transition-colors cursor-pointer rounded-xl"
+                className="px-6 py-2.5 bg-[#0A1418] hover:bg-[#9C3B32] text-white text-xs font-mono font-bold uppercase transition-colors cursor-pointer"
               >
                 Đóng Câu Chuyện
               </button>

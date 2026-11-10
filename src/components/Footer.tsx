@@ -14,7 +14,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigateView, onSelectGrade })
       <div className="w-full px-6 md:px-12 xl:px-16">
         
         {/* Quote Banner: Bác Hồ */}
-        <div className="mb-12 p-8 sm:p-10 bg-[#10252B] rounded-2xl text-center relative overflow-hidden shadow-lg">
+        <div className="mb-12 p-8 sm:p-10 bg-[#10252B] border-l-4 border-[#9C3B32] text-left sm:text-center relative overflow-hidden">
           <div className="relative z-10 max-w-4xl mx-auto">
             <p className="font-playfair text-2xl sm:text-3xl md:text-4xl italic text-[#FAF8F1] leading-relaxed">
               "Dân ta phải biết sử ta, <br className="sm:hidden" />
@@ -32,7 +32,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigateView, onSelectGrade })
           {/* Col 1 (5 Columns): Brand & Mission */}
           <div className="md:col-span-5 space-y-4">
             <div className="flex items-center gap-3.5">
-              <div className="w-10 h-10 rounded-full bg-[#9C3B32] flex items-center justify-center text-white shadow font-cinzel font-black text-sm tracking-wider">
+              <div className="w-10 h-10 rounded-none bg-[#9C3B32] flex items-center justify-center text-white shadow font-cinzel font-black text-sm tracking-wider">
                 ĐS
               </div>
               <span className="font-playfair text-2xl font-black text-[#FAF8F1] tracking-tight uppercase">
@@ -44,7 +44,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigateView, onSelectGrade })
               Cổng thông tin số hóa bài giảng, tư liệu kháng chiến và hệ thống luyện thi trắc nghiệm trực quan phục vụ học tập, bồi dưỡng lòng yêu nước và chinh phục kỳ thi Tốt nghiệp THPT Quốc gia cho học sinh Khối 10, Khối 11 & Khối 12.
             </p>
 
-            <div className="p-4 bg-white/5 rounded-xl text-xs font-mono text-[#E5C985]">
+            <div className="p-4 bg-white/5 border-l-2 border-[#E5C985] text-xs font-mono text-[#E5C985]">
               <span>CHỦ NHIỆM: {TEACHER_DATA.name.toUpperCase()}</span>
               <span className="block text-[#FAF8F1]/70 text-[11px] mt-0.5">{TEACHER_DATA.school}</span>
             </div>
@@ -129,7 +129,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigateView, onSelectGrade })
           <p>© 2026 ĐAM MÊ LỊCH SỬ. TẤT CẢ CÁC QUYỀN ĐƯỢC BẢO LƯU.</p>
           <div className="flex items-center gap-2">
             <span>THIẾT KẾ & VẬN HÀNH:</span>
-            <span className="px-2.5 py-1 bg-white/10 text-[#E5C985] rounded font-bold">
+            <span className="px-2.5 py-1 bg-white/10 text-[#E5C985] font-bold">
               NGUYỄN VƯƠNG GIA
             </span>
           </div>

@@ -17,7 +17,7 @@ export const ExamArchiveSection: React.FC<ExamArchiveSectionProps> = ({
 
   if (examItems.length === 0) {
     return (
-      <div className="py-12 text-center text-[#687477] font-mono text-xs bg-[#F3EFE5]/40 rounded-2xl p-8">
+      <div className="py-12 text-center text-[#687477] font-mono text-xs bg-[#F3EFE5]/40 rounded-none border-l-2 border-[#9C3B32] p-8">
         Chưa có đề thi hoặc đề ôn tập cho tiêu chí này. Thầy sẽ tải lên thêm sớm!
       </div>
     );
@@ -39,23 +39,23 @@ export const ExamArchiveSection: React.FC<ExamArchiveSectionProps> = ({
         </span>
       </div>
 
-      {/* Modern Elevated Rows (Zero Dividing Lines) */}
-      <div className="space-y-3">
+      {/* Cardless Open Editorial Rows */}
+      <div className="divide-y divide-[#0A1418]/15 border-t border-b border-[#0A1418]/20">
         {examItems.map((item, idx) => (
           <div
             key={item.id}
-            className="p-5 sm:p-6 rounded-2xl bg-[#F3EFE5]/50 hover:bg-[#F3EFE5] transition-all shadow-xs flex flex-col lg:flex-row lg:items-center justify-between gap-6"
+            className="py-6 px-2 sm:px-4 hover:bg-[#F3EFE5]/40 transition-colors flex flex-col lg:flex-row lg:items-center justify-between gap-6"
           >
             {/* Left: Index & Content */}
             <div className="flex items-start gap-5 max-w-4xl">
               {/* Huge Editorial Index */}
-              <span className="font-playfair text-3xl sm:text-4xl font-black text-[#9C3B32]/60 shrink-0 w-12 text-right">
+              <span className="font-playfair text-3xl sm:text-4xl font-black text-[#9C3B32]/70 shrink-0 w-12 text-right">
                 {String(idx + 1).padStart(2, '0')}
               </span>
 
               <div className="space-y-2">
                 <div className="flex flex-wrap items-center gap-2 text-xs font-mono">
-                  <span className="px-2 py-0.5 bg-[#9C3B32] text-white font-bold text-[10px] rounded">
+                  <span className="px-2 py-0.5 bg-[#9C3B32] text-white font-bold text-[10px] rounded-none">
                     {item.format} • {item.fileSize}
                   </span>
                   <span className="text-[#C69A47] font-bold uppercase flex items-center gap-1">
@@ -91,7 +91,7 @@ export const ExamArchiveSection: React.FC<ExamArchiveSectionProps> = ({
             <div className="flex items-center gap-3 self-end lg:self-center shrink-0">
               <button
                 onClick={() => onReportIssue(item)}
-                className="px-3.5 py-2 bg-white/70 hover:bg-white text-xs font-mono uppercase transition-colors cursor-pointer rounded-xl flex items-center gap-1.5 shadow-2xs hover:text-[#9C3B32]"
+                className="px-3.5 py-2.5 bg-transparent border border-[#0A1418]/25 hover:border-[#9C3B32] text-xs font-mono uppercase transition-colors cursor-pointer rounded-none flex items-center gap-1.5 hover:text-[#9C3B32]"
                 title="Báo cáo câu hỏi có vấn đề hoặc sai đáp án"
               >
                 <AlertTriangle className="w-3.5 h-3.5 text-[#9C3B32]" />
@@ -100,7 +100,7 @@ export const ExamArchiveSection: React.FC<ExamArchiveSectionProps> = ({
 
               <button
                 onClick={() => onDownload(item)}
-                className="px-5 py-2.5 bg-[#0A1418] hover:bg-[#9C3B32] text-white text-xs font-mono font-bold uppercase tracking-wider transition-all flex items-center gap-2 cursor-pointer rounded-xl shadow-xs active:scale-95"
+                className="px-5 py-2.5 bg-[#0A1418] hover:bg-[#9C3B32] text-white text-xs font-mono font-bold uppercase tracking-wider transition-all flex items-center gap-2 cursor-pointer rounded-none active:scale-95"
               >
                 <Download className="w-3.5 h-3.5 text-[#E5C985]" />
                 <span>Tải Đề Kèm Đáp Án</span>

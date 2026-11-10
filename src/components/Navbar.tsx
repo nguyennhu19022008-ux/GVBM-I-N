@@ -33,7 +33,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               <span className="font-playfair text-xl sm:text-2xl font-black text-white tracking-tight group-hover:text-[#e5c985] transition-colors uppercase">
                 ĐAM MÊ LỊCH SỬ
               </span>
-              <span className="hidden sm:inline-block px-2.5 py-0.5 text-[10px] font-mono font-bold uppercase tracking-wider bg-[#14242a] text-[#e5c985] rounded">
+              <span className="hidden sm:inline-block px-2.5 py-0.5 text-[10px] font-mono font-bold uppercase tracking-wider bg-[#14242a] text-[#e5c985]">
                 KHỐI 10 · 11 · 12
               </span>
             </div>
@@ -49,7 +49,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           {/* Tab 1: Cổng Kết Nối */}
           <button
             onClick={() => onChangeView('portal')}
-            className={`px-4 py-2 text-xs font-mono font-bold uppercase tracking-wider transition-all flex items-center gap-1.5 cursor-pointer rounded-xl ${
+            className={`px-4 py-2 text-xs font-mono font-bold uppercase tracking-wider transition-all flex items-center gap-1.5 cursor-pointer rounded-none ${
               currentView === 'portal'
                 ? 'bg-[#9C3B32] text-white shadow-sm'
                 : 'text-white/70 hover:text-white hover:bg-white/10'
@@ -62,7 +62,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           {/* Tab 2: Giảng Đường */}
           <button
             onClick={() => onChangeView('learning')}
-            className={`px-4 py-2 text-xs font-mono font-bold uppercase tracking-wider transition-all flex items-center gap-1.5 cursor-pointer rounded-xl ${
+            className={`px-4 py-2 text-xs font-mono font-bold uppercase tracking-wider transition-all flex items-center gap-1.5 cursor-pointer rounded-none ${
               currentView === 'learning'
                 ? 'bg-[#9C3B32] text-white shadow-sm'
                 : 'text-white/70 hover:text-white hover:bg-white/10'
@@ -70,7 +70,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           >
             <GraduationCap className="w-3.5 h-3.5 text-[#e5c985]" />
             <span>02. Giảng Đường 10-11-12</span>
-            <span className="px-1.5 py-0.2 text-[9px] font-mono font-bold bg-[#E5C985] text-[#0A1418] rounded">
+            <span className="px-1.5 py-0.2 text-[9px] font-mono font-bold bg-[#E5C985] text-[#0A1418]">
               HỌC TẬP
             </span>
           </button>
@@ -78,7 +78,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           {/* Tab 3: Khu Vực Quản Trị */}
           <button
             onClick={() => onChangeView('admin')}
-            className={`px-4 py-2 text-xs font-mono font-bold uppercase tracking-wider transition-all flex items-center gap-1.5 cursor-pointer rounded-xl ${
+            className={`px-4 py-2 text-xs font-mono font-bold uppercase tracking-wider transition-all flex items-center gap-1.5 cursor-pointer rounded-none ${
               currentView === 'admin'
                 ? 'bg-[#9C3B32] text-white shadow-sm'
                 : 'text-white/70 hover:text-white hover:bg-white/10'
@@ -94,7 +94,7 @@ export const Navbar: React.FC<NavbarProps> = ({
         <div className="flex items-center gap-3">
           {user ? (
             <div className="flex items-center gap-2.5 pl-3">
-              <div className="w-8 h-8 rounded-full bg-[#14242a] text-[#e5c985] flex items-center justify-center font-bold text-xs uppercase overflow-hidden shadow-xs">
+              <div className="w-8 h-8 rounded-none bg-[#14242a] text-[#e5c985] flex items-center justify-center font-bold text-xs uppercase overflow-hidden shadow-xs">
                 {user.avatar ? (
                   <img src={user.avatar} alt={user.name} className="w-full h-full object-cover" />
                 ) : (
@@ -109,7 +109,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           ) : (
             <button
               onClick={onOpenAuth}
-              className="px-4 py-2 rounded-xl bg-white/10 hover:bg-[#9C3B32] text-white text-xs font-mono font-bold uppercase transition-all flex items-center gap-1.5 cursor-pointer shadow-xs"
+              className="px-4 py-2 rounded-none bg-white/10 hover:bg-[#9C3B32] text-white text-xs font-mono font-bold uppercase transition-all flex items-center gap-1.5 cursor-pointer shadow-xs"
             >
               <LogIn className="w-3.5 h-3.5 text-[#e5c985]" />
               <span className="hidden sm:inline">Học Viên</span>

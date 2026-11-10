@@ -35,7 +35,7 @@ export const AdminPinModal: React.FC<AdminPinModalProps> = ({
         onClick={(e) => e.stopPropagation()}
       >
         <div className="text-center space-y-2 mb-6 pb-4 broadsheet-double-b">
-          <div className="w-12 h-12 rounded-full bg-[#0A1418] text-[#E5C985] flex items-center justify-center mx-auto mb-2 shadow">
+          <div className="w-12 h-12 rounded-none bg-[#0A1418] text-[#E5C985] flex items-center justify-center mx-auto mb-2 shadow">
             <Lock className="w-6 h-6" />
           </div>
           <h3 className="font-playfair text-2xl font-black text-[#0A1418]">
