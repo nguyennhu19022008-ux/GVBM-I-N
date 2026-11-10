@@ -1,5 +1,6 @@
 import React from 'react';
 import { GraduationCap, ArrowRight, Flame, Clock } from 'lucide-react';
+import { CinematicFilmstripReel } from './CinematicFilmstripReel';
 import { TeacherProfileSection } from './TeacherProfileSection';
 import { WartimeStoriesSection } from './WartimeStoriesSection';
 import { TimelineSection } from '../TimelineSection';
@@ -243,7 +244,10 @@ export const PortalLandingView: React.FC<PortalLandingViewProps> = ({
         </div>
       </section>
 
-      {/* Part 1.1: Teacher Profile Section */}
+      {/* Part 1.1: Cinematic Archival Filmstrip Reel (Dải hình chuyển động tư liệu lịch sử 1945 - 1975) */}
+      <CinematicFilmstripReel onSelectEvent={onSelectTimelineEvent} />
+
+      {/* Part 1.2: Teacher Profile Section */}
       <TeacherProfileSection />
 
       {/* Part 1.2: Wartime Stories & Historical Leaders */}

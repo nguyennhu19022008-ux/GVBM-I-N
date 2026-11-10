@@ -217,9 +217,9 @@ export const TimelineSection: React.FC<TimelineSectionProps> = ({
               })}
             </div>
 
-            {/* Right 8 Columns: Open Broadsheet Reading Desk (Cardless & Crisp) */}
+            {/* Right 8 Columns: Open Broadsheet Reading Desk (Cardless & Crisp with Cinematic Cross-Fade) */}
             {activeEvent && (
-              <div className="lg:col-span-8 space-y-6 text-left relative">
+              <div key={`desk-${activeEvent.id}`} className="lg:col-span-8 space-y-6 text-left relative animate-fadeSlideUp">
                 
                 {/* Huge Watermark Year in Background */}
                 <div className="absolute -top-10 -right-6 font-mono text-7xl sm:text-9xl font-black text-[#0A1418]/5 select-none pointer-events-none">

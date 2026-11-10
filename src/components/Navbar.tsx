@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Newspaper, GraduationCap, Shield, LogIn } from 'lucide-react';
 
 export type PortalView = 'portal' | 'learning' | 'admin';
@@ -16,8 +16,35 @@ export const Navbar: React.FC<NavbarProps> = ({
   user,
   onOpenAuth,
 }) => {
+  const [scrollProgress, setScrollProgress] = useState<number>(0);
+
+  useEffect(() => {
+    let ticking = false;
+    const handleScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+          if (totalHeight > 0) {
+            setScrollProgress(Math.min(100, Math.max(0, (window.scrollY / totalHeight) * 100)));
+          }
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
     <header className="sticky top-0 z-40 bg-[#0A1418]/92 backdrop-blur-md text-white border-b border-[#E5C985]/20 transition-all">
+      {/* Scroll Reading Progress Bar (Thước đo cuộn điện ảnh ánh vàng) */}
+      <div 
+        className="absolute top-0 left-0 h-[2px] bg-gradient-to-r from-[#9C3B32] via-[#E5C985] to-[#9C3B32] transition-all duration-75 z-50 pointer-events-none" 
+        style={{ width: `${scrollProgress}%` }} 
+      />
+
       <div className="w-full px-6 md:px-12 xl:px-16 h-16 flex items-center justify-between">
         
         {/* Brand Medallion & Title */}

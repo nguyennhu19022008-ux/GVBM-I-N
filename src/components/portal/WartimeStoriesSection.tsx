@@ -62,7 +62,7 @@ export const WartimeStoriesSection: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 xl:gap-14 items-center mb-16">
           
           {/* Left Column (7 Cols): Giant Authentic Wartime Photograph - Sắc Cạnh Góc Vuông, Không Bọc Card */}
-          <div className="lg:col-span-7 space-y-3">
+          <div key={`photo-${currentStory.id}`} className="lg:col-span-7 space-y-3 animate-fadeSlideUp">
             <div className="relative group overflow-hidden bg-stone-900 shadow-xl">
               <img
                 src={currentStory.imageUrl}
@@ -86,7 +86,7 @@ export const WartimeStoriesSection: React.FC = () => {
           </div>
 
           {/* Right Column (5 Cols): Clean Open Narrative */}
-          <div className="lg:col-span-5 space-y-6">
+          <div key={`narrative-${currentStory.id}`} className="lg:col-span-5 space-y-6 animate-fadeSlideUp">
             
             {/* Tagline & Headline */}
             <div>
