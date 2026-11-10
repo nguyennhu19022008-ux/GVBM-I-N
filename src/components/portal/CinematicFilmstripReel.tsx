@@ -137,7 +137,7 @@ export const CinematicFilmstripReel: React.FC<CinematicFilmstripReelProps> = ({ 
       <div className="w-full px-6 md:px-12 xl:px-16 relative z-10">
         
         {/* Top Header of the Filmstrip Reel */}
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-6">
+        <div className="cinematic-scroll-reveal flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-6">
           <div className="text-left">
             <div className="flex items-center gap-2 text-xs font-mono font-bold tracking-widest text-[#E5C985] uppercase mb-1">
               <Film className="w-4 h-4 text-[#C69A47]" />

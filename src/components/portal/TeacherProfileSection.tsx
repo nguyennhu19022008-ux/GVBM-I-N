@@ -13,9 +13,9 @@ export const TeacherProfileSection: React.FC = () => {
 
   return (
     <section className="w-full py-16 lg:py-24 bg-[#F3EFE5] text-left relative overflow-hidden">
-      {/* Prominent Architectural & Flag Tower Background Blend */}
+      {/* Prominent Architectural & Flag Tower Background Blend with Parallax */}
       <div 
-        className="absolute inset-0 bg-cover bg-center opacity-20 mix-blend-multiply pointer-events-none image-blend-radial select-none filter contrast-110"
+        className="archival-parallax-bg will-change-transform absolute inset-0 bg-cover bg-center opacity-20 mix-blend-multiply pointer-events-none image-blend-radial select-none filter contrast-110"
         style={{ backgroundImage: `url('/images/cot-co-ha-noi.jpg')` }}
       />
       {/* Soft warm paper vignette */}
@@ -29,7 +29,7 @@ export const TeacherProfileSection: React.FC = () => {
       <div className="w-full px-6 md:px-12 xl:px-16 text-left relative z-10">
         
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-12">
+        <div className="cinematic-scroll-reveal flex flex-col md:flex-row md:items-end justify-between gap-4 mb-12">
           <div>
             <div className="flex items-center gap-2 text-xs font-mono font-bold tracking-widest text-[#9C3B32] uppercase mb-1.5">
               <span>HỒ SƠ SƯ PHẠM</span>
@@ -46,7 +46,7 @@ export const TeacherProfileSection: React.FC = () => {
         </div>
 
         {/* 4:8 Asymmetrical Editorial Grid (Cardless & Crisp) */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 xl:gap-14 items-start">
+        <div className="cinematic-scroll-reveal grid grid-cols-1 lg:grid-cols-12 gap-10 xl:gap-14 items-start">
           
           {/* Left Column (4 Cols): Large Portrait & Open Contact Info */}
           <div className="lg:col-span-4 space-y-6">

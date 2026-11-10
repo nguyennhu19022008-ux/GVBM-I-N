@@ -187,7 +187,7 @@
 .animate-filmstrip {
   display: flex;
   width: max-content;
-  animation: filmstripMarquee 50s linear infinite;
+  animation: filmstripMarquee 26s linear infinite !important;
   will-change: transform;
 }
 
@@ -210,19 +210,6 @@
 .no-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;
-}
-
-/* Hiệu năng di động tĩnh lặng & giảm tải chuyển động theo Quy tắc 6 */
-@media (max-width: 768px) {
-  .animate-filmstrip {
-    animation: none !important;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .animate-filmstrip {
-    animation: none !important;
-  }
 }
 
 /* Custom Scrollbar */

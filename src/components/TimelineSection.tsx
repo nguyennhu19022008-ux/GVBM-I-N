@@ -40,9 +40,9 @@ export const TimelineSection: React.FC<TimelineSectionProps> = ({
 
   return (
     <section id="timeline-section" className="py-14 lg:py-20 bg-[#FAF8F1] text-left relative overflow-hidden">
-      {/* Prominent Atmospheric Background Historical Trail Blend */}
+      {/* Prominent Atmospheric Background Historical Trail Blend with Parallax */}
       <div 
-        className="absolute inset-x-0 -top-10 h-[550px] pointer-events-none opacity-25 select-none image-blend-panoramic filter contrast-120"
+        className="archival-parallax-bg will-change-transform absolute inset-x-0 -top-10 h-[550px] pointer-events-none opacity-25 select-none image-blend-panoramic filter contrast-120"
         style={{
           backgroundImage: 'url(/images/duong-truong-son.jpg)',
           backgroundSize: 'cover',
@@ -60,7 +60,7 @@ export const TimelineSection: React.FC<TimelineSectionProps> = ({
       <div className="w-full px-6 md:px-12 xl:px-16 relative z-10">
         
         {/* Section Header: Open Air Masthead */}
-        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 pb-6">
+        <div className="cinematic-scroll-reveal flex flex-col lg:flex-row lg:items-end justify-between gap-6 pb-6">
           <div>
             <div className="flex items-center gap-2 mb-2 text-xs font-mono font-bold uppercase tracking-widest text-[#9C3B32]">
               <Calendar className="w-4 h-4" />

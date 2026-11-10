@@ -24,9 +24,9 @@ export const WartimeStoriesSection: React.FC = () => {
 
   return (
     <section className="w-full py-16 lg:py-24 bg-[#0A1418] text-[#FAF8F1] text-left relative overflow-hidden">
-      {/* Prominent Battlefield Night Sky & Artillery Smoke Background */}
+      {/* Prominent Battlefield Night Sky & Artillery Smoke Background with Parallax */}
       <div 
-        className="absolute inset-0 bg-cover bg-center opacity-30 select-none pointer-events-none filter contrast-125 brightness-90 mix-blend-luminosity"
+        className="archival-parallax-bg will-change-transform absolute inset-0 bg-cover bg-center opacity-30 select-none pointer-events-none filter contrast-125 brightness-90 mix-blend-luminosity"
         style={{ backgroundImage: `url('/images/ha-noi-1972.jpg')` }}
       />
       
@@ -41,7 +41,7 @@ export const WartimeStoriesSection: React.FC = () => {
       <div className="w-full px-6 md:px-12 xl:px-16 text-left relative z-10">
         
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-12">
+        <div className="cinematic-scroll-reveal flex flex-col md:flex-row md:items-end justify-between gap-4 mb-12">
           <div>
             <div className="flex items-center gap-2 text-xs font-mono font-bold tracking-widest text-[#E5C985] uppercase mb-1.5">
               <Flame className="w-4 h-4 text-[#9C3B32]" />
@@ -160,7 +160,7 @@ export const WartimeStoriesSection: React.FC = () => {
                 <button
                   key={story.id}
                   onClick={() => setActiveStoryIndex(idx)}
-                  className="text-left cursor-pointer group transition-transform hover:-translate-y-0.5"
+                  className="campaign-card-stagger text-left cursor-pointer group transition-transform hover:-translate-y-0.5"
                 >
                   <div className="flex items-baseline justify-between mb-2">
                     <span className={`font-mono text-xs font-bold ${isActive ? 'text-[#E5C985]' : 'text-[#FAF8F1]/80'}`}>
@@ -191,7 +191,7 @@ export const WartimeStoriesSection: React.FC = () => {
         {/* LEADERS GALLERY: CARDLESS OPEN PORTRAITS                      */}
         {/* ============================================================== */}
         <div className="pt-8">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 mb-10">
+          <div className="cinematic-scroll-reveal flex flex-col sm:flex-row sm:items-end justify-between gap-3 mb-10">
             <div>
               <div className="flex items-center gap-2 text-xs font-mono font-bold tracking-widest text-[#E5C985] uppercase mb-1">
                 <Shield className="w-4 h-4 text-[#C69A47]" />
@@ -211,7 +211,7 @@ export const WartimeStoriesSection: React.FC = () => {
               <div
                 key={leader.id}
                 onClick={() => setSelectedLeader(leader)}
-                className="group cursor-pointer text-left space-y-3 transition-transform hover:-translate-y-0.5"
+                className="leader-card-stagger group cursor-pointer text-left space-y-3 transition-transform hover:-translate-y-0.5"
               >
                 {/* Crisp Square Portrait */}
                 <div className="overflow-hidden bg-stone-900 shadow-sm aspect-4/5">

@@ -5,6 +5,7 @@ import { TeacherProfileSection } from './TeacherProfileSection';
 import { WartimeStoriesSection } from './WartimeStoriesSection';
 import { TimelineSection } from '../TimelineSection';
 import type { TimelineEvent } from '../../data/historyData';
+import { useCinematicScroll } from '../../utils/useCinematicScroll';
 
 interface PortalLandingViewProps {
   onGoToGrade: (grade: '10' | '11' | '12') => void;
@@ -21,6 +22,9 @@ export const PortalLandingView: React.FC<PortalLandingViewProps> = ({
   onGoToQuizByTopic,
   onGoToDownloadByTopic,
 }) => {
+  // Activate cinematic scroll animations, parallax & counter reveals
+  useCinematicScroll();
+
   const scrollToTimeline = () => {
     const el = document.getElementById('timeline-section');
     if (el) {
@@ -49,9 +53,9 @@ export const PortalLandingView: React.FC<PortalLandingViewProps> = ({
       {/* PAGE 1: CARDLESS OPEN BROADSHEET HERO (KHÔNG BỌC CARD, GÓC VUÔNG DỨT KHOÁT) */}
       {/* ========================================================================= */}
       <section className="w-full pt-10 pb-16 lg:pt-14 lg:pb-20 relative overflow-hidden text-left">
-        {/* Prominent Historical Rally Photo in Background */}
+        {/* Prominent Historical Rally Photo in Background with Cinematic Parallax */}
         <div 
-          className="absolute inset-0 bg-cover bg-right lg:bg-center opacity-25 lg:opacity-30 mix-blend-multiply pointer-events-none select-none filter contrast-120"
+          className="hero-bg-parallax absolute inset-0 bg-cover bg-right lg:bg-center opacity-25 lg:opacity-30 mix-blend-multiply pointer-events-none select-none filter contrast-120 will-change-transform"
           style={{ backgroundImage: `url('/images/ba-dinh-1945.jpg')` }}
         />
         {/* Editorial gradient scrim: luminous solid ink readability on the left, clear historic visual on the right */}
@@ -215,25 +219,46 @@ export const PortalLandingView: React.FC<PortalLandingViewProps> = ({
                 </div>
               </div>
 
-              {/* 4 Open Stats (Không Nhốt Trong Hộp Card, Để Mở Tự Do Với Số Lớn) */}
+              {/* 4 Open Stats (Không Nhốt Trong Hộp Card, Để Mở Tự Do Với Số Lớn & GSAP Counter) */}
               <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-2 gap-y-5 gap-x-6 text-left pt-2">
                 <div>
-                  <span className="block font-mono text-3xl xl:text-4xl font-black text-[#9C3B32] leading-none">03 KHỐI</span>
+                  <span
+                    className="stat-counter block font-mono text-3xl xl:text-4xl font-black text-[#9C3B32] leading-none"
+                    data-target="3"
+                    data-prefix="0"
+                    data-suffix=" KHỐI"
+                  >
+                    03 KHỐI
+                  </span>
                   <span className="text-[11px] text-[#687477] font-mono uppercase block mt-1.5">10 · 11 · 12 Chuẩn SGK</span>
                 </div>
 
                 <div>
-                  <span className="block font-mono text-3xl xl:text-4xl font-black text-[#C69A47] leading-none">150+ MỐC</span>
+                  <span
+                    className="stat-counter block font-mono text-3xl xl:text-4xl font-black text-[#C69A47] leading-none"
+                    data-target="150"
+                    data-suffix="+ MỐC"
+                  >
+                    150+ MỐC
+                  </span>
                   <span className="text-[11px] text-[#687477] font-mono uppercase block mt-1.5">Niên Đại & Sự Kiện</span>
                 </div>
 
                 <div>
-                  <span className="block font-mono text-3xl xl:text-4xl font-black text-[#0A1418] leading-none">100% FREE</span>
+                  <span
+                    className="stat-counter block font-mono text-3xl xl:text-4xl font-black text-[#0A1418] leading-none"
+                    data-target="100"
+                    data-suffix="% FREE"
+                  >
+                    100% FREE
+                  </span>
                   <span className="text-[11px] text-[#687477] font-mono uppercase block mt-1.5">Mở Tự Do Toàn Dân</span>
                 </div>
 
                 <div>
-                  <span className="block font-mono text-3xl xl:text-4xl font-black text-[#486D5D] leading-none">ĂN ĐIỂM 8-10</span>
+                  <span className="block font-mono text-3xl xl:text-4xl font-black text-[#486D5D] leading-none">
+                    ĂN ĐIỂM 8-10
+                  </span>
                   <span className="text-[11px] text-[#687477] font-mono uppercase block mt-1.5">Chuẩn Ma Trận Đề Thi</span>
                 </div>
               </div>
