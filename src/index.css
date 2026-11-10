@@ -141,20 +141,21 @@
   width: 100%;
 }
 
-/* Monogram Mark (Archival Seal Stamp - Crisp Square Edge) */
+/* Monogram Mark (Archival Circular Medallion - Elegant Heritage Seal) */
 .brand-mark {
-  width: 42px;
-  height: 42px;
+  width: 38px;
+  height: 38px;
   color: var(--gold-light);
   font-family: var(--font-serif);
-  border: 1px solid rgba(229, 201, 133, 0.7);
-  border-radius: 0;
+  border: 1px solid rgba(229, 201, 133, 0.75);
+  border-radius: 50%;
   display: grid;
   place-items: center;
-  font-size: 15px;
-  font-weight: 700;
-  background: var(--ink-soft);
-  box-shadow: 0 0 12px rgba(198, 154, 71, 0.2);
+  font-size: 13px;
+  font-weight: 800;
+  background: rgba(16, 37, 43, 0.85);
+  box-shadow: 0 0 14px rgba(198, 154, 71, 0.2);
+  letter-spacing: -0.02em;
 }
 
 /* Animations */
