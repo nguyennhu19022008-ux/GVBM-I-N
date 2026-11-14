@@ -1,8 +1,20 @@
+export type QuestionType = 'single_choice' | 'true_false_group';
+
+export interface TrueFalseStatement {
+  id: 'a' | 'b' | 'c' | 'd';
+  statement: string;
+  isCorrect: boolean;
+  explanation: string;
+}
+
 export interface QuizQuestion {
   id: number;
+  type?: QuestionType; // Mặc định 'single_choice'
+  stimulus?: string; // Đoạn trích tư liệu lịch sử cho đề thi THPT 2026 mới
   question: string;
-  options: string[];
-  correctAnswer: number; // 0, 1, 2, 3
+  options?: string[]; // Dùng cho single_choice
+  correctAnswer?: number; // Dùng cho single_choice (0, 1, 2, 3)
+  statements?: TrueFalseStatement[]; // Dùng cho true_false_group (Phần II)
   explanation: string;
   topic: string;
 }
@@ -19,6 +31,96 @@ export interface QuizExam {
   questions: QuizQuestion[];
 }
 
+export type TrueFalseGroupAnswer = Record<'a' | 'b' | 'c' | 'd', boolean | undefined>;
+export type StudentAnswer = number | TrueFalseGroupAnswer;
+export type SelectedAnswersState = Record<number, StudentAnswer>;
+
+export type QuestionCompletionStatus = 'unattempted' | 'partially_answered' | 'fully_answered';
+
+export const getQuestionCompletionStatus = (
+  q: QuizQuestion,
+  ans: StudentAnswer | undefined
+): QuestionCompletionStatus => {
+  if (ans === undefined || ans === null) return 'unattempted';
+  if (q.type === 'true_false_group') {
+    const group = ans as TrueFalseGroupAnswer;
+    const statements = q.statements || [];
+    if (statements.length === 0) return 'unattempted';
+    const answeredCount = statements.filter((st) => group[st.id] !== undefined).length;
+    if (answeredCount === 0) return 'unattempted';
+    if (answeredCount === statements.length) return 'fully_answered';
+    return 'partially_answered';
+  }
+  return typeof ans === 'number' ? 'fully_answered' : 'unattempted';
+};
+
+/**
+ * Thuật toán tính điểm hỗn hợp chuẩn cấu trúc Bộ GD&ĐT (Đề thi tốt nghiệp THPT mới):
+ * - Phần I (Trắc nghiệm 4 lựa chọn): Mỗi câu đúng được 1 điểm quy đổi.
+ * - Phần II (Trắc nghiệm Đúng/Sai đa mệnh đề):
+ *   + Đúng 1 ý: 0.10 điểm
+ *   + Đúng 2 ý: 0.25 điểm
+ *   + Đúng 3 ý: 0.50 điểm
+ *   + Đúng cả 4 ý: 1.00 điểm
+ */
+export const calculateExamScore = (
+  questions: QuizQuestion[],
+  answers: SelectedAnswersState
+): {
+  score: number;
+  maxScore: number;
+  normalizedScore: string;
+  fullyCorrectQuestionsCount: number;
+  correctStatementsTotal: number;
+} => {
+  let earnedPoints = 0;
+  let maxPossiblePoints = 0;
+  let fullyCorrectQuestionsCount = 0;
+  let correctStatementsTotal = 0;
+
+  questions.forEach((q) => {
+    if (q.type === 'true_false_group') {
+      maxPossiblePoints += 1.0;
+      const userGroup = (answers[q.id] as TrueFalseGroupAnswer) || {};
+      const statements = q.statements || [];
+      let statementMatches = 0;
+
+      statements.forEach((st) => {
+        if (typeof userGroup[st.id] === 'boolean' && userGroup[st.id] === st.isCorrect) {
+          statementMatches += 1;
+          correctStatementsTotal += 1;
+        }
+      });
+
+      if (statementMatches === 1) earnedPoints += 0.10;
+      else if (statementMatches === 2) earnedPoints += 0.25;
+      else if (statementMatches === 3) earnedPoints += 0.50;
+      else if (statementMatches === 4) earnedPoints += 1.00;
+
+      if (statementMatches === statements.length && statements.length > 0) {
+        fullyCorrectQuestionsCount += 1;
+      }
+    } else {
+      maxPossiblePoints += 1.0;
+      const userAns = answers[q.id] as number | undefined;
+      if (typeof userAns === 'number' && userAns === q.correctAnswer) {
+        earnedPoints += 1.0;
+        fullyCorrectQuestionsCount += 1;
+        correctStatementsTotal += 1;
+      }
+    }
+  });
+
+  const normalized = maxPossiblePoints > 0 ? ((earnedPoints / maxPossiblePoints) * 10).toFixed(1) : '0.0';
+  return {
+    score: Number(earnedPoints.toFixed(2)),
+    maxScore: maxPossiblePoints,
+    normalizedScore: normalized,
+    fullyCorrectQuestionsCount,
+    correctStatementsTotal
+  };
+};
+
 export const QUIZ_EXAMS: QuizExam[] = [
   {
     id: 'quiz-khang-chien-phap',
@@ -32,6 +134,7 @@ export const QUIZ_EXAMS: QuizExam[] = [
     questions: [
       {
         id: 1,
+        type: 'single_choice',
         question: 'Chiến thắng nào của quân dân ta đã làm phá sản hoàn toàn Kế hoạch Nava của thực dân Pháp?',
         options: [
           'A. Chiến dịch Việt Bắc thu - đông 1947.',
@@ -45,6 +148,7 @@ export const QUIZ_EXAMS: QuizExam[] = [
       },
       {
         id: 2,
+        type: 'single_choice',
         question: 'Nghệ thuật quân sự nổi bật nhất được Đại tướng Võ Nguyên Giáp chỉ đạo trong Chiến dịch Điện Biên Phủ 1954 là:',
         options: [
           'A. Chuyển phương châm từ "Đánh nhanh thắng nhanh" sang "Đánh chắc tiến chắc".',
@@ -58,6 +162,7 @@ export const QUIZ_EXAMS: QuizExam[] = [
       },
       {
         id: 3,
+        type: 'single_choice',
         question: 'Ý nghĩa quan trọng nhất của Chiến dịch Biên giới thu - đông 1950 là gì?',
         options: [
           'A. Buộc thực dân Pháp phải chuyển sang chiến lược "đánh lâu dài".',
@@ -71,6 +176,7 @@ export const QUIZ_EXAMS: QuizExam[] = [
       },
       {
         id: 4,
+        type: 'single_choice',
         question: 'Văn kiện nào sau đây được coi là Cương lĩnh kháng chiến toàn diện đầu tiên của Đảng ta?',
         options: [
           'A. Báo cáo "Bàn về Cách mạng Việt Nam" tại Đại hội II (1951).',
@@ -84,6 +190,7 @@ export const QUIZ_EXAMS: QuizExam[] = [
       },
       {
         id: 5,
+        type: 'single_choice',
         question: 'Trong Kế hoạch Nava (1953), thực dân Pháp chủ trương tập trung quân ở đâu trong bước 1?',
         options: [
           'A. Điện Biên Phủ.',
@@ -97,6 +204,7 @@ export const QUIZ_EXAMS: QuizExam[] = [
       },
       {
         id: 6,
+        type: 'single_choice',
         question: 'Ai là người anh hùng đã lấy thân mình chèn lưng cứu khẩu pháo trong Chiến dịch Điện Biên Phủ?',
         options: [
           'A. Bế Văn Đàn.',
@@ -110,6 +218,7 @@ export const QUIZ_EXAMS: QuizExam[] = [
       },
       {
         id: 7,
+        type: 'single_choice',
         question: 'Hiệp định Giơ-ne-vơ năm 1954 về Đông Dương quy định ranh giới quân sự tạm thời giữa hai miền Việt Nam tại:',
         options: [
           'A. Vĩ tuyến 16.',
@@ -123,6 +232,7 @@ export const QUIZ_EXAMS: QuizExam[] = [
       },
       {
         id: 8,
+        type: 'single_choice',
         question: 'Đại hội đại biểu lần thứ II của Đảng (2/1951) đã quyết định đổi tên Đảng thành:',
         options: [
           'A. Đảng Cộng sản Việt Nam.',
@@ -136,6 +246,7 @@ export const QUIZ_EXAMS: QuizExam[] = [
       },
       {
         id: 9,
+        type: 'single_choice',
         question: 'Điểm cốt lõi nào chứng minh Điện Biên Phủ 1954 là thắng lợi mang tầm vóc thời đại?',
         options: [
           'A. Lần đầu tiên quân đội một nước thuộc địa nhỏ bé đánh bại quân đội viễn chinh của một đế quốc thực dân hùng mạnh.',
@@ -149,6 +260,7 @@ export const QUIZ_EXAMS: QuizExam[] = [
       },
       {
         id: 10,
+        type: 'single_choice',
         question: 'Hiệp định Giơ-ne-vơ 1954 công nhận các quyền dân tộc cơ bản của ba nước Đông Dương gồm:',
         options: [
           'A. Độc lập, chủ quyền, thống nhất và toàn vẹn lãnh thổ.',
@@ -164,9 +276,9 @@ export const QUIZ_EXAMS: QuizExam[] = [
   },
   {
     id: 'quiz-khang-chien-my',
-    title: 'Đề Số 02: Kháng Chiến Chống Mỹ Cứu Nước (1954 - 1975)',
+    title: 'Đề Số 02: Kháng Chiến Chống Mỹ Cứu Nước (1954 - 1975) — Cấu Trúc THPT Mới',
     topicLabel: 'K/c Chống Mỹ & Đại Thắng Mùa Xuân',
-    description: '12 câu hỏi trắc nghiệm phân tích 4 chiến lược chiến tranh của Mỹ, đòn sấm sét Mậu Thân 1968, Hiệp định Paris và Chiến dịch Hồ Chí Minh.',
+    description: '12 câu hỏi trắc nghiệm gồm câu hỏi lựa chọn đơn và câu hỏi trắc nghiệm Đúng/Sai đa mệnh đề phân tích 4 chiến lược chiến tranh, Hiệp định Paris và Chiến dịch Hồ Chí Minh.',
     timeLimitMinutes: 18,
     gradeLevel: '12',
     questionsCount: 12,
@@ -174,6 +286,7 @@ export const QUIZ_EXAMS: QuizExam[] = [
     questions: [
       {
         id: 1,
+        type: 'single_choice',
         question: 'Phong trào "Đồng Khởi" (1959 - 1960) ở miền Nam Việt Nam nổ ra mạnh mẽ và tiêu biểu nhất tại địa phương nào?',
         options: [
           'A. Huyện Mỏ Cày, tỉnh Bến Tre.',
@@ -187,6 +300,7 @@ export const QUIZ_EXAMS: QuizExam[] = [
       },
       {
         id: 2,
+        type: 'single_choice',
         question: 'Chiến thắng quân sự nào của quân dân miền Nam đã mở đầu cho cao trào "Tìm Mỹ mà đánh, lùng Ngụy mà diệt"?',
         options: [
           'A. Chiến thắng Ấp Bắc (1/1963).',
@@ -200,19 +314,41 @@ export const QUIZ_EXAMS: QuizExam[] = [
       },
       {
         id: 3,
-        question: 'Nét tương đồng cơ bản nhất giữa 4 chiến lược chiến tranh của Mỹ áp dụng ở miền Nam (1954 - 1975) là:',
-        options: [
-          'A. Đều sử dụng quân viễn chinh Mỹ làm lực lượng chiến đấu nòng cốt.',
-          'B. Đều là loại hình chiến tranh xâm lược thực dân mới, nhằm chia cắt lâu dài nước ta.',
-          'C. Đều mở rộng chiến tranh phá hoại ra toàn cõi Đông Dương.',
-          'D. Đều thực hiện biện pháp gom dân lập "Ấp chiến lược" quy mô quốc sách.'
+        type: 'true_false_group',
+        stimulus: 'Đọc đoạn tư liệu sau: "Chiến tranh cục bộ (1965 - 1968) là hình thức chiến tranh xâm lược thực dân mới, được tiến hành bằng lực lượng quân viễn chinh Mỹ, quân đồng minh của Mỹ và quân đội Sài Gòn, trong đó quân Mỹ giữ vai trò nòng cốt. Quân Mỹ ồ ạt đổ vào miền Nam cùng phương tiện chiến tranh hiện đại nhằm nhanh chóng tiêu diệt bộ đội chủ lực của ta bằng hai gọng kìm Tìm diệt và Bình định."',
+        question: 'Dựa vào đoạn tư liệu và kiến thức lịch sử đã học, hãy xác định tính đúng/sai của các mệnh đề sau:',
+        statements: [
+          {
+            id: 'a',
+            statement: 'Chiến lược Chiến tranh cục bộ có lực lượng chiến đấu nòng cốt là quân viễn chinh Mỹ.',
+            isCorrect: true,
+            explanation: 'Đúng: Quân Mỹ ồ ạt đổ bộ trực tiếp vào chiến trường miền Nam và đóng vai trò nòng cốt.'
+          },
+          {
+            id: 'b',
+            statement: 'Chiến lược này chỉ sử dụng quân viễn chinh Mỹ, hoàn toàn loại bỏ quân đội Sài Gòn khỏi chiến trường.',
+            isCorrect: false,
+            explanation: 'Sai: Quân đội Sài Gòn vẫn được sử dụng phối hợp chặt chẽ, chủ yếu làm nhiệm vụ bình định và kìm kẹp dân chúng.'
+          },
+          {
+            id: 'c',
+            statement: 'Hai gọng kìm chiến lược then chốt của Mỹ là "Tìm diệt" và "Bình định".',
+            isCorrect: true,
+            explanation: 'Đúng: Mỹ sử dụng gọng kìm "tìm diệt" nhắm vào quân chủ lực ta và "bình định" nhắm vào vùng nông thôn kiểm soát.'
+          },
+          {
+            id: 'd',
+            statement: 'Thắng lợi của phong trào Đồng Khởi (1960) đã làm phá sản hoàn toàn chiến lược Chiến tranh cục bộ.',
+            isCorrect: false,
+            explanation: 'Sai: Phong trào Đồng Khởi 1960 làm phá sản chiến lược Chiến tranh đơn phương; còn cuộc Tổng tiến công Tết Mậu Thân 1968 mới làm phá sản Chiến tranh cục bộ.'
+          }
         ],
-        correctAnswer: 1,
-        explanation: 'Bản chất bất biến của mọi chiến lược (Đơn phương, Đặc biệt, Cục bộ, Việt Nam hóa chiến tranh) đều là chiến tranh xâm lược thực dân mới nhằm biến miền Nam Việt Nam thành thuộc địa kiểu mới và căn cứ quân sự của Mỹ, chia cắt lâu dài đất nước ta.',
-        topic: 'Bản chất chiến tranh thực dân mới'
+        explanation: 'Chiến tranh cục bộ (1965-1968) có đặc trưng là quân Mỹ làm nòng cốt, áp dụng hai gọng kìm tìm diệt và bình định, bị phá sản hoàn toàn sau đòn tiến công Mậu Thân 1968.',
+        topic: 'Đặc trưng Chiến tranh cục bộ'
       },
       {
         id: 4,
+        type: 'single_choice',
         question: 'Sự kiện nào đánh dấu bước ngoặt buộc Mỹ phải chuyển sang chiến lược "Việt Nam hóa chiến tranh"?',
         options: [
           'A. Thất bại trong trận "Điện Biên Phủ trên không" 1972.',
@@ -226,6 +362,7 @@ export const QUIZ_EXAMS: QuizExam[] = [
       },
       {
         id: 5,
+        type: 'single_choice',
         question: 'Mệnh lệnh lịch sử nổi tiếng: "Thần tốc, thần tốc hơn nữa; táo bạo, táo bạo hơn nữa..." do ai phát ra?',
         options: [
           'A. Chủ tịch Tôn Đức Thắng.',
@@ -239,6 +376,7 @@ export const QUIZ_EXAMS: QuizExam[] = [
       },
       {
         id: 6,
+        type: 'single_choice',
         question: 'Trận then chốt mở màn cho Cuộc Tổng tiến công và nổi dậy mùa Xuân 1975 diễn ra tại đâu?',
         options: [
           'A. Trận Phước Long.',
@@ -252,6 +390,7 @@ export const QUIZ_EXAMS: QuizExam[] = [
       },
       {
         id: 7,
+        type: 'single_choice',
         question: 'Hiệp định Paris năm 1973 quy định thời hạn quân viễn chinh Mỹ và đồng minh phải rút hết về nước là trong vòng bao nhiêu ngày?',
         options: [
           'A. 30 ngày.',
@@ -265,6 +404,7 @@ export const QUIZ_EXAMS: QuizExam[] = [
       },
       {
         id: 8,
+        type: 'single_choice',
         question: 'Ai là người cắm lá cờ giải phóng trên nóc Dinh Độc Lập vào lúc 11h30 trưa ngày 30/4/1975?',
         options: [
           'A. Đại đội trưởng Bùi Quang Thận.',
@@ -278,6 +418,7 @@ export const QUIZ_EXAMS: QuizExam[] = [
       },
       {
         id: 9,
+        type: 'single_choice',
         question: 'Thắng lợi nào đã hoàn thành mục tiêu chiến lược "Đánh cho Mỹ cút" của Chủ tịch Hồ Chí Minh?',
         options: [
           'A. Thắng lợi trận Vạn Tường 1965.',
@@ -291,6 +432,7 @@ export const QUIZ_EXAMS: QuizExam[] = [
       },
       {
         id: 10,
+        type: 'single_choice',
         question: 'Tuyến đường vận tải chiến lược chi viện sức người sức của từ hậu phương miền Bắc cho tiền tuyến miền Nam mang tên gì?',
         options: [
           'A. Đường 1A huyết mạch.',
@@ -304,6 +446,7 @@ export const QUIZ_EXAMS: QuizExam[] = [
       },
       {
         id: 11,
+        type: 'single_choice',
         question: 'Chiến dịch nào đã giáng đòn quyết định đập tan phòng tuyến phòng ngự "cánh cửa thép" phía Đông Sài Gòn?',
         options: [
           'A. Trận chiến đấu tại đèo An Khê.',
@@ -317,6 +460,7 @@ export const QUIZ_EXAMS: QuizExam[] = [
       },
       {
         id: 12,
+        type: 'single_choice',
         question: 'Nguyên nhân mang tính quyết định hàng đầu làm nên thắng lợi vĩ đại của cuộc kháng chiến chống Mỹ (1954 - 1975) là:',
         options: [
           'A. Sự viện trợ to lớn từ Liên Xô, Trung Quốc và các nước XHCN.',
@@ -342,6 +486,7 @@ export const QUIZ_EXAMS: QuizExam[] = [
     questions: [
       {
         id: 1,
+        type: 'single_choice',
         question: 'Hội nghị Ianta (tháng 2/1945) diễn ra với sự tham dự của nguyên thủ ba cường quốc nào?',
         options: [
           'A. Liên Xô, Mỹ, Pháp.',
@@ -355,6 +500,7 @@ export const QUIZ_EXAMS: QuizExam[] = [
       },
       {
         id: 2,
+        type: 'single_choice',
         question: 'Cơ quan nào của Liên Hợp Quốc giữ vai trò trọng yếu trong việc duy trì hòa bình và an ninh thế giới?',
         options: [
           'A. Đại hội đồng.',
@@ -368,6 +514,7 @@ export const QUIZ_EXAMS: QuizExam[] = [
       },
       {
         id: 3,
+        type: 'single_choice',
         question: 'Năm 1960 đi vào lịch sử phong trào giải phóng dân tộc thế giới với tên gọi là gì?',
         options: [
           'A. Năm châu Á bừng tỉnh.',
@@ -381,6 +528,7 @@ export const QUIZ_EXAMS: QuizExam[] = [
       },
       {
         id: 4,
+        type: 'single_choice',
         question: 'Hiệp hội các quốc gia Đông Nam Á (ASEAN) được thành lập vào ngày tháng năm nào?',
         options: [
           'A. 08/08/1967 tại Bangkok (Thái Lan).',
@@ -394,6 +542,7 @@ export const QUIZ_EXAMS: QuizExam[] = [
       },
       {
         id: 5,
+        type: 'single_choice',
         question: 'Việt Nam chính thức trở thành thành viên thứ 7 của Hiệp hội các quốc gia Đông Nam Á (ASEAN) vào năm nào?',
         options: [
           'A. Năm 1991.',
@@ -407,6 +556,7 @@ export const QUIZ_EXAMS: QuizExam[] = [
       },
       {
         id: 6,
+        type: 'single_choice',
         question: 'Xu thế bao trùm trong quan hệ quốc tế từ sau khi Chiến tranh Lạnh chấm dứt (1989 - 1991) là:',
         options: [
           'A. Chạy đua vũ trang hạt nhân giữa các siêu cường.',
@@ -420,6 +570,7 @@ export const QUIZ_EXAMS: QuizExam[] = [
       },
       {
         id: 7,
+        type: 'single_choice',
         question: 'Cuộc cách mạng khoa học - công nghệ hiện đại bắt đầu từ những năm 40 của thế kỷ XX có nguồn gốc sâu xa từ:',
         options: [
           'A. Nhu cầu đáp ứng các đơn đặt hàng quân sự trong Thế chiến II.',
@@ -433,6 +584,7 @@ export const QUIZ_EXAMS: QuizExam[] = [
       },
       {
         id: 8,
+        type: 'single_choice',
         question: 'Quốc gia nào ở châu Á vươn lên thành nền kinh tế lớn thứ hai thế giới tư bản trong thập niên 70 của thế kỷ XX?',
         options: [
           'A. Hàn Quốc.',
@@ -446,6 +598,7 @@ export const QUIZ_EXAMS: QuizExam[] = [
       },
       {
         id: 9,
+        type: 'single_choice',
         question: 'Sự sụp đổ của trật tự hai cực Ianta (1991) đã mở đường cho xu thế hình thành trật tự thế giới mới nào?',
         options: [
           'A. Trật tự đơn cực do Mỹ hoàn toàn chi phối.',
@@ -459,6 +612,7 @@ export const QUIZ_EXAMS: QuizExam[] = [
       },
       {
         id: 10,
+        type: 'single_choice',
         question: 'Văn kiện pháp lý đầu tiên của Liên bang Nga khẳng định quan hệ hữu nghị với Việt Nam ký năm 1994 là:',
         options: [
           'A. Hiệp ước về những nguyên tắc cơ bản của quan hệ hữu nghị.',
