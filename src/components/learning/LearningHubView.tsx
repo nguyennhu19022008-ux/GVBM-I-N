@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { GradeSelectionGate } from './GradeSelectionGate';
 import { GradeFilterBar } from './GradeFilterBar';
 import { HomeworkSection } from './HomeworkSection';
 import { ExamArchiveSection } from './ExamArchiveSection';
@@ -14,6 +15,9 @@ import { QUIZ_EXAMS } from '../../data/quizData';
 
 interface LearningHubViewProps {
   initialGrade?: GradeLevel;
+  hasSelectedGrade: boolean;
+  onConfirmGrade: (grade: GradeLevel) => void;
+  onResetGradeSelection: () => void;
   onSelectExam: (exam: QuizExam) => void;
   onSubmitFeedback: (fb: Omit<StudentFeedback, 'id' | 'createdAt' | 'status'>) => void;
   customResources: CurriculumResource[];
@@ -21,6 +25,9 @@ interface LearningHubViewProps {
 
 export const LearningHubView: React.FC<LearningHubViewProps> = ({
   initialGrade = '12',
+  hasSelectedGrade,
+  onConfirmGrade,
+  onResetGradeSelection,
   onSelectExam,
   onSubmitFeedback,
   customResources,
@@ -30,6 +37,12 @@ export const LearningHubView: React.FC<LearningHubViewProps> = ({
   const [activePeriodFacet, setActivePeriodFacet] = useState<string>('all');
   const [activeStatusFilter, setActiveStatusFilter] = useState<'all' | 'bookmarked' | 'completed' | 'unattempted'>('all');
   const [searchQuery, setSearchQuery] = useState<string>('');
+
+  // Keep activeGrade synced when initialGrade changes from App
+  useEffect(() => {
+    setActiveGrade(initialGrade);
+    setActivePeriodFacet('all');
+  }, [initialGrade]);
 
   // Bookmarking & Completed Status Tracking with safeStorage
   const [bookmarkedIds, setBookmarkedIds] = useState<string[]>(() =>
@@ -44,6 +57,31 @@ export const LearningHubView: React.FC<LearningHubViewProps> = ({
   const [isReportOpen, setIsReportOpen] = useState<boolean>(false);
   const [reportTargetTitle, setReportTargetTitle] = useState<string>('');
   const [reportTargetId, setReportTargetId] = useState<string | undefined>(undefined);
+
+  // Count custom resources per grade for the Gate
+  const customResourcesCountByGrade: Record<GradeLevel, number> = {
+    '10': customResources.filter((r) => r.grade === '10').length,
+    '11': customResources.filter((r) => r.grade === '11').length,
+    '12': customResources.filter((r) => r.grade === '12').length,
+  };
+
+  // Gate before entering: student must choose their grade first
+  if (!hasSelectedGrade) {
+    return (
+      <GradeSelectionGate
+        onSelectGrade={(g) => {
+          setActiveGrade(g);
+          setActiveCategory('all');
+          setActivePeriodFacet('all');
+          setActiveStatusFilter('all');
+          setSearchQuery('');
+          onConfirmGrade(g);
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }}
+        customResourcesCountByGrade={customResourcesCountByGrade}
+      />
+    );
+  }
 
   const handleToggleBookmark = (id: string) => {
     setBookmarkedIds((prev) => {
@@ -64,15 +102,15 @@ export const LearningHubView: React.FC<LearningHubViewProps> = ({
   // Combine initial resources with any newly added ones from Admin
   const allResources = [...customResources, ...INITIAL_CURRICULUM_RESOURCES];
 
-  // Grade-level resources for counting
+  // Grade-level resources strictly for activeGrade
   const gradeResources = allResources.filter((r) => r.grade === activeGrade);
   const gradeBookmarkedCount = gradeResources.filter((r) => bookmarkedIds.includes(r.id)).length;
   const gradeCompletedCount = gradeResources.filter((r) => completedIds.includes(r.id)).length;
   const gradeUnattemptedCount = gradeResources.filter((r) => !completedIds.includes(r.id)).length;
+  const gradeExamsCount = QUIZ_EXAMS.filter((e) => e.gradeLevel === activeGrade).length;
 
-  // Filter resources by grade, category, period facet, status, and search query
-  const filteredResources = allResources.filter((res) => {
-    if (res.grade !== activeGrade) return false;
+  // Filter resources strictly by activeGrade, category, period facet, status, and search query
+  const filteredResources = gradeResources.filter((res) => {
     if (activeCategory !== 'all' && res.category !== activeCategory) return false;
 
     // Period Facet Filter
@@ -117,7 +155,6 @@ export const LearningHubView: React.FC<LearningHubViewProps> = ({
   };
 
   const handleDownload = (res: CurriculumResource) => {
-    // Generate downloadable study document blob
     const content = `===============================================================
 ĐAM MÊ LỊCH SỬ • TÀI LIỆU HỌC TẬP & ÔN THI CHÍNH THỨC
 CHỦ NHIỆM: THẦY NGUYỄN VƯƠNG GIA
@@ -163,9 +200,9 @@ Chúc các em học sinh Khối ${res.grade} ôn tập hiệu quả và đạt �
       {/* Soft warm paper lighting vignette */}
       <div className="absolute inset-0 bg-radial from-transparent via-[#FAF8F1]/60 to-[#FAF8F1] pointer-events-none" />
 
-      {/* Large Pedagogical Watermark */}
+      {/* Large Pedagogical Watermark showing ONLY activeGrade */}
       <div className="absolute right-6 top-10 font-mono text-8xl sm:text-9xl font-black text-[#9C3B32]/5 select-none pointer-events-none tracking-widest uppercase">
-        10 · 11 · 12
+        KHỐI {activeGrade}
       </div>
 
       <div className="relative z-10">
@@ -175,34 +212,31 @@ Chúc các em học sinh Khối ${res.grade} ôn tập hiệu quả và đạt �
             <div className="flex items-center gap-2 text-xs font-mono font-bold tracking-widest text-[#9C3B32] uppercase mb-1.5">
               <span>GIẢNG ĐƯỜNG SỐ HÓA</span>
               <span>•</span>
-              <span>HỆ THỐNG BÀI TẬP & ĐỀ THI</span>
+              <span>KHỐI {activeGrade}</span>
             </div>
             <h2 className="font-playfair text-3xl sm:text-4xl md:text-5xl font-black text-[#0A1418] tracking-tight">
-              Không Gian Học Tập & Tương Tác Khối 10 · 11 · 12
+              Bài Tập & Đề Thi Dành Riêng Cho Khối {activeGrade}
             </h2>
           </div>
           <p className="text-xs sm:text-sm font-sans text-[#687477] max-w-md italic">
-            "Phân loại trực quan bằng hệ ký hiệu sư phạm: [ ✎ BÀI TẬP TUẦN ], [ ✦ ĐỀ THI MA TRẬN ], [ ◈ KHẢO THÍ ONLINE ], kèm ma trận đề thi và giải thích chi tiết."
+            "Phân loại trực quan bằng hệ ký hiệu sư phạm: [ ✎ BÀI TẬP TUẦN ], [ ✦ ĐỀ THI MA TRẬN ], [ ◈ KHẢO THÍ ONLINE ] thuộc chương trình Lịch sử Khối {activeGrade}."
           </p>
         </div>
 
         {/* Student Progress Ledger Strip */}
         <StudentProgressStrip
           activeGrade={activeGrade}
-          totalExamsCount={QUIZ_EXAMS.length}
+          totalExamsCount={gradeExamsCount}
           bookmarkedCount={gradeBookmarkedCount}
           completedResourcesCount={gradeCompletedCount}
           onQuickFilterBookmarked={() => setActiveStatusFilter('bookmarked')}
           onQuickFilterCompleted={() => setActiveStatusFilter('completed')}
         />
 
-        {/* Grade Filter Bar */}
+        {/* Single-Grade Filter Bar */}
         <GradeFilterBar
           activeGrade={activeGrade}
-          onSelectGrade={(g) => {
-            setActiveGrade(g);
-            setActivePeriodFacet('all');
-          }}
+          onRequestChangeGrade={onResetGradeSelection}
           activeCategory={activeCategory}
           onSelectCategory={(c) => setActiveCategory(c)}
           searchQuery={searchQuery}
@@ -247,7 +281,7 @@ Chúc các em học sinh Khối ${res.grade} ôn tập hiệu quả và đạt �
             />
           )}
 
-          {/* Section 3: Online Quiz Studio */}
+          {/* Section 3: Online Quiz Studio (Filtered strictly by activeGrade) */}
           {(activeCategory === 'all' || activeCategory === 'quiz') && (
             <QuizStudioSection
               grade={activeGrade}

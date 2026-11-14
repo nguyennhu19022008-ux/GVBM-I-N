@@ -15,6 +15,16 @@ export const QuizStudioSection: React.FC<QuizStudioSectionProps> = ({
   onSelectExam,
   onOpenReport,
 }) => {
+  const gradeExams = QUIZ_EXAMS.filter((exam) => exam.gradeLevel === grade);
+
+  if (gradeExams.length === 0) {
+    return (
+      <div className="py-10 text-left text-[#687477] font-mono text-xs bg-[#F3EFE5]/40 border-l-3 border-[#B47818] p-6">
+        Hiện chưa có đề thi trắc nghiệm trực tuyến cho Khối {grade}. Thầy sẽ cập nhật thêm sớm!
+      </div>
+    );
+  }
+
   return (
     <div className="space-y-6 text-left">
       
@@ -29,13 +39,13 @@ export const QuizStudioSection: React.FC<QuizStudioSectionProps> = ({
           </h3>
         </div>
         <span className="text-xs font-mono font-bold text-[#B47818]">
-          BẤM GIỜ & CHẤM ĐIỂM TỨC THÌ
+          {gradeExams.length} ĐỀ THI KHỐI {grade} • BẤM GIỜ & CHẤM ĐIỂM
         </span>
       </div>
 
       {/* Cardless Open Editorial Rows */}
       <div className="divide-y divide-[#0A1418]/15 border-b border-[#0A1418]/20">
-        {QUIZ_EXAMS.map((exam, idx) => (
+        {gradeExams.map((exam, idx) => (
           <div
             key={exam.id}
             className="py-6 px-2 sm:px-4 hover:bg-[#F3EFE5]/40 transition-colors flex flex-col lg:flex-row lg:items-center justify-between gap-6"

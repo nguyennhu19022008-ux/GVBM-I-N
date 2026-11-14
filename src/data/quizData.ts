@@ -25,7 +25,7 @@ export interface QuizExam {
   topicLabel: string;
   description: string;
   timeLimitMinutes: number;
-  gradeLevel: '11' | '12' | 'all';
+  gradeLevel: '10' | '11' | '12';
   questionsCount: number;
   difficulty: 'Cơ Bản' | 'Vận Dụng' | 'Phân Hóa 8-9-10';
   questions: QuizQuestion[];
@@ -623,6 +623,210 @@ export const QUIZ_EXAMS: QuizExam[] = [
         correctAnswer: 0,
         explanation: 'Tháng 6/1994, Việt Nam và Liên bang Nga ký Hiệp ước về những nguyên tắc cơ bản của quan hệ hữu nghị, đặt nền móng pháp lý cho mối quan hệ đối tác tin cậy trong thời kỳ mới.',
         topic: 'Ngoại giao Việt - Nga'
+      }
+    ]
+  },
+  {
+    id: 'quiz-lich-su-10-van-minh',
+    title: 'Đề Khối 10 Số 01: Sử Học & Các Nền Văn Minh Cổ - Trung Đại',
+    topicLabel: 'Sử Học & Văn Minh Nhân Loại',
+    description: 'Bộ câu hỏi trắc nghiệm chuẩn chương trình GDPT 2018 dành riêng cho Khối 10: Hiện thực lịch sử, Văn minh Ai Cập, Hy Lạp - La Mã và Văn Lang - Âu Lạc.',
+    timeLimitMinutes: 15,
+    gradeLevel: '10',
+    questionsCount: 5,
+    difficulty: 'Cơ Bản',
+    questions: [
+      {
+        id: 1001,
+        type: 'single_choice',
+        question: 'Hiện thực lịch sử khác với nhận thức lịch sử ở điểm cơ bản nào?',
+        options: [
+          'A. Hiện thực lịch sử có thể thay đổi theo quan điểm của người nghiên cứu.',
+          'B. Hiện thực lịch sử chỉ diễn ra một lần, tồn tại khách quan; nhận thức lịch sử mang tính chủ quan và có thể thay đổi.',
+          'C. Nhận thức lịch sử luôn phản ánh đúng hoàn toàn 100% hiện thực lịch sử.',
+          'D. Hiện thực lịch sử chỉ tồn tại trong sách giáo khoa.'
+        ],
+        correctAnswer: 1,
+        explanation: 'Hiện thực lịch sử là toàn bộ những gì đã diễn ra trong quá khứ một cách khách quan, duy nhất. Nhận thức lịch sử là sự hiểu biết của con người về hiện thực đó nên phụ thuộc vào tư liệu và góc nhìn.',
+        topic: 'Khái niệm Sử học'
+      },
+      {
+        id: 1002,
+        type: 'single_choice',
+        question: 'Cơ sở kinh tế chủ yếu của các quốc gia cổ đại phương Đông (Ai Cập, Lưỡng Hà, Ấn Độ, Trung Hoa) là:',
+        options: [
+          'A. Công thương nghiệp và hàng hải.',
+          'B. Nông nghiệp tưới tiêu gắn liền với các dòng sông lớn.',
+          'C. Kinh tế đồn điền sử dụng nô lệ quy mô lớn.',
+          'D. Thủ công nghiệp tinh xảo.'
+        ],
+        correctAnswer: 1,
+        explanation: 'Các nền văn minh cổ đại phương Đông đều hình thành trên lưu vực các con sông lớn (sông Nin, Ơ-phơ-rát, Ti-gơ-rơ, sông Ấn, Hoàng Hà), tạo điều kiện phát triển nông nghiệp lúa nước và thủy lợi.',
+        topic: 'Văn minh phương Đông'
+      },
+      {
+        id: 1003,
+        type: 'single_choice',
+        question: 'Quốc gia thành bang nào ở Hy Lạp cổ đại là điển hình cho thể chế dân chủ chủ nô?',
+        options: [
+          'A. Thành bang Xpác (Sparta).',
+          'B. Thành bang A-ten (Athens).',
+          'C. Đế quốc Ba Tư.',
+          'D. Vương quốc Macedonia.'
+        ],
+        correctAnswer: 1,
+        explanation: 'Thành bang A-ten (Athens) thế kỷ V TCN đã thiết lập thể chế dân chủ chủ nô tiến bộ nhất thời cổ đại với Đại hội công dân và Hội đồng 500 người.',
+        topic: 'Văn minh Hy Lạp - La Mã'
+      },
+      {
+        id: 1004,
+        type: 'single_choice',
+        question: 'Hiện vật tiêu biểu nhất biểu trưng cho trình độ luyện kim và nghệ thuật đúc đồng của cư dân Văn Lang - Âu Lạc là:',
+        options: [
+          'A. Trống đồng Đông Sơn (Ngọc Lũ).',
+          'B. Tháp Chàm Pô Klong Garai.',
+          'C. Tượng Phật Đồng Dương.',
+          'D. Tiền đồng Óc Eo.'
+        ],
+        correctAnswer: 0,
+        explanation: 'Trống đồng Đông Sơn (tiêu biểu là trống đồng Ngọc Lũ) là đỉnh cao của văn minh sông Hồng, phản ánh đời sống sinh hoạt, tín ngưỡng và trình độ đúc đồng kiệt xuất của người Việt cổ.',
+        topic: 'Văn minh Văn Lang - Âu Lạc'
+      },
+      {
+        id: 1005,
+        type: 'true_false_group',
+        stimulus: 'Văn minh Đại Việt phát triển rực rỡ trong thời kỳ độc lập tự chủ (thế kỷ X - XIX), kết hợp hài hòa giữa truyền thống bản địa và tiếp thu có chọn lọc tinh hoa văn hóa bên ngoài.',
+        question: 'Xác định tính đúng/sai của các nhận định sau về Văn minh Đại Việt:',
+        statements: [
+          {
+            id: 'a',
+            statement: 'Văn minh Đại Việt hình thành và phát triển trên nền tảng độc lập, tự chủ của dân tộc.',
+            isCorrect: true,
+            explanation: 'Đúng: Chiến thắng Bạch Đằng 938 mở ra kỷ nguyên độc lập lâu dài, tạo điều kiện cho văn minh Đại Việt phát triển rực rỡ.'
+          },
+          {
+            id: 'b',
+            statement: 'Văn Miếu - Quốc Tử Giám (thành lập năm 1070, 1076) là trường đại học đầu tiên của nước ta.',
+            isCorrect: true,
+            explanation: 'Đúng: Thời Lý đã cho xây dựng Văn Miếu (1070) và lập Quốc Tử Giám (1076) để đào tạo nhân tài.'
+          },
+          {
+            id: 'c',
+            statement: 'Chữ Nôm là hệ thống chữ viết do thực dân Pháp truyền bá vào nước ta.',
+            isCorrect: false,
+            explanation: 'Sai: Chữ Nôm do cha ông ta sáng tạo trên cơ sở chữ Hán từ thời Lý - Trần để ghi âm tiếng Việt.'
+          },
+          {
+            id: 'd',
+            statement: 'Nông nghiệp lúa nước vẫn là nền tảng kinh tế căn bản của quốc gia Đại Việt.',
+            isCorrect: true,
+            explanation: 'Đúng: Các triều đại đều coi trọng đê điều, thủy lợi ("dĩ nông vi bản").'
+          }
+        ],
+        explanation: 'Văn minh Đại Việt mang bản sắc dân tộc sâu sắc, lấy nông nghiệp làm gốc và đề cao giáo dục, khoa cử.',
+        topic: 'Văn minh Đại Việt'
+      }
+    ]
+  },
+  {
+    id: 'quiz-lich-su-11-can-dai',
+    title: 'Đề Khối 11 Số 01: Việt Nam (1858 - 1918) & Thế Giới Cận - Hiện Đại',
+    topicLabel: 'Kháng Pháp & Phong Trào Yêu Nước',
+    description: 'Bộ câu hỏi trắc nghiệm chuyên sâu dành riêng cho Khối 11 về cuộc kháng chiến chống Pháp xâm lược, phong trào Cần Vương, Yên Thế và xu hướng cứu nước đầu thế kỷ XX.',
+    timeLimitMinutes: 15,
+    gradeLevel: '11',
+    questionsCount: 5,
+    difficulty: 'Vận Dụng',
+    questions: [
+      {
+        id: 1101,
+        type: 'single_choice',
+        question: 'Thực dân Pháp nổ súng mở đầu cuộc chiến tranh xâm lược Việt Nam (1/9/1858) tại địa điểm nào?',
+        options: [
+          'A. Cửa biển Thuận An (Huế).',
+          'B. Bán đảo Sơn Trà (Đà Nẵng).',
+          'C. Thành Gia Định.',
+          'D. Cửa biển Cần Giờ.'
+        ],
+        correctAnswer: 1,
+        explanation: 'Rạng sáng ngày 1/9/1858, liên quân Pháp - Tây Ban Nha nổ súng tấn công bán đảo Sơn Trà (Đà Nẵng), thực hiện âm mưu "đánh nhanh thắng nhanh".',
+        topic: 'Pháp xâm lược 1858'
+      },
+      {
+        id: 1102,
+        type: 'single_choice',
+        question: 'Hiệp ước nào đã chính thức đánh dấu sự đầu hàng hoàn toàn của triều đình phong kiến nhà Nguyễn trước thực dân Pháp?',
+        options: [
+          'A. Hiệp ước Nhâm Tuất (1862).',
+          'B. Hiệp ước Giáp Tuất (1874).',
+          'C. Hiệp ước Hác-măng (1883).',
+          'D. Hiệp ước Pa-tơ-nốt (1884).'
+        ],
+        correctAnswer: 3,
+        explanation: 'Với Hiệp ước Pa-tơ-nốt (6/6/1884), triều đình Huế chính thức thừa nhận quyền bảo hộ của Pháp trên toàn cõi Việt Nam, chấm dứt sự tồn tại của nhà nước phong kiến độc lập.',
+        topic: 'Các hiệp ước 1862 - 1884'
+      },
+      {
+        id: 1103,
+        type: 'single_choice',
+        question: 'Cuộc khởi nghĩa nào được xem là tiêu biểu nhất và có thời gian tồn tại lâu dài nhất trong phong trào Cần Vương (1885 - 1896)?',
+        options: [
+          'A. Khởi nghĩa Ba Đình.',
+          'B. Khởi nghĩa Bãi Sậy.',
+          'C. Khởi nghĩa Hương Khê (do Phan Đình Phùng và Cao Thắng lãnh đạo).',
+          'D. Khởi nghĩa Hùng Lĩnh.'
+        ],
+        correctAnswer: 2,
+        explanation: 'Khởi nghĩa Hương Khê (1885 - 1896) có quy mô rộng lớn trên 4 tỉnh Bắc Trung Kỳ, trình độ tổ chức cao, tự chế tạo được súng trường kiểu 1874 và kéo dài hơn 10 năm.',
+        topic: 'Phong trào Cần Vương'
+      },
+      {
+        id: 1104,
+        type: 'single_choice',
+        question: 'Điểm khác biệt căn bản về phương pháp đấu tranh giữa Phan Bội Châu và Phan Châu Trinh đầu thế kỷ XX là:',
+        options: [
+          'A. Phan Bội Châu chủ trương bạo động vũ trang; Phan Châu Trinh chủ trương cải cách ôn hòa, nâng cao dân trí.',
+          'B. Phan Bội Châu dựa vào Pháp; Phan Châu Trinh dựa vào Nhật.',
+          'C. Phan Bội Châu theo khuynh hướng vô sản; Phan Châu Trinh theo khuynh hướng phong kiến.',
+          'D. Hai ông hoàn toàn giống nhau về phương pháp đấu tranh.'
+        ],
+        correctAnswer: 0,
+        explanation: 'Phan Bội Châu chủ trương bạo động vũ trang, cầu viện Nhật Bản (phong trào Đông Du); trong khi Phan Châu Trinh chủ trương cải cách dân chủ, "khai dân trí, chấn dân khí, hậu dân sinh", phản đối bạo động.',
+        topic: 'Xu hướng cứu nước đầu TK XX'
+      },
+      {
+        id: 1105,
+        type: 'true_false_group',
+        stimulus: 'Khởi nghĩa nông dân Yên Thế (1884 - 1913) do Đề Nắm và sau đó là Hoàng Hoa Thám (Hùm thiêng Yên Thế) lãnh đạo đã gây cho thực dân Pháp nhiều tổn thất nặng nề trong gần 30 năm.',
+        question: 'Xác định tính đúng/sai của các nhận định sau về Khởi nghĩa Yên Thế:',
+        statements: [
+          {
+            id: 'a',
+            statement: 'Khởi nghĩa Yên Thế là một bộ phận của phong trào Cần Vương do vua Hàm Nghi phát động.',
+            isCorrect: false,
+            explanation: 'Sai: Yên Thế là phong trào tự phát của nông dân chống cướp đất lập đồn điền, không chịu sự chi phối của chiếu Cần Vương.'
+          },
+          {
+            id: 'b',
+            statement: 'Đây là cuộc khởi nghĩa nông dân kéo dài gần 30 năm (1884 - 1913), bền bỉ nhất cuối thế kỷ XIX đầu XX.',
+            isCorrect: true,
+            explanation: 'Đúng: Khởi nghĩa diễn ra liên tục trong gần 3 thập kỷ tại vùng núi rừng Bắc Giang.'
+          },
+          {
+            id: 'c',
+            statement: 'Lực lượng tham gia chủ yếu là nông dân địa phương tự vệ bảo vệ quê hương.',
+            isCorrect: true,
+            explanation: 'Đúng: Mục tiêu trực tiếp của nghĩa quân là giữ đất, giữ làng trước chính sách bình định của Pháp.'
+          },
+          {
+            id: 'd',
+            statement: 'Khởi nghĩa Yên Thế đã giành thắng lợi hoàn toàn, buộc Pháp phải rút khỏi Bắc Kỳ.',
+            isCorrect: false,
+            explanation: 'Sai: Cuối cùng khởi nghĩa thất bại do lực lượng chênh lệch và hạn chế về đường lối lãnh đạo giai cấp.'
+          }
+        ],
+        explanation: 'Khởi nghĩa Yên Thế thể hiện tinh thần quật cường của giai cấp nông dân Việt Nam, nhưng vẫn mang tính chất tự phát, cục bộ địa phương.',
+        topic: 'Khởi nghĩa Yên Thế'
       }
     ]
   }

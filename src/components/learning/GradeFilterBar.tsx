@@ -1,11 +1,11 @@
 import React from 'react';
-import { Search, Star, CheckCircle, Clock } from 'lucide-react';
+import { Search, Star, CheckCircle, Clock, RefreshCw } from 'lucide-react';
 import type { GradeLevel, ResourceCategory } from '../../data/curriculumData';
 import { PERIOD_FACETS_BY_GRADE } from '../../data/curriculumData';
 
 export interface GradeFilterBarProps {
   activeGrade: GradeLevel;
-  onSelectGrade: (grade: GradeLevel) => void;
+  onRequestChangeGrade: () => void;
   activeCategory: ResourceCategory | 'all';
   onSelectCategory: (cat: ResourceCategory | 'all') => void;
   searchQuery: string;
@@ -19,9 +19,24 @@ export interface GradeFilterBarProps {
   unattemptedCount: number;
 }
 
+const GRADE_META: Record<GradeLevel, { badge: string; desc: string }> = {
+  '10': {
+    badge: 'CHƯƠNG TRÌNH MỚI • GDPT 2018',
+    desc: 'Lịch Sử & Văn Minh Nhân Loại · Dân Tộc & Đất Nước',
+  },
+  '11': {
+    badge: 'CẬN - HIỆN ĐẠI • 1858 - 1945',
+    desc: 'Kháng Pháp · Phong Trào Cần Vương · Thế Chiến II',
+  },
+  '12': {
+    badge: '★ TRỌNG TÂM ÔN THI • THPT 2026',
+    desc: '1919 - Độc Lập · Hai Cuộc Kháng Chiến & Thời Kỳ Đổi Mới',
+  },
+};
+
 export const GradeFilterBar: React.FC<GradeFilterBarProps> = ({
   activeGrade,
-  onSelectGrade,
+  onRequestChangeGrade,
   activeCategory,
   onSelectCategory,
   searchQuery,
@@ -35,97 +50,41 @@ export const GradeFilterBar: React.FC<GradeFilterBarProps> = ({
   unattemptedCount,
 }) => {
   const currentFacets = PERIOD_FACETS_BY_GRADE[activeGrade] || [];
+  const gradeInfo = GRADE_META[activeGrade];
 
   return (
-    <div className="w-full space-y-6 pb-2 text-left">
+    <div className="w-full space-y-5 pb-2 text-left">
       
-      {/* 3 Main Grade Columns (Cardless Open Broadsheet Columns - No Rounded Boxes) */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        
-        {/* Grade 10 Column */}
-        <button
-          onClick={() => {
-            onSelectGrade('10');
-            onSelectPeriodFacet('all');
-          }}
-          className={`p-6 text-left transition-all cursor-pointer rounded-none relative border-t-3 ${
-            activeGrade === '10'
-              ? 'border-[#9C3B32] bg-[#F3EFE5]/70 translate-y-[-2px]'
-              : 'border-[#0A1418]/20 bg-transparent hover:bg-[#F3EFE5]/30'
-          }`}
-        >
-          <div className="flex items-center justify-between text-xs font-mono mb-2">
-            <span className={`font-bold uppercase tracking-wider ${activeGrade === '10' ? 'text-[#9C3B32]' : 'text-[#687477]'}`}>
-              CHƯƠNG TRÌNH MỚI
-            </span>
-            <span className="text-[10px] font-mono font-bold text-[#0A1418] bg-black/5 px-2 py-0.5">GDPT 2018</span>
-          </div>
-          <h3 className={`font-playfair text-2xl sm:text-3xl font-black ${activeGrade === '10' ? 'text-[#9C3B32]' : 'text-[#0A1418]'}`}>
-            Khối 10
-          </h3>
-          <p className="text-xs text-[#687477] font-sans mt-1.5 leading-relaxed">
-            Lịch Sử & Văn Minh Nhân Loại · Dân Tộc & Đất Nước
-          </p>
-        </button>
-
-        {/* Grade 11 Column */}
-        <button
-          onClick={() => {
-            onSelectGrade('11');
-            onSelectPeriodFacet('all');
-          }}
-          className={`p-6 text-left transition-all cursor-pointer rounded-none relative border-t-3 ${
-            activeGrade === '11'
-              ? 'border-[#9C3B32] bg-[#F3EFE5]/70 translate-y-[-2px]'
-              : 'border-[#0A1418]/20 bg-transparent hover:bg-[#F3EFE5]/30'
-          }`}
-        >
-          <div className="flex items-center justify-between text-xs font-mono mb-2">
-            <span className={`font-bold uppercase tracking-wider ${activeGrade === '11' ? 'text-[#9C3B32]' : 'text-[#687477]'}`}>
-              CẬN - HIỆN ĐẠI
-            </span>
-            <span className="text-[10px] font-mono font-bold text-[#0A1418] bg-black/5 px-2 py-0.5">1858 - 1945</span>
-          </div>
-          <h3 className={`font-playfair text-2xl sm:text-3xl font-black ${activeGrade === '11' ? 'text-[#9C3B32]' : 'text-[#0A1418]'}`}>
-            Khối 11
-          </h3>
-          <p className="text-xs text-[#687477] font-sans mt-1.5 leading-relaxed">
-            Kháng Pháp · Phong Trào Cần Vương · Thế Chiến II
-          </p>
-        </button>
-
-        {/* Grade 12 Column (Special Focus) */}
-        <button
-          onClick={() => {
-            onSelectGrade('12');
-            onSelectPeriodFacet('all');
-          }}
-          className={`p-6 text-left transition-all cursor-pointer rounded-none relative border-t-3 ${
-            activeGrade === '12'
-              ? 'border-[#9C3B32] bg-[#F3EFE5]/70 translate-y-[-2px]'
-              : 'border-[#0A1418]/20 bg-transparent hover:bg-[#F3EFE5]/30'
-          }`}
-        >
-          <div className="flex items-center justify-between text-xs font-mono mb-2">
-            <span className="font-bold uppercase tracking-wider text-[#9C3B32]">
-              ★ TRỌNG TÂM ÔN THI
-            </span>
-            <span className="text-[10px] font-mono font-bold bg-[#9C3B32] text-white px-2 py-0.5">
-              THPT 2026
+      {/* Active Grade Strip (Strict Single-Grade Isolation + Switch Grade Button) */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 py-4 px-5 bg-[#F3EFE5]/80 border-t-3 border-b border-[#9C3B32] border-b-[#0A1418]/15">
+        <div className="space-y-1">
+          <div className="flex items-center gap-2 text-[11px] font-mono font-bold text-[#9C3B32] uppercase tracking-wider">
+            <span>ĐANG HIỂN THỊ DỮ LIỆU RIÊNG BIỆT:</span>
+            <span className="px-2 py-0.5 bg-[#0A1418] text-[#FAF8F1] text-[10px]">
+              {gradeInfo.badge}
             </span>
           </div>
-          <h3 className={`font-playfair text-2xl sm:text-3xl font-black ${activeGrade === '12' ? 'text-[#9C3B32]' : 'text-[#0A1418]'}`}>
-            Khối 12 ★
-          </h3>
-          <p className="text-xs text-[#687477] font-sans mt-1.5 leading-relaxed">
-            1919 - Độc Lập · Hai Cuộc Kháng Chiến & Thời Kỳ Đổi Mới
-          </p>
-        </button>
+          <div className="flex flex-wrap items-baseline gap-3">
+            <h3 className="font-playfair text-2xl sm:text-3xl font-black text-[#0A1418]">
+              Giảng Đường Khối {activeGrade}
+            </h3>
+            <span className="text-xs sm:text-sm font-sans text-[#687477]">
+              — {gradeInfo.desc}
+            </span>
+          </div>
+        </div>
 
+        <button
+          onClick={onRequestChangeGrade}
+          className="px-4 py-2.5 bg-transparent border border-[#0A1418]/30 hover:border-[#9C3B32] hover:bg-[#9C3B32] hover:text-white text-[#0A1418] text-xs font-mono font-bold uppercase transition-all flex items-center gap-2 cursor-pointer self-start sm:self-center shrink-0"
+        >
+          <RefreshCw className="w-3.5 h-3.5" />
+          <span>Đổi Khối Lớp</span>
+        </button>
       </div>
 
       {/* Row 2: Category Tabs & Quick Search */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pt-2">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pt-1">
         
         {/* Category Square Tabs with Distinct Taxonomy Badges */}
         <div className="flex flex-wrap items-center gap-2">
@@ -182,7 +141,7 @@ export const GradeFilterBar: React.FC<GradeFilterBarProps> = ({
             type="text"
             value={searchQuery}
             onChange={(e) => onSearchChange(e.target.value)}
-            placeholder="Tìm theo từ khóa, chiến dịch, dạng bài..."
+            placeholder={`Tìm bài tập, đề thi Khối ${activeGrade}...`}
             className="w-full pl-9 pr-10 py-2 bg-transparent border border-[#0A1418]/30 focus:border-[#9C3B32] rounded-none text-xs font-sans outline-none placeholder-[#687477]/70 text-[#0A1418] transition-colors"
           />
           <Search className="w-3.5 h-3.5 text-[#0A1418]/60 absolute left-3 top-2.5" />
@@ -198,7 +157,7 @@ export const GradeFilterBar: React.FC<GradeFilterBarProps> = ({
 
       </div>
 
-      {/* Row 3: Period Facets (Phân kỳ chuyên đề) & Status Filter (Đã lưu / Đã làm / Chưa làm) */}
+      {/* Row 3: Period Facets & Status Filter */}
       <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-3 pt-2 border-t border-[#0A1418]/10">
         
         {/* Period Facets */}

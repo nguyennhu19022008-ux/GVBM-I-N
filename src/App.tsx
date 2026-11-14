@@ -21,6 +21,7 @@ export function App() {
   // Current Active Main Zone
   const [currentView, setCurrentView] = useState<PortalView>('portal');
   const [learningGrade, setLearningGrade] = useState<GradeLevel>('12');
+  const [hasSelectedGrade, setHasSelectedGrade] = useState<boolean>(false);
 
   // Admin PIN Protection State
   const [isAdminAuthenticated, setIsAdminAuthenticated] = useState<boolean>(false);
@@ -149,6 +150,7 @@ export function App() {
 
   const handleGoToGrade = (grade: GradeLevel) => {
     setLearningGrade(grade);
+    setHasSelectedGrade(true);
     setCurrentView('learning');
     window.location.hash = 'learning';
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -217,6 +219,12 @@ export function App() {
         {currentView === 'learning' && (
           <LearningHubView
             initialGrade={learningGrade}
+            hasSelectedGrade={hasSelectedGrade}
+            onConfirmGrade={(g) => {
+              setLearningGrade(g);
+              setHasSelectedGrade(true);
+            }}
+            onResetGradeSelection={() => setHasSelectedGrade(false)}
             onSelectExam={handleStartExam}
             onSubmitFeedback={handleSubmitFeedback}
             customResources={customResources}
