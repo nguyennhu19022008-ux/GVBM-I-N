@@ -7,7 +7,6 @@ import { AdminDashboardView } from './components/admin/AdminDashboardView';
 import { AdminPinModal } from './components/admin/AdminPinModal';
 import { TimelineDetailModal } from './components/TimelineDetailModal';
 import { QuizModal } from './components/QuizModal';
-import { AuthModal } from './components/AuthModal';
 import { Footer } from './components/Footer';
 
 import type { TimelineEvent } from './data/historyData';
@@ -39,20 +38,10 @@ export function App() {
   // Selected Quiz Exam for Testing Room
   const [selectedExam, setSelectedExam] = useState<QuizExam | null>(null);
 
-  // Auth User State
-  const [user, setUser] = useState<{ name: string; email: string; school?: string } | null>(null);
-  const [isAuthModalOpen, setIsAuthModalOpen] = useState<boolean>(false);
-
   // Load persistent states on mount
   useEffect(() => {
     try {
-      // 1. User
-      const storedUser = localStorage.getItem('dam_me_lich_su_user');
-      if (storedUser) {
-        setUser(JSON.parse(storedUser));
-      }
-
-      // 2. Custom Resources
+      // 1. Custom Resources
       const storedRes = localStorage.getItem('dam_me_lich_su_custom_res');
       if (storedRes) {
         setCustomResources(JSON.parse(storedRes));
@@ -172,11 +161,7 @@ export function App() {
   };
 
   const handleStartExam = (exam: QuizExam) => {
-    if (!user) {
-      setIsAuthModalOpen(true);
-    } else {
-      setSelectedExam(exam);
-    }
+    setSelectedExam(exam);
   };
 
   const handleGoToQuizByTopic = (quizId?: string) => {
@@ -197,8 +182,7 @@ export function App() {
       <Navbar
         currentView={currentView}
         onChangeView={handleNavigateView}
-        user={user}
-        onOpenAuth={() => setIsAuthModalOpen(true)}
+        isAdminAuthenticated={isAdminAuthenticated}
       />
 
       {/* Main View Router */}
@@ -270,14 +254,6 @@ export function App() {
       <QuizModal
         exam={selectedExam}
         onClose={() => setSelectedExam(null)}
-        user={user}
-      />
-
-      {/* Modal 4: Fast Auth & Student Registration */}
-      <AuthModal
-        isOpen={isAuthModalOpen}
-        onClose={() => setIsAuthModalOpen(false)}
-        onLoginSuccess={(newUser) => setUser(newUser)}
       />
 
     </div>

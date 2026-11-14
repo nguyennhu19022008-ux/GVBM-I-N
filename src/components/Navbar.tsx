@@ -1,20 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { Newspaper, GraduationCap, Shield, LogIn } from 'lucide-react';
+import { Newspaper, GraduationCap, Shield } from 'lucide-react';
 
 export type PortalView = 'portal' | 'learning' | 'admin';
 
 interface NavbarProps {
   currentView: PortalView;
   onChangeView: (view: PortalView) => void;
-  user: { name: string; email: string; avatar?: string } | null;
-  onOpenAuth: () => void;
+  isAdminAuthenticated?: boolean;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
   currentView,
   onChangeView,
-  user,
-  onOpenAuth,
+  isAdminAuthenticated = false,
 }) => {
   const [scrollProgress, setScrollProgress] = useState<number>(0);
 
@@ -112,32 +110,19 @@ export const Navbar: React.FC<NavbarProps> = ({
 
         </nav>
 
-        {/* Right Student Auth Status (Elegant Heritage Button) */}
+        {/* Right Teacher / Admin Auth Status */}
         <div className="flex items-center gap-3">
-          {user ? (
-            <div className="flex items-center gap-2.5 pl-3">
-              <div className="w-8 h-8 rounded-full border border-[#E5C985]/50 bg-[#14242A] text-[#E5C985] flex items-center justify-center font-bold text-xs uppercase overflow-hidden">
-                {user.avatar ? (
-                  <img src={user.avatar} alt={user.name} className="w-full h-full object-cover" />
-                ) : (
-                  user.name.charAt(0)
-                )}
-              </div>
-              <div className="hidden sm:block text-left">
-                <span className="block text-xs font-mono font-bold text-[#E5C985]">{user.name}</span>
-                <span className="text-[10px] font-mono text-white/50">{user.email}</span>
-              </div>
-            </div>
-          ) : (
-            <button
-              onClick={onOpenAuth}
-              className="px-3.5 py-1.5 border border-[#E5C985]/50 hover:border-[#E5C985] hover:bg-[#E5C985]/10 text-[#E5C985] text-xs font-mono font-semibold uppercase tracking-wider transition-all flex items-center gap-1.5 cursor-pointer"
-            >
-              <LogIn className="w-3.5 h-3.5 text-[#E5C985]" />
-              <span className="hidden sm:inline">Học Viên</span>
-              <span>Đăng Nhập</span>
-            </button>
-          )}
+          <button
+            onClick={() => onChangeView('admin')}
+            className={`px-3.5 py-1.5 border text-xs font-mono font-semibold uppercase tracking-wider transition-all flex items-center gap-1.5 cursor-pointer ${
+              isAdminAuthenticated
+                ? 'border-[#E5C985] bg-[#E5C985] text-[#0A1418]'
+                : 'border-[#E5C985]/50 hover:border-[#E5C985] hover:bg-[#E5C985]/10 text-[#E5C985]'
+            }`}
+          >
+            <Shield className="w-3.5 h-3.5" />
+            <span>{isAdminAuthenticated ? 'Giáo Viên (Đã Đăng Nhập)' : 'Giáo Viên'}</span>
+          </button>
         </div>
 
       </div>

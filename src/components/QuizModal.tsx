@@ -8,10 +8,9 @@ import { calculateExamScore, getQuestionCompletionStatus } from '../data/quizDat
 interface QuizModalProps {
   exam: QuizExam | null;
   onClose: () => void;
-  user: { name: string; email?: string } | null;
 }
 
-export const QuizModal: React.FC<QuizModalProps> = ({ exam, onClose, user }) => {
+export const QuizModal: React.FC<QuizModalProps> = ({ exam, onClose }) => {
   if (!exam) return null;
 
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -239,7 +238,7 @@ export const QuizModal: React.FC<QuizModalProps> = ({ exam, onClose, user }) => 
         {/* User bar */}
         <div className="bg-[#F3EFE5] px-5 sm:px-8 py-2.5 border-b border-[#0A1418]/15 flex items-center justify-between text-xs font-mono text-[#0A1418]">
           <div>
-            Thí sinh: <strong>{user?.name || 'Học sinh Khách'}</strong>
+            Thí sinh: <strong>Học sinh Khối {exam.gradeLevel}</strong>
           </div>
           <div>
             Tiến độ hoàn thành: <strong className="text-[#9C3B32] text-sm">{answeredCount}/{exam.questions.length}</strong> câu
