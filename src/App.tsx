@@ -62,10 +62,18 @@ export function App() {
         setCustomResources(JSON.parse(storedRes));
       }
 
-      // 2. Feedback Reports (local fallback)
+      // 2. Feedback Reports (local fallback, purge legacy sample/test records)
+      const legacySampleFeedbackIds = new Set(['fb-01', 'fb-02', 'fb-03', 'test-feedback-check', 'test-probe-fb']);
       const storedFeedback = localStorage.getItem('dam_me_lich_su_feedback');
       if (storedFeedback) {
-        setFeedbackList(JSON.parse(storedFeedback));
+        const parsedFb: StudentFeedback[] = JSON.parse(storedFeedback);
+        const cleanedFb = Array.isArray(parsedFb)
+          ? parsedFb.filter((item) => !legacySampleFeedbackIds.has(item.id))
+          : [];
+        setFeedbackList(cleanedFb);
+        if (cleanedFb.length !== (Array.isArray(parsedFb) ? parsedFb.length : 0)) {
+          localStorage.setItem('dam_me_lich_su_feedback', JSON.stringify(cleanedFb));
+        }
       } else {
         setFeedbackList(INITIAL_FEEDBACK_LIST);
       }
