@@ -19,6 +19,7 @@ import {
   isSupabaseConfigured,
   fetchCloudResources,
   insertCloudResource,
+  updateCloudResource,
   deleteCloudResource,
   fetchCloudFeedback,
   insertCloudFeedback,
@@ -68,8 +69,12 @@ export function App() {
       } else {
         setFeedbackList(INITIAL_FEEDBACK_LIST);
       }
+    } catch (err) {
+      console.warn('Error reading stored state:', err);
+    }
 
-      // 3. URL Hash Routing
+    // 3. URL Hash Routing & Browser Navigation Sync
+    const syncViewFromHash = () => {
       const hash = window.location.hash.replace('#', '');
       if (hash === 'learning' || hash === 'admin' || hash === 'portal') {
         if (hash === 'admin') {
@@ -82,34 +87,51 @@ export function App() {
           setCurrentView(hash as PortalView);
         }
       }
-    } catch (err) {
-      console.warn('Error reading stored state:', err);
-    }
+    };
 
-    // 4. Cloud sync with Supabase (if configured)
+    syncViewFromHash();
+    window.addEventListener('hashchange', syncViewFromHash);
+
+    // 4. Cloud sync with Supabase (if configured) - Anti Data-Loss Smart Merge
     if (isSupabaseConfigured) {
       fetchCloudResources().then((cloudRes) => {
-        if (cloudRes) {
-          setCustomResources(cloudRes);
-          try {
-            localStorage.setItem('dam_me_lich_su_custom_res', JSON.stringify(cloudRes));
-          } catch (e) {
-            console.warn(e);
-          }
+        if (cloudRes && cloudRes.length > 0) {
+          setCustomResources((prevLocal) => {
+            const map = new Map<string, CurriculumResource>();
+            prevLocal.forEach((r) => map.set(r.id, r));
+            cloudRes.forEach((r) => map.set(r.id, r));
+            const merged = Array.from(map.values());
+            try {
+              localStorage.setItem('dam_me_lich_su_custom_res', JSON.stringify(merged));
+            } catch (e) {
+              console.warn(e);
+            }
+            return merged;
+          });
         }
       });
 
       fetchCloudFeedback().then((cloudFb) => {
         if (cloudFb && cloudFb.length > 0) {
-          setFeedbackList(cloudFb);
-          try {
-            localStorage.setItem('dam_me_lich_su_feedback', JSON.stringify(cloudFb));
-          } catch (e) {
-            console.warn(e);
-          }
+          setFeedbackList((prevLocal) => {
+            const map = new Map<string, StudentFeedback>();
+            prevLocal.forEach((fb) => map.set(fb.id, fb));
+            cloudFb.forEach((fb) => map.set(fb.id, fb));
+            const merged = Array.from(map.values());
+            try {
+              localStorage.setItem('dam_me_lich_su_feedback', JSON.stringify(merged));
+            } catch (e) {
+              console.warn(e);
+            }
+            return merged;
+          });
         }
       });
     }
+
+    return () => {
+      window.removeEventListener('hashchange', syncViewFromHash);
+    };
   }, []);
 
   // Sync custom resources to localStorage + Supabase Cloud
@@ -122,6 +144,17 @@ export function App() {
       console.warn('Cannot save custom resources:', err);
     }
     void insertCloudResource(newRes);
+  };
+
+  const handleUpdateResource = (updatedRes: CurriculumResource) => {
+    const updated = customResources.map((r) => (r.id === updatedRes.id ? updatedRes : r));
+    setCustomResources(updated);
+    try {
+      localStorage.setItem('dam_me_lich_su_custom_res', JSON.stringify(updated));
+    } catch (err) {
+      console.warn('Cannot update custom resources:', err);
+    }
+    void updateCloudResource(updatedRes);
   };
 
   const handleDeleteResource = (id: string) => {
@@ -160,10 +193,10 @@ export function App() {
     void insertCloudFeedback(newFeedback);
   };
 
-  const handleResolveFeedback = (id: string) => {
+  const handleResolveFeedback = (id: string, teacherReply?: string) => {
     const resolvedAt = new Date().toISOString();
     const updated = feedbackList.map((f) =>
-      f.id === id ? { ...f, status: 'resolved' as const, resolvedAt } : f
+      f.id === id ? { ...f, status: 'resolved' as const, resolvedAt, teacherReply: teacherReply || f.teacherReply } : f
     );
     setFeedbackList(updated);
     try {
@@ -171,7 +204,7 @@ export function App() {
     } catch (err) {
       console.warn('Cannot update feedback:', err);
     }
-    void resolveCloudFeedback(id, resolvedAt);
+    void resolveCloudFeedback(id, resolvedAt, teacherReply);
   };
 
   // View Navigation
@@ -271,6 +304,7 @@ export function App() {
             resources={customResources}
             feedbackList={feedbackList}
             onAddResource={handleAddResource}
+            onUpdateResource={handleUpdateResource}
             onDeleteResource={handleDeleteResource}
             onResolveFeedback={handleResolveFeedback}
             onLogout={handleAdminLogout}

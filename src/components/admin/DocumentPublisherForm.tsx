@@ -1,13 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import { UploadCloud, Plus, CheckCircle2 } from 'lucide-react';
+import { UploadCloud, Plus, CheckCircle2, Save, X } from 'lucide-react';
 import type { CurriculumResource, GradeLevel, ResourceCategory } from '../../data/curriculumData';
 import { PERIOD_FACETS_BY_GRADE } from '../../data/curriculumData';
 
 interface DocumentPublisherFormProps {
   onPublish: (newRes: CurriculumResource) => void;
+  editingResource?: CurriculumResource | null;
+  onCancelEdit?: () => void;
 }
 
-export const DocumentPublisherForm: React.FC<DocumentPublisherFormProps> = ({ onPublish }) => {
+export const DocumentPublisherForm: React.FC<DocumentPublisherFormProps> = ({
+  onPublish,
+  editingResource,
+  onCancelEdit,
+}) => {
   const [title, setTitle] = useState<string>('');
   const [grade, setGrade] = useState<GradeLevel>('12');
   const [category, setCategory] = useState<ResourceCategory>('homework');
@@ -24,12 +30,30 @@ export const DocumentPublisherForm: React.FC<DocumentPublisherFormProps> = ({ on
   const availableFacets = (PERIOD_FACETS_BY_GRADE[grade] || []).filter((f) => f.id !== 'all');
 
   useEffect(() => {
-    const facets = (PERIOD_FACETS_BY_GRADE[grade] || []).filter((f) => f.id !== 'all');
-    if (facets.length > 0) {
-      setPeriodFacet(facets[0].id);
-      setPeriod(facets[0].label);
+    if (editingResource) {
+      setTitle(editingResource.title);
+      setGrade(editingResource.grade);
+      setCategory(editingResource.category);
+      setPeriodFacet(editingResource.periodFacet || 'kc-chong-my');
+      setPeriod(editingResource.period);
+      setFormat((editingResource.format === 'QUIZ' ? 'DOCX' : editingResource.format) || 'DOCX');
+      setFileSize(editingResource.fileSize);
+      setDescription(editingResource.description);
+      setTeacherNote(editingResource.fullContentPreview?.teacherNote || '');
+      setEstimatedStudyTimeMinutes(editingResource.fullContentPreview?.estimatedStudyTimeMinutes || 40);
+      setHighlightsInput((editingResource.highlights || []).join(', '));
     }
-  }, [grade]);
+  }, [editingResource]);
+
+  useEffect(() => {
+    if (!editingResource) {
+      const facets = (PERIOD_FACETS_BY_GRADE[grade] || []).filter((f) => f.id !== 'all');
+      if (facets.length > 0) {
+        setPeriodFacet(facets[0].id);
+        setPeriod(facets[0].label);
+      }
+    }
+  }, [grade, editingResource]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -40,8 +64,8 @@ export const DocumentPublisherForm: React.FC<DocumentPublisherFormProps> = ({ on
       .map((h) => h.trim())
       .filter(Boolean);
 
-    const newResource: CurriculumResource = {
-      id: `custom-${Date.now()}`,
+    const resourceToSave: CurriculumResource = {
+      id: editingResource ? editingResource.id : `custom-${Date.now()}`,
       title: title.trim(),
       grade,
       category,
@@ -50,67 +74,80 @@ export const DocumentPublisherForm: React.FC<DocumentPublisherFormProps> = ({ on
       description: description.trim(),
       format,
       fileSize: fileSize.trim() || '5.0 MB',
-      downloadsCount: 0,
-      author: 'Thầy Nguyễn Vương Gia',
-      createdAt: new Date().toISOString().split('T')[0],
+      downloadsCount: editingResource ? editingResource.downloadsCount : 0,
+      author: editingResource ? editingResource.author : 'Thầy Nguyễn Vương Gia',
+      createdAt: editingResource ? editingResource.createdAt : new Date().toISOString().split('T')[0],
       hasAnswerKey: category === 'exam' || category === 'homework',
       highlights: highlights.length > 0 ? highlights : ['Tài liệu phát hành mới', 'Chuẩn giáo trình THPT'],
       fullContentPreview: {
         teacherNote: teacherNote.trim() || description.trim(),
         estimatedStudyTimeMinutes: Number(estimatedStudyTimeMinutes) || 40,
-        matrix: [
+        matrix: editingResource?.fullContentPreview?.matrix || [
           { level: 'Nhận biết', percent: 40, questionCount: 8, symbol: '○', color: '#2D6A4F' },
           { level: 'Thông hiểu', percent: 30, questionCount: 6, symbol: '◐', color: '#1D4ED8' },
           { level: 'Vận dụng', percent: 20, questionCount: 4, symbol: '◕', color: '#B45309' },
           { level: 'Vận dụng cao', percent: 10, questionCount: 2, symbol: '●', color: '#B91C1C' },
         ],
-        sections: [
+        sections: editingResource?.fullContentPreview?.sections || [
           {
             sectionTitle: 'Nội dung trọng tâm tài liệu',
             items: [description.trim()],
           },
         ],
-        sampleQuestions: [],
+        sampleQuestions: editingResource?.fullContentPreview?.sampleQuestions || [],
       },
     };
 
-    onPublish(newResource);
-    setSuccessMessage(`Đã đăng tải thành công tài liệu: "${newResource.title}"!`);
+    onPublish(resourceToSave);
+    setSuccessMessage(editingResource ? `Đã lưu cập nhật thành công: "${resourceToSave.title}"!` : `Đã đăng tải thành công: "${resourceToSave.title}"!`);
 
-    // Reset form
-    setTitle('');
-    setDescription('');
-    setTeacherNote('');
+    if (!editingResource) {
+      setTitle('');
+      setDescription('');
+      setTeacherNote('');
+    }
     setTimeout(() => setSuccessMessage(''), 3500);
   };
 
   return (
     <div className="py-6 border-y border-[rgba(16,37,43,0.16)] text-left space-y-6">
-      <div className="flex items-center justify-between pb-3 hairline-b">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 hairline-b">
         <div className="flex items-center gap-2">
           <UploadCloud className="w-5 h-5 text-[#9C3B32]" />
-          <h4 className="font-playfair text-xl font-bold text-[#0A1418]">
-            Đăng Tải Bài Giảng, Đề Cương & Bài Tập Mới
-          </h4>
+          <div>
+            <h4 className="font-playfair text-xl font-bold text-[#0A1418]">
+              {editingResource ? 'Hiệu Đính Học Liệu Đã Phát Hành' : 'Xuất Bản Tài Liệu Học Tập Mới'}
+            </h4>
+            <span className="text-xs font-mono text-[#687477]">
+              {editingResource ? `Đang chỉnh sửa: ID ${editingResource.id}` : 'Nhập thông tin sư phạm để phân phối tới các khối lớp'}
+            </span>
+          </div>
         </div>
-        <span className="text-xs font-mono text-[#C69A47] font-bold">
-          PHÂN LOẠI TỰ ĐỘNG KHỐI 10-11-12
-        </span>
+
+        {editingResource && onCancelEdit && (
+          <button
+            type="button"
+            onClick={onCancelEdit}
+            className="px-3 py-1.5 border border-[#0A1418]/30 hover:border-[#9C3B32] hover:text-[#9C3B32] text-xs font-mono uppercase transition-colors flex items-center gap-1 cursor-pointer"
+          >
+            <X className="w-3.5 h-3.5" />
+            <span>Hủy Hiệu Đính</span>
+          </button>
+        )}
       </div>
 
       {successMessage && (
-        <div className="p-3 bg-[#486D5D]/10 border border-[#486D5D]/30 text-[#486D5D] text-xs font-mono flex items-center gap-2">
-          <CheckCircle2 className="w-4 h-4 text-[#486D5D] shrink-0" />
+        <div className="p-3 bg-[#486D5D]/10 border border-[#486D5D] text-xs font-mono text-[#486D5D] flex items-center gap-2">
+          <CheckCircle2 className="w-4 h-4 shrink-0" />
           <span>{successMessage}</span>
         </div>
       )}
 
       <form onSubmit={handleSubmit} className="space-y-4">
-        
         {/* Title */}
         <div>
           <label htmlFor="pub-title" className="block text-xs font-mono font-bold text-[#0A1418] uppercase mb-1">
-            Tiêu Đề Tài Liệu / Bộ Đề <span className="text-[#9C3B32]">*</span>
+            Tiêu Đề Học Liệu / Đề Thi <span className="text-[#9C3B32]">*</span>
           </label>
           <input
             id="pub-title"
@@ -119,16 +156,17 @@ export const DocumentPublisherForm: React.FC<DocumentPublisherFormProps> = ({ on
             required
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            placeholder="Ví dụ: Đề Ôn Tập Học Kỳ I Khối 12 — Chuyên Đề Chiến Dịch Hồ Chí Minh"
-            className="w-full px-3.5 py-2.5 bg-white border border-[rgba(16,37,43,0.25)] focus:border-[#9C3B32] text-sm outline-none text-[#0A1418]"
+            placeholder="Ví dụ: Phiếu Rèn Luyện Tuần 09: Chiến Dịch Tây Nguyên 1975"
+            className="w-full px-3.5 py-2.5 bg-white border border-[rgba(16,37,43,0.25)] focus:border-[#9C3B32] text-xs sm:text-sm font-sans outline-none text-[#0A1418]"
           />
         </div>
 
-        {/* 3 Selects in Row: Grade, Category, Format */}
+        {/* 3 Select Columns */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          {/* Grade */}
           <div>
-            <label htmlFor="pub-grade" className="block text-xs font-mono font-bold text-[#0A1418] uppercase mb-1">
-              Khối Lớp Mục Tiêu <span className="text-[#9C3B32]">*</span>
+            <label htmlFor="pub-grade" className="block text-xs font-mono text-[#687477] uppercase mb-1">
+              Khối Lớp
             </label>
             <select
               id="pub-grade"
@@ -137,15 +175,16 @@ export const DocumentPublisherForm: React.FC<DocumentPublisherFormProps> = ({ on
               onChange={(e) => setGrade(e.target.value as GradeLevel)}
               className="w-full px-3 py-2 bg-white border border-[rgba(16,37,43,0.25)] focus:border-[#9C3B32] text-xs font-mono outline-none text-[#0A1418]"
             >
-              <option value="12">Khối 12 (Ôn thi THPT)</option>
-              <option value="11">Khối 11 (Cận - Hiện đại)</option>
-              <option value="10">Khối 10 (GDPT 2018)</option>
+              <option value="12">Khối 12 (Lịch sử Hiện đại & Khảo thí THPT)</option>
+              <option value="11">Khối 11 (Cận đại & Chiến tranh thế giới)</option>
+              <option value="10">Khối 10 (Sử học đại cương & Văn minh)</option>
             </select>
           </div>
 
+          {/* Category */}
           <div>
-            <label htmlFor="pub-category" className="block text-xs font-mono font-bold text-[#0A1418] uppercase mb-1">
-              Phân Loại Học Liệu <span className="text-[#9C3B32]">*</span>
+            <label htmlFor="pub-category" className="block text-xs font-mono text-[#687477] uppercase mb-1">
+              Phân Loại Sư Phạm
             </label>
             <select
               id="pub-category"
@@ -154,14 +193,15 @@ export const DocumentPublisherForm: React.FC<DocumentPublisherFormProps> = ({ on
               onChange={(e) => setCategory(e.target.value as ResourceCategory)}
               className="w-full px-3 py-2 bg-white border border-[rgba(16,37,43,0.25)] focus:border-[#9C3B32] text-xs font-mono outline-none text-[#0A1418]"
             >
-              <option value="homework">Bài tập về nhà</option>
-              <option value="exam">Đề ôn tập & Đề thi</option>
-              <option value="slide">Slide bài giảng (.PPTX)</option>
+              <option value="homework">✎ Bài tập về nhà / Phiếu tuần</option>
+              <option value="exam">✦ Đề thi thử & Ma trận khảo thí</option>
+              <option value="slide">☵ Slide bài giảng điện tử</option>
             </select>
           </div>
 
+          {/* Format */}
           <div>
-            <label htmlFor="pub-format" className="block text-xs font-mono font-bold text-[#0A1418] uppercase mb-1">
+            <label htmlFor="pub-format" className="block text-xs font-mono text-[#687477] uppercase mb-1">
               Định Dạng Tệp
             </label>
             <select
@@ -171,30 +211,29 @@ export const DocumentPublisherForm: React.FC<DocumentPublisherFormProps> = ({ on
               onChange={(e) => setFormat(e.target.value as 'DOCX' | 'PDF' | 'PPTX')}
               className="w-full px-3 py-2 bg-white border border-[rgba(16,37,43,0.25)] focus:border-[#9C3B32] text-xs font-mono outline-none text-[#0A1418]"
             >
-              <option value="DOCX">Văn bản Word (.DOCX)</option>
-              <option value="PDF">Tài liệu chuẩn (.PDF)</option>
-              <option value="PPTX">Trình chiếu Slide (.PPTX)</option>
+              <option value="DOCX">DOCX (Soạn thảo & In ấn Word)</option>
+              <option value="PDF">PDF (Tài liệu chuẩn Adobe Reader)</option>
+              <option value="PPTX">PPTX (Trình chiếu PowerPoint)</option>
             </select>
           </div>
         </div>
 
-        {/* Period Facet, Period Label, File size & Estimated Study Time */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        {/* Period Facet & File Size */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
-            <label htmlFor="pub-facet" className="block text-xs font-mono font-bold text-[#0A1418] uppercase mb-1">
-              Chuyên Đề Bộ Lọc
+            <label htmlFor="pub-facet" className="block text-xs font-mono text-[#687477] uppercase mb-1">
+              Chuyên Đề Thời Kỳ (Theo Khối Lớp)
             </label>
             <select
               id="pub-facet"
               name="pubFacet"
               value={periodFacet}
               onChange={(e) => {
-                const fId = e.target.value;
-                setPeriodFacet(fId);
-                const found = availableFacets.find((f) => f.id === fId);
+                setPeriodFacet(e.target.value);
+                const found = availableFacets.find((f) => f.id === e.target.value);
                 if (found) setPeriod(found.label);
               }}
-              className="w-full px-3 py-2 bg-white border border-[#0A1418]/25 focus:border-[#9C3B32] text-xs font-mono outline-none text-[#0A1418]"
+              className="w-full px-3 py-2 bg-white border border-[rgba(16,37,43,0.25)] focus:border-[#9C3B32] text-xs font-mono outline-none text-[#0A1418]"
             >
               {availableFacets.map((f) => (
                 <option key={f.id} value={f.id}>
@@ -204,39 +243,25 @@ export const DocumentPublisherForm: React.FC<DocumentPublisherFormProps> = ({ on
             </select>
           </div>
 
-          <div>
-            <label htmlFor="pub-period" className="block text-xs font-mono font-bold text-[#0A1418] uppercase mb-1">
-              Nhãn Giai Đoạn Hiển Thị
-            </label>
-            <input
-              id="pub-period"
-              name="pubPeriod"
-              type="text"
-              value={period}
-              onChange={(e) => setPeriod(e.target.value)}
-              placeholder="Ví dụ: Kháng chiến chống Pháp (1945 - 1954)"
-              className="w-full px-3 py-2 bg-white border border-[#0A1418]/25 focus:border-[#9C3B32] text-xs outline-none text-[#0A1418]"
-            />
-          </div>
-
           <div className="grid grid-cols-2 gap-2">
             <div>
-              <label htmlFor="pub-filesize" className="block text-xs font-mono font-bold text-[#0A1418] uppercase mb-1">
-                Dung Lượng
+              <label htmlFor="pub-size" className="block text-xs font-mono text-[#687477] uppercase mb-1">
+                Dung lượng file
               </label>
               <input
-                id="pub-filesize"
-                name="pubFileSize"
+                id="pub-size"
+                name="pubSize"
                 type="text"
                 value={fileSize}
                 onChange={(e) => setFileSize(e.target.value)}
-                placeholder="4.8 MB"
+                placeholder="4.5 MB"
                 className="w-full px-3 py-2 bg-white border border-[#0A1418]/25 focus:border-[#9C3B32] text-xs outline-none text-[#0A1418]"
               />
             </div>
+
             <div>
-              <label htmlFor="pub-time" className="block text-xs font-mono font-bold text-[#0A1418] uppercase mb-1">
-                Phút Tự Học
+              <label htmlFor="pub-time" className="block text-xs font-mono text-[#687477] uppercase mb-1">
+                Phút tự học
               </label>
               <input
                 id="pub-time"
@@ -302,13 +327,32 @@ export const DocumentPublisherForm: React.FC<DocumentPublisherFormProps> = ({ on
         </div>
 
         {/* Submit Button */}
-        <div className="pt-2 flex justify-end">
+        <div className="pt-2 flex justify-end gap-3">
+          {editingResource && onCancelEdit && (
+            <button
+              type="button"
+              onClick={onCancelEdit}
+              className="px-5 py-2.5 border border-[#0A1418] hover:bg-[#0A1418]/5 text-xs font-mono font-bold uppercase transition-all cursor-pointer"
+            >
+              Hủy
+            </button>
+          )}
+
           <button
             type="submit"
             className="px-6 py-2.5 bg-[#9C3B32] hover:bg-[#7e2e26] text-white text-xs font-mono font-bold uppercase transition-all flex items-center gap-2 cursor-pointer shadow-xs active:scale-95"
           >
-            <Plus className="w-4 h-4" />
-            <span>Phát Hành Tài Liệu Ngay</span>
+            {editingResource ? (
+              <>
+                <Save className="w-4 h-4" />
+                <span>Lưu Cập Nhật Học Liệu</span>
+              </>
+            ) : (
+              <>
+                <Plus className="w-4 h-4" />
+                <span>Phát Hành Tài Liệu Ngay</span>
+              </>
+            )}
           </button>
         </div>
 

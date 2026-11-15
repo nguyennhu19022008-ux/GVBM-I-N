@@ -111,7 +111,12 @@ export const calculateExamScore = (
     }
   });
 
-  const normalized = maxPossiblePoints > 0 ? ((earnedPoints / maxPossiblePoints) * 10).toFixed(1) : '0.0';
+  let normalized = '0.0';
+  if (maxPossiblePoints > 0) {
+    const raw = (earnedPoints / maxPossiblePoints) * 10;
+    const rounded = Math.round(raw * 100) / 100;
+    normalized = Number.isInteger(rounded) ? `${rounded}.0` : rounded.toString();
+  }
   return {
     score: Number(earnedPoints.toFixed(2)),
     maxScore: maxPossiblePoints,

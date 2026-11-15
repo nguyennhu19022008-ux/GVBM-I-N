@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
-import { X, Download, AlertTriangle, Copy, Check, BookOpen, Clock, FileText } from 'lucide-react';
+import { X, Download, AlertTriangle, Copy, Check, BookOpen, Clock, FileText, Lightbulb } from 'lucide-react';
 import type { CurriculumResource } from '../../data/curriculumData';
 
 export interface DocumentPreviewModalProps {
@@ -247,8 +247,9 @@ Thời gian khuyến nghị: ${preview?.estimatedStudyTimeMinutes || 45} phút`;
                       </div>
                     )}
 
-                    <div className="text-xs font-sans text-[#486D5D] pt-1">
-                      <strong>💡 Chỉ dẫn của Thầy:</strong> {q.guide}
+                    <div className="text-xs font-sans text-[#486D5D] pt-1 flex items-center gap-1.5">
+                      <Lightbulb className="w-3.5 h-3.5 shrink-0 text-[#486D5D]" />
+                      <span><strong>Chỉ dẫn của Thầy:</strong> {q.guide}</span>
                     </div>
                   </div>
                 ))}

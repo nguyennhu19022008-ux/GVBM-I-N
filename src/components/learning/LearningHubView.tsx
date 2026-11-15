@@ -99,8 +99,13 @@ export const LearningHubView: React.FC<LearningHubViewProps> = ({
     });
   };
 
-  // Combine initial resources with any newly added ones from Admin
-  const allResources = [...customResources, ...INITIAL_CURRICULUM_RESOURCES];
+  // Combine initial resources with any newly added ones from Admin (deduplicated by id)
+  const allResources = React.useMemo(() => {
+    const resourceMap = new Map<string, CurriculumResource>();
+    INITIAL_CURRICULUM_RESOURCES.forEach((r) => resourceMap.set(r.id, r));
+    customResources.forEach((r) => resourceMap.set(r.id, r));
+    return Array.from(resourceMap.values());
+  }, [customResources]);
 
   // Grade-level resources strictly for activeGrade
   const gradeResources = allResources.filter((r) => r.grade === activeGrade);

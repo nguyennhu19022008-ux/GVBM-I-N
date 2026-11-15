@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
-import { X, Clock, Award, CheckCircle, AlertCircle, RefreshCw, ChevronLeft, ChevronRight, Check, Zap } from 'lucide-react';
+import { X, Clock, Award, CheckCircle, AlertCircle, RefreshCw, ChevronLeft, ChevronRight, Check, Zap, Sparkles, BookOpen, Lightbulb } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import type { QuizExam, QuizQuestion, SelectedAnswersState, TrueFalseGroupAnswer } from '../data/quizData';
 import { calculateExamScore, getQuestionCompletionStatus } from '../data/quizData';
@@ -172,6 +172,7 @@ export const QuizModal: React.FC<QuizModalProps> = ({ exam, onClose }) => {
     setIsDrillMode(true);
     setIsSubmitted(false);
     setCurrentIndex(0);
+    setTimeLeft(Math.max(180, wrongQuestions.length * 90));
 
     if (!initialExamScore) {
       setInitialExamScore(finalScore);
@@ -205,8 +206,9 @@ export const QuizModal: React.FC<QuizModalProps> = ({ exam, onClose }) => {
             <div className="flex items-center gap-2 text-[10px] sm:text-xs font-mono font-bold uppercase tracking-wider text-[#E5C985]">
               <span>PHÒNG KHẢO THÍ SỐ HÓA • THPT QUỐC GIA 2026</span>
               {isDrillMode && (
-                <span className="px-2 py-0.5 bg-[#9C3B32] text-white">
-                  ⚡ CHẾ ĐỘ RÈN LUYỆN CÂU SAI
+                <span className="px-2 py-0.5 bg-[#9C3B32] text-white inline-flex items-center gap-1">
+                  <Zap className="w-3 h-3 text-[#E5C985]" />
+                  <span>CHẾ ĐỘ RÈN LUYỆN CÂU SAI</span>
                 </span>
               )}
             </div>
@@ -482,8 +484,9 @@ export const QuizModal: React.FC<QuizModalProps> = ({ exam, onClose }) => {
 
                 {/* Score vs Initial Score comparison */}
                 {initialExamScore && (
-                  <div className="mt-2 text-xs font-mono font-bold text-[#1B4931] bg-[#1B4931]/10 px-3 py-1 inline-block">
-                    ⚡ Điểm trước khi ôn lại: {initialExamScore} → Điểm hiện tại: {finalScore}
+                  <div className="mt-2 text-xs font-mono font-bold text-[#1B4931] bg-[#1B4931]/10 px-3 py-1 inline-flex items-center gap-1.5">
+                    <Zap className="w-3.5 h-3.5 text-[#1B4931]" />
+                    <span>Điểm trước khi ôn lại: {initialExamScore} → Điểm hiện tại: {finalScore}</span>
                   </div>
                 )}
 
@@ -507,15 +510,27 @@ export const QuizModal: React.FC<QuizModalProps> = ({ exam, onClose }) => {
                   </div>
                 </div>
 
-                <div className="p-4 bg-[#F3EFE5] text-sm text-[#0A1418] font-medium max-w-lg mx-auto">
+                <div className="p-4 bg-[#F3EFE5] text-sm text-[#0A1418] font-medium max-w-lg mx-auto flex items-center justify-center gap-2 text-left">
                   {wrongQuestions.length === 0 ? (
-                    '🌟 Xuất sắc tuyệt đối! Em đã làm chủ 100% câu hỏi trong đề thi này và sẵn sàng bứt phá điểm 10 kỳ thi THPT!'
+                    <>
+                      <Sparkles className="w-5 h-5 shrink-0 text-[#B47818]" />
+                      <span>Xuất sắc tuyệt đối! Em đã làm chủ 100% câu hỏi trong đề thi này và sẵn sàng bứt phá điểm 10 kỳ thi THPT!</span>
+                    </>
                   ) : Number(finalScore) >= 8.0 ? (
-                    '🌟 Điểm giỏi xuất sắc! Em hãy nhấn nút "Ôn Lại Câu Sai" để khắc phục nốt các câu bẫy còn thiếu.'
+                    <>
+                      <Award className="w-5 h-5 shrink-0 text-[#B47818]" />
+                      <span>Điểm giỏi xuất sắc! Em hãy nhấn nút "Ôn Lại Câu Sai" để khắc phục nốt các câu bẫy còn thiếu.</span>
+                    </>
                   ) : Number(finalScore) >= 6.5 ? (
-                    '👍 Kết quả Khá! Em hãy đọc kỹ bảng đối chiếu giải thích bên dưới hoặc bấm ôn luyện lại riêng các câu làm sai.'
+                    <>
+                      <CheckCircle className="w-5 h-5 shrink-0 text-[#486D5D]" />
+                      <span>Kết quả Khá! Em hãy đọc kỹ bảng đối chiếu giải thích bên dưới hoặc bấm ôn luyện lại riêng các câu làm sai.</span>
+                    </>
                   ) : (
-                    '📖 Em cần củng cố lại các mốc lịch sử then chốt và tận dụng tính năng ôn luyện câu sai ngay dưới đây nhé!'
+                    <>
+                      <BookOpen className="w-5 h-5 shrink-0 text-[#9C3B32]" />
+                      <span>Em cần củng cố lại các mốc lịch sử then chốt và tận dụng tính năng ôn luyện câu sai ngay dưới đây nhé!</span>
+                    </>
                   )}
                 </div>
 
@@ -652,8 +667,9 @@ export const QuizModal: React.FC<QuizModalProps> = ({ exam, onClose }) => {
 
                       {/* Explanation Callout */}
                       <div className="p-4 bg-white border border-[#0A1418]/15 text-xs sm:text-sm text-[#0A1418]">
-                        <strong className="text-[#9C3B32] block mb-1 font-mono uppercase text-xs">
-                          💡 Căn Cứ Lịch Sử & Lời Giải Chuẩn SGK:
+                        <strong className="text-[#9C3B32] mb-1 font-mono uppercase text-xs flex items-center gap-1.5">
+                          <Lightbulb className="w-3.5 h-3.5 text-[#9C3B32]" />
+                          <span>Căn Cứ Lịch Sử & Lời Giải Chuẩn SGK:</span>
                         </strong>
                         <p className="leading-relaxed text-[#0A1418]/90">
                           {q.explanation}

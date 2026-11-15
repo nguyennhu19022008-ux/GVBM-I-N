@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Shield, UploadCloud, ListChecks, Inbox, LogOut } from 'lucide-react';
+import { Shield, UploadCloud, ListChecks, Inbox, LogOut, Clock, Check } from 'lucide-react';
 import { DocumentPublisherForm } from './DocumentPublisherForm';
 import { DocumentManagerTable } from './DocumentManagerTable';
 import { FeedbackInboxTable } from './FeedbackInboxTable';
@@ -12,8 +12,9 @@ interface AdminDashboardViewProps {
   resources: CurriculumResource[];
   feedbackList: StudentFeedback[];
   onAddResource: (newRes: CurriculumResource) => void;
+  onUpdateResource?: (updatedRes: CurriculumResource) => void;
   onDeleteResource: (id: string) => void;
-  onResolveFeedback: (id: string) => void;
+  onResolveFeedback: (id: string, teacherReply?: string) => void;
   onLogout: () => void;
 }
 
@@ -21,14 +22,32 @@ export const AdminDashboardView: React.FC<AdminDashboardViewProps> = ({
   resources,
   feedbackList,
   onAddResource,
+  onUpdateResource,
   onDeleteResource,
   onResolveFeedback,
   onLogout,
 }) => {
   const [activeTab, setActiveTab] = useState<'publish' | 'manage' | 'inbox'>('publish');
+  const [editingResource, setEditingResource] = useState<CurriculumResource | null>(null);
 
   const pendingFeedbackCount = feedbackList.filter((f) => f.status === 'pending').length;
-  const combinedResources = [...resources, ...INITIAL_CURRICULUM_RESOURCES];
+
+  // Deduplicate resources by id
+  const combinedResources = React.useMemo(() => {
+    const resourceMap = new Map<string, CurriculumResource>();
+    INITIAL_CURRICULUM_RESOURCES.forEach((r) => resourceMap.set(r.id, r));
+    resources.forEach((r) => resourceMap.set(r.id, r));
+    return Array.from(resourceMap.values());
+  }, [resources]);
+
+  const handleStartEdit = (res: CurriculumResource) => {
+    setEditingResource(res);
+    setActiveTab('publish');
+  };
+
+  const handleCancelEdit = () => {
+    setEditingResource(null);
+  };
 
   return (
     <div className="w-full py-10 lg:py-14 px-6 md:px-12 xl:px-16 bg-[#FAF8F1] animate-fadeSlideUp">
@@ -42,8 +61,18 @@ export const AdminDashboardView: React.FC<AdminDashboardViewProps> = ({
             <span>•</span>
             <span>BẢO MẬT GIÁO VIÊN</span>
             <span>•</span>
-            <span className={`px-2 py-0.5 text-[10px] ${isSupabaseConfigured ? 'bg-[#1B4931] text-white' : 'bg-[#B47818] text-white'}`}>
-              {isSupabaseConfigured ? '✓ ĐỒNG BỘ ĐÁM MÂY SUPABASE' : '⏳ CHỜ KẾT NỐI SUPABASE (LƯU CỤC BỘ)'}
+            <span className={`px-2 py-0.5 text-[10px] inline-flex items-center gap-1 ${isSupabaseConfigured ? 'bg-[#1B4931] text-white' : 'bg-[#B47818] text-white'}`}>
+              {isSupabaseConfigured ? (
+                <>
+                  <Check className="w-3 h-3" />
+                  <span>ĐỒNG BỘ ĐÁM MÂY SUPABASE</span>
+                </>
+              ) : (
+                <>
+                  <Clock className="w-3 h-3" />
+                  <span>CHỜ KẾT NỐI SUPABASE (LƯU CỤC BỘ)</span>
+                </>
+              )}
             </span>
           </div>
           <h2 className="font-playfair text-3xl sm:text-4xl md:text-5xl font-black text-[#0A1418] tracking-tight">
@@ -96,7 +125,9 @@ export const AdminDashboardView: React.FC<AdminDashboardViewProps> = ({
       {/* Admin Tab Switching Navigation: Open Broadsheet Tabs (No Card Boxes) */}
       <div className="flex flex-wrap items-center gap-2 mb-6 pb-3 hairline-b text-left">
         <button
-          onClick={() => setActiveTab('publish')}
+          onClick={() => {
+            setActiveTab('publish');
+          }}
           className={`px-4 py-2 text-xs font-mono font-bold uppercase transition-all flex items-center gap-2 cursor-pointer border-b-2 ${
             activeTab === 'publish'
               ? 'border-[#9C3B32] text-[#9C3B32] bg-[#F3EFE5]'
@@ -104,7 +135,7 @@ export const AdminDashboardView: React.FC<AdminDashboardViewProps> = ({
           }`}
         >
           <UploadCloud className="w-4 h-4" />
-          <span>1. Đăng Tải Tài Liệu Mới</span>
+          <span>{editingResource ? '1. Hiệu Đính Học Liệu' : '1. Đăng Tải Tài Liệu Mới'}</span>
         </button>
 
         <button
@@ -116,7 +147,7 @@ export const AdminDashboardView: React.FC<AdminDashboardViewProps> = ({
           }`}
         >
           <ListChecks className="w-4 h-4" />
-          <span>2. Quản Lý Danh Mục ({resources.length})</span>
+          <span>2. Quản Lý Danh Mục ({combinedResources.length})</span>
         </button>
 
         <button
@@ -140,13 +171,25 @@ export const AdminDashboardView: React.FC<AdminDashboardViewProps> = ({
       {/* Tab Panels */}
       <div className="text-left">
         {activeTab === 'publish' && (
-          <DocumentPublisherForm onPublish={onAddResource} />
+          <DocumentPublisherForm
+            onPublish={(res) => {
+              if (editingResource && onUpdateResource) {
+                onUpdateResource(res);
+                setEditingResource(null);
+              } else {
+                onAddResource(res);
+              }
+            }}
+            editingResource={editingResource}
+            onCancelEdit={handleCancelEdit}
+          />
         )}
 
         {activeTab === 'manage' && (
           <DocumentManagerTable
-            resources={resources}
+            resources={combinedResources}
             onDeleteResource={onDeleteResource}
+            onEditResource={handleStartEdit}
           />
         )}
 

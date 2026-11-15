@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Newspaper, GraduationCap, Shield } from 'lucide-react';
+import { Newspaper, GraduationCap, Shield, Menu, X } from 'lucide-react';
 
 export type PortalView = 'portal' | 'learning' | 'admin';
 
@@ -15,6 +15,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   isAdminAuthenticated = false,
 }) => {
   const [scrollProgress, setScrollProgress] = useState<number>(0);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState<boolean>(false);
 
   useEffect(() => {
     let ticking = false;
@@ -110,22 +111,91 @@ export const Navbar: React.FC<NavbarProps> = ({
 
         </nav>
 
-        {/* Right Teacher / Admin Auth Status */}
-        <div className="flex items-center gap-3">
+        {/* Right Teacher / Admin Auth Status & Mobile Menu Toggle */}
+        <div className="flex items-center gap-2 sm:gap-3">
           <button
-            onClick={() => onChangeView('admin')}
-            className={`px-3.5 py-1.5 border text-xs font-mono font-semibold uppercase tracking-wider transition-all flex items-center gap-1.5 cursor-pointer ${
+            onClick={() => {
+              setIsMobileMenuOpen(false);
+              onChangeView('admin');
+            }}
+            className={`px-3 sm:px-3.5 py-1.5 border text-[11px] sm:text-xs font-mono font-semibold uppercase tracking-wider transition-all flex items-center gap-1.5 cursor-pointer ${
               isAdminAuthenticated
                 ? 'border-[#E5C985] bg-[#E5C985] text-[#0A1418]'
                 : 'border-[#E5C985]/50 hover:border-[#E5C985] hover:bg-[#E5C985]/10 text-[#E5C985]'
             }`}
           >
             <Shield className="w-3.5 h-3.5" />
-            <span>{isAdminAuthenticated ? 'Giáo Viên (Đã Đăng Nhập)' : 'Giáo Viên'}</span>
+            <span className="hidden sm:inline">{isAdminAuthenticated ? 'Giáo Viên (Đã Đăng Nhập)' : 'Giáo Viên'}</span>
+            <span className="sm:hidden">GV</span>
+          </button>
+
+          {/* Mobile Menu Hamburger Toggle */}
+          <button
+            onClick={() => setIsMobileMenuOpen((prev) => !prev)}
+            aria-label="Toggle mobile menu"
+            aria-expanded={isMobileMenuOpen}
+            className="md:hidden p-1.5 text-[#E5C985] hover:text-white border border-[#E5C985]/30 hover:border-[#E5C985] transition-colors cursor-pointer"
+          >
+            {isMobileMenuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
           </button>
         </div>
 
       </div>
+
+      {/* Mobile Drawer Navigation Menu */}
+      {isMobileMenuOpen && (
+        <div className="md:hidden bg-[#0A1418] border-t border-[#E5C985]/20 px-6 py-4 space-y-2 animate-fadeSlideUp shadow-2xl">
+          <button
+            onClick={() => {
+              setIsMobileMenuOpen(false);
+              onChangeView('portal');
+            }}
+            className={`w-full py-2.5 px-3 text-xs font-mono tracking-wider uppercase transition-all flex items-center gap-3 cursor-pointer border-l-2 ${
+              currentView === 'portal'
+                ? 'border-[#E5C985] text-[#E5C985] bg-[#E5C985]/10 font-bold'
+                : 'border-transparent text-white/70 hover:text-white'
+            }`}
+          >
+            <Newspaper className="w-4 h-4 text-[#E5C985]" />
+            <span>01. Cổng Ký Ức</span>
+          </button>
+
+          <button
+            onClick={() => {
+              setIsMobileMenuOpen(false);
+              onChangeView('learning');
+            }}
+            className={`w-full py-2.5 px-3 text-xs font-mono tracking-wider uppercase transition-all flex items-center justify-between cursor-pointer border-l-2 ${
+              currentView === 'learning'
+                ? 'border-[#E5C985] text-[#E5C985] bg-[#E5C985]/10 font-bold'
+                : 'border-transparent text-white/70 hover:text-white'
+            }`}
+          >
+            <div className="flex items-center gap-3">
+              <GraduationCap className="w-4 h-4 text-[#E5C985]" />
+              <span>02. Giảng Đường 10-11-12</span>
+            </div>
+            <span className="px-1.5 py-0.5 text-[9px] font-mono font-bold border border-[#E5C985]/40 text-[#E5C985]">
+              HỌC TẬP
+            </span>
+          </button>
+
+          <button
+            onClick={() => {
+              setIsMobileMenuOpen(false);
+              onChangeView('admin');
+            }}
+            className={`w-full py-2.5 px-3 text-xs font-mono tracking-wider uppercase transition-all flex items-center gap-3 cursor-pointer border-l-2 ${
+              currentView === 'admin'
+                ? 'border-[#E5C985] text-[#E5C985] bg-[#E5C985]/10 font-bold'
+                : 'border-transparent text-white/70 hover:text-white'
+            }`}
+          >
+            <Shield className="w-4 h-4 text-[#E5C985]" />
+            <span>03. Bàn Quản Trị</span>
+          </button>
+        </div>
+      )}
     </header>
   );
 };

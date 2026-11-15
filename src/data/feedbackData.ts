@@ -11,6 +11,7 @@ export interface StudentFeedback {
   createdAt: string;
   status: 'pending' | 'resolved';
   resolvedAt?: string;
+  teacherReply?: string;
 }
 
 export const INITIAL_FEEDBACK_LIST: StudentFeedback[] = [

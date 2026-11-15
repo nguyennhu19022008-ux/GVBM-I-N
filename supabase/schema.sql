@@ -35,8 +35,12 @@ CREATE TABLE IF NOT EXISTS public.student_feedback (
   created_at TEXT NOT NULL,
   status TEXT NOT NULL DEFAULT 'pending' CHECK (status IN ('pending', 'resolved')),
   resolved_at TEXT,
+  teacher_reply TEXT,
   inserted_at TIMESTAMPTZ DEFAULT now()
 );
+
+-- Bổ sung cột teacher_reply nếu bảng đã tồn tại từ trước
+ALTER TABLE public.student_feedback ADD COLUMN IF NOT EXISTS teacher_reply TEXT;
 
 -- Bật Row Level Security (RLS) và mở quyền đọc/ghi công khai cho ứng dụng tĩnh
 ALTER TABLE public.curriculum_resources ENABLE ROW LEVEL SECURITY;
@@ -47,6 +51,9 @@ CREATE POLICY "Allow public read resources" ON public.curriculum_resources FOR S
 
 DROP POLICY IF EXISTS "Allow public insert resources" ON public.curriculum_resources;
 CREATE POLICY "Allow public insert resources" ON public.curriculum_resources FOR INSERT WITH CHECK (true);
+
+DROP POLICY IF EXISTS "Allow public update resources" ON public.curriculum_resources;
+CREATE POLICY "Allow public update resources" ON public.curriculum_resources FOR UPDATE USING (true);
 
 DROP POLICY IF EXISTS "Allow public delete resources" ON public.curriculum_resources;
 CREATE POLICY "Allow public delete resources" ON public.curriculum_resources FOR DELETE USING (true);
@@ -59,3 +66,6 @@ CREATE POLICY "Allow public insert feedback" ON public.student_feedback FOR INSE
 
 DROP POLICY IF EXISTS "Allow public update feedback" ON public.student_feedback;
 CREATE POLICY "Allow public update feedback" ON public.student_feedback FOR UPDATE USING (true);
+
+DROP POLICY IF EXISTS "Allow public delete feedback" ON public.student_feedback;
+CREATE POLICY "Allow public delete feedback" ON public.student_feedback FOR DELETE USING (true);

@@ -6,9 +6,9 @@ gsap.registerPlugin(ScrollTrigger);
 
 export function useCinematicScroll() {
   useEffect(() => {
-    // Check if prefers-reduced-motion is enabled
+    // Check if prefers-reduced-motion is enabled or calm mobile view (< 768px)
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (prefersReducedMotion) return;
+    if (prefersReducedMotion || window.innerWidth < 768) return;
 
     const ctx = gsap.context(() => {
       // 1. Hero Background Parallax

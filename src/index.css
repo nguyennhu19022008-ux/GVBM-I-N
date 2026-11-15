@@ -191,6 +191,15 @@
   will-change: transform;
 }
 
+/* Calm Mobile Override: Stop infinite marquee for calm touch scrolling on mobile screens */
+@media (max-width: 768px) {
+  .animate-filmstrip {
+    animation: none !important;
+    transform: none !important;
+    width: auto;
+  }
+}
+
 .animate-filmstrip:hover,
 .animate-filmstrip.is-paused {
   animation-play-state: paused;

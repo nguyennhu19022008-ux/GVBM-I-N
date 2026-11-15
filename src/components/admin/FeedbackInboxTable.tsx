@@ -1,17 +1,18 @@
-import React from 'react';
-import { Inbox, CheckCircle2, Clock, Check } from 'lucide-react';
+import React, { useState } from 'react';
+import { Inbox, CheckCircle2, Clock, Check, MessageSquare } from 'lucide-react';
 import type { StudentFeedback } from '../../data/feedbackData';
 import { ISSUE_TYPE_LABELS } from '../../data/feedbackData';
 
 interface FeedbackInboxTableProps {
   feedbackList: StudentFeedback[];
-  onResolveFeedback: (id: string) => void;
+  onResolveFeedback: (id: string, teacherReply?: string) => void;
 }
 
 export const FeedbackInboxTable: React.FC<FeedbackInboxTableProps> = ({
   feedbackList,
   onResolveFeedback,
 }) => {
+  const [replyTexts, setReplyTexts] = useState<Record<string, string>>({});
   const pendingCount = feedbackList.filter((f) => f.status === 'pending').length;
 
   return (
@@ -77,6 +78,31 @@ export const FeedbackInboxTable: React.FC<FeedbackInboxTableProps> = ({
                 "{item.description}"
               </p>
 
+              {/* Teacher Reply Input (if pending) */}
+              {item.status === 'pending' && (
+                <div className="mb-3 p-3 bg-white border border-[#486D5D]/30 space-y-1">
+                  <label htmlFor={`reply-${item.id}`} className="block text-[11px] font-mono font-bold text-[#486D5D] uppercase flex items-center gap-1">
+                    <MessageSquare className="w-3.5 h-3.5" />
+                    <span>Lời nhắn phản hồi của Thầy cho học sinh (tùy chọn):</span>
+                  </label>
+                  <input
+                    id={`reply-${item.id}`}
+                    type="text"
+                    value={replyTexts[item.id] || ''}
+                    onChange={(e) => setReplyTexts({ ...replyTexts, [item.id]: e.target.value })}
+                    placeholder="Ví dụ: Thầy đã đính chính lại mốc sự kiện và cập nhật file mới..."
+                    className="w-full px-3 py-1.5 bg-[#FAF8F1] border border-[#0A1418]/20 focus:border-[#486D5D] text-xs font-sans outline-none text-[#0A1418]"
+                  />
+                </div>
+              )}
+
+              {/* Existing Teacher Reply (if resolved) */}
+              {item.teacherReply && (
+                <div className="mb-3 p-3 bg-[#486D5D]/10 border-l-2 border-[#486D5D] text-xs font-sans text-[#486D5D] leading-relaxed">
+                  <strong>Lời nhắn của Thầy:</strong> {item.teacherReply}
+                </div>
+              )}
+
               {/* Sender & Action */}
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-[11px] font-mono text-[#687477]">
                 <div>
@@ -88,8 +114,8 @@ export const FeedbackInboxTable: React.FC<FeedbackInboxTableProps> = ({
 
                 {item.status === 'pending' ? (
                   <button
-                    onClick={() => onResolveFeedback(item.id)}
-                    className="px-3 py-1 bg-[#486D5D] hover:bg-[#3b594b] text-white font-mono text-xs font-bold uppercase transition-all flex items-center gap-1 cursor-pointer self-end sm:self-auto"
+                    onClick={() => onResolveFeedback(item.id, replyTexts[item.id])}
+                    className="px-3.5 py-1.5 bg-[#486D5D] hover:bg-[#3b594b] text-white font-mono text-xs font-bold uppercase transition-all flex items-center gap-1.5 cursor-pointer self-end sm:self-auto shadow-xs active:scale-95"
                   >
                     <Check className="w-3.5 h-3.5" />
                     <span>Đánh Dấu Đã Sửa Xong</span>
