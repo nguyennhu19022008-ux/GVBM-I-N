@@ -200,4 +200,25 @@ const page0Path = path.join(srcDir, 'components', 'Page0_Copyright.tsx');
 assert.strictEqual(fs.existsSync(page0Path), false, 'Page0_Copyright.tsx must NOT exist per explicit user directive');
 console.log('✓ TEST 8 PASS: Tuân thủ chỉ thị người dùng (loại trừ Page 0, vào thẳng Portal / Giảng Đường).');
 
-console.log('--- TOÀN BỘ 8/8 CONTRACT TEST CASES ĐÃ ĐẠT TIÊU CHUẨN 100% ---');
+// Test Case 9: React Rules of Hooks Compliance (No hooks after early/conditional returns)
+const learningHubCode = fs.readFileSync(path.join(srcDir, 'components', 'learning', 'LearningHubView.tsx'), 'utf8');
+const quizModalCode = fs.readFileSync(path.join(srcDir, 'components', 'QuizModal.tsx'), 'utf8');
+
+// Verify allResources useMemo is placed before if (!hasSelectedGrade)
+const hubGateIndex = learningHubCode.indexOf('if (!hasSelectedGrade)');
+const hubUseMemoIndex = learningHubCode.indexOf('useMemo(');
+assert(hubUseMemoIndex !== -1, 'LearningHubView must use useMemo for allResources');
+assert(hubGateIndex !== -1, 'LearningHubView must contain hasSelectedGrade gate check');
+assert(hubUseMemoIndex < hubGateIndex, 'LearningHubView: useMemo MUST be declared BEFORE early return if (!hasSelectedGrade)');
+
+// Verify QuizModal hooks are placed before if (!exam) return null
+const quizExamCheckIndex = quizModalCode.indexOf('if (!exam) return null;');
+const quizUseStateIndex = quizModalCode.indexOf('useState(');
+const quizUseEffectIndex = quizModalCode.indexOf('useEffect(');
+assert(quizExamCheckIndex !== -1, 'QuizModal must contain if (!exam) return null;');
+assert(quizUseStateIndex !== -1 && quizUseEffectIndex !== -1, 'QuizModal must use useState and useEffect hooks');
+assert(quizUseStateIndex < quizExamCheckIndex, 'QuizModal: useState MUST be declared BEFORE if (!exam) return null;');
+assert(quizUseEffectIndex < quizExamCheckIndex, 'QuizModal: useEffect MUST be declared BEFORE if (!exam) return null;');
+console.log('✓ TEST 9 PASS: Tuân thủ nghiêm ngặt Rules of Hooks (Zero hooks called after early returns).');
+
+console.log('--- TOÀN BỘ 9/9 CONTRACT TEST CASES ĐÃ ĐẠT TIÊU CHUẨN 100% ---');

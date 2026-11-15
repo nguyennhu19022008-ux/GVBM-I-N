@@ -11,12 +11,10 @@ interface QuizModalProps {
 }
 
 export const QuizModal: React.FC<QuizModalProps> = ({ exam, onClose }) => {
-  if (!exam) return null;
-
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedAnswers, setSelectedAnswers] = useState<SelectedAnswersState>({});
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [timeLeft, setTimeLeft] = useState(exam.timeLimitMinutes * 60);
+  const [timeLeft, setTimeLeft] = useState(exam ? exam.timeLimitMinutes * 60 : 0);
   const [showConfirmSubmit, setShowConfirmSubmit] = useState(false);
 
   // Targeted Mistake Drill Mode States
@@ -29,32 +27,34 @@ export const QuizModal: React.FC<QuizModalProps> = ({ exam, onClose }) => {
 
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
-  // Active question pool based on drill mode
-  const activeQuestions = isDrillMode
-    ? exam.questions.filter((q) => drillQuestionIds.includes(q.id))
-    : exam.questions;
-
-  const currentQuestion: QuizQuestion = activeQuestions[currentIndex] || activeQuestions[0] || exam.questions[0];
-  const totalQuestions = activeQuestions.length;
-
-  // Count answered questions
-  const answeredCount = exam.questions.filter((q) => {
-    const status = getQuestionCompletionStatus(q, selectedAnswers[q.id]);
-    return status === 'fully_answered' || status === 'partially_answered';
-  }).length;
+  // Reset exam state whenever exam changes (including when first selected)
+  useEffect(() => {
+    if (exam) {
+      setCurrentIndex(0);
+      setSelectedAnswers({});
+      setIsSubmitted(false);
+      setTimeLeft(exam.timeLimitMinutes * 60);
+      setShowConfirmSubmit(false);
+      setIsDrillMode(false);
+      setDrillQuestionIds([]);
+      setInitialExamScore(null);
+      setScreenReaderAnnounce('');
+    }
+  }, [exam]);
 
   // Lock background body scroll while exam studio is active
   useEffect(() => {
+    if (!exam) return;
     const orig = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
     return () => {
       document.body.style.overflow = orig;
     };
-  }, []);
+  }, [exam]);
 
   // Countdown timer
   useEffect(() => {
-    if (isSubmitted) return;
+    if (!exam || isSubmitted) return;
     timerRef.current = setInterval(() => {
       setTimeLeft((prev) => {
         if (prev <= 1) {
@@ -69,7 +69,23 @@ export const QuizModal: React.FC<QuizModalProps> = ({ exam, onClose }) => {
     return () => {
       if (timerRef.current) clearInterval(timerRef.current);
     };
-  }, [isSubmitted]);
+  }, [exam, isSubmitted]);
+
+  if (!exam) return null;
+
+  // Active question pool based on drill mode
+  const activeQuestions = isDrillMode
+    ? exam.questions.filter((q) => drillQuestionIds.includes(q.id))
+    : exam.questions;
+
+  const currentQuestion: QuizQuestion = activeQuestions[currentIndex] || activeQuestions[0] || exam.questions[0];
+  const totalQuestions = activeQuestions.length;
+
+  // Count answered questions
+  const answeredCount = exam.questions.filter((q) => {
+    const status = getQuestionCompletionStatus(q, selectedAnswers[q.id]);
+    return status === 'fully_answered' || status === 'partially_answered';
+  }).length;
 
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60);
@@ -123,6 +139,7 @@ export const QuizModal: React.FC<QuizModalProps> = ({ exam, onClose }) => {
   };
 
   const handleSubmit = () => {
+    if (!exam) return;
     setIsSubmitted(true);
     setShowConfirmSubmit(false);
     if (timerRef.current) clearInterval(timerRef.current);

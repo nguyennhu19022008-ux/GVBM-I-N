@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { GradeSelectionGate } from './GradeSelectionGate';
 import { GradeFilterBar } from './GradeFilterBar';
 import { HomeworkSection } from './HomeworkSection';
@@ -58,6 +58,15 @@ export const LearningHubView: React.FC<LearningHubViewProps> = ({
   const [reportTargetTitle, setReportTargetTitle] = useState<string>('');
   const [reportTargetId, setReportTargetId] = useState<string | undefined>(undefined);
 
+  // Combine initial resources with any newly added ones from Admin (deduplicated by id)
+  // MUST remain at the top before any conditional returns to obey Rules of Hooks
+  const allResources = useMemo(() => {
+    const resourceMap = new Map<string, CurriculumResource>();
+    INITIAL_CURRICULUM_RESOURCES.forEach((r) => resourceMap.set(r.id, r));
+    customResources.forEach((r) => resourceMap.set(r.id, r));
+    return Array.from(resourceMap.values());
+  }, [customResources]);
+
   // Count custom resources per grade for the Gate
   const customResourcesCountByGrade: Record<GradeLevel, number> = {
     '10': customResources.filter((r) => r.grade === '10').length,
@@ -98,14 +107,6 @@ export const LearningHubView: React.FC<LearningHubViewProps> = ({
       return next;
     });
   };
-
-  // Combine initial resources with any newly added ones from Admin (deduplicated by id)
-  const allResources = React.useMemo(() => {
-    const resourceMap = new Map<string, CurriculumResource>();
-    INITIAL_CURRICULUM_RESOURCES.forEach((r) => resourceMap.set(r.id, r));
-    customResources.forEach((r) => resourceMap.set(r.id, r));
-    return Array.from(resourceMap.values());
-  }, [customResources]);
 
   // Grade-level resources strictly for activeGrade
   const gradeResources = allResources.filter((r) => r.grade === activeGrade);
