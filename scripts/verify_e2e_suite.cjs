@@ -224,9 +224,10 @@ function runTier1() {
     const curriculumDataPath = path.join(SRC_DIR, 'data', 'curriculumData.ts');
     const currContent = fs.readFileSync(curriculumDataPath, 'utf8');
 
-    assert.ok(currContent.includes("grade: '10'"), 'Curriculum data must have Grade 10 entries');
-    assert.ok(currContent.includes("grade: '11'"), 'Curriculum data must have Grade 11 entries');
-    assert.ok(currContent.includes("grade: '12'"), 'Curriculum data must have Grade 12 entries');
+    assert.ok(currContent.includes('export const INITIAL_CURRICULUM_RESOURCES: CurriculumResource[]'), 'Curriculum data must export INITIAL_CURRICULUM_RESOURCES');
+    assert.ok(currContent.includes("'10': ["), 'Curriculum data must configure Grade 10 facets');
+    assert.ok(currContent.includes("'11': ["), 'Curriculum data must configure Grade 11 facets');
+    assert.ok(currContent.includes("'12': ["), 'Curriculum data must configure Grade 12 facets');
 
     // Mock filtering logic contract
     const mockResources = [
