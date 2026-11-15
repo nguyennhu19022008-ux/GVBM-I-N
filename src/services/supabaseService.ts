@@ -1,10 +1,10 @@
 import type { CurriculumResource } from '../data/curriculumData';
 import type { StudentFeedback } from '../data/feedbackData';
 
-const SUPABASE_URL =
+export const SUPABASE_URL =
   (import.meta.env.VITE_SUPABASE_URL as string | undefined) ||
   'https://jqzqehokvyjxnwnzklrp.supabase.co';
-const SUPABASE_ANON_KEY =
+export const SUPABASE_ANON_KEY =
   (import.meta.env.VITE_SUPABASE_ANON_KEY as string | undefined) ||
   'sb_publishable_N7-tSDbiw1e0V5nBc1IzXQ_NiaLhzsm';
 

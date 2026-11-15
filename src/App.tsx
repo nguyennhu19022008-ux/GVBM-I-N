@@ -5,6 +5,7 @@ import { PortalLandingView } from './components/portal/PortalLandingView';
 import { LearningHubView } from './components/learning/LearningHubView';
 import { AdminDashboardView } from './components/admin/AdminDashboardView';
 import { AdminPinModal } from './components/admin/AdminPinModal';
+import type { AuthModalMode } from './components/admin/AdminPinModal';
 import { TimelineDetailModal } from './components/TimelineDetailModal';
 import { QuizModal } from './components/QuizModal';
 import { Footer } from './components/Footer';
@@ -25,6 +26,12 @@ import {
   insertCloudFeedback,
   resolveCloudFeedback,
 } from './services/supabaseService';
+import {
+  DEFAULT_TEACHER_EMAIL,
+  TEACHER_EMAIL_STORAGE_KEY,
+  supabaseAuthClient,
+  signOutTeacher,
+} from './services/teacherAuthService';
 
 export function App() {
   // Current Active Main Zone
@@ -32,9 +39,12 @@ export function App() {
   const [learningGrade, setLearningGrade] = useState<GradeLevel>('12');
   const [hasSelectedGrade, setHasSelectedGrade] = useState<boolean>(false);
 
-  // Admin PIN Protection State
+  // Teacher Auth Protection State
   const [isAdminAuthenticated, setIsAdminAuthenticated] = useState<boolean>(false);
   const [isAdminPinModalOpen, setIsAdminPinModalOpen] = useState<boolean>(false);
+  const [authModalMode, setAuthModalMode] = useState<AuthModalMode>('email_login');
+  const [currentTeacherEmail, setCurrentTeacherEmail] = useState<string>(DEFAULT_TEACHER_EMAIL);
+  const [currentTeacherName, setCurrentTeacherName] = useState<string>('GVBM Bùi Thị Điền');
 
   // Dynamic Custom Resources (Added by teacher)
   const [customResources, setCustomResources] = useState<CurriculumResource[]>([]);
@@ -54,6 +64,10 @@ export function App() {
       // 0. Admin session restore
       if (sessionStorage.getItem('dam_me_lich_su_admin_auth') === 'true') {
         setIsAdminAuthenticated(true);
+        const savedEmail = sessionStorage.getItem(TEACHER_EMAIL_STORAGE_KEY);
+        if (savedEmail) {
+          setCurrentTeacherEmail(savedEmail);
+        }
       }
 
       // 1. Custom Resources (local fallback)
@@ -137,8 +151,39 @@ export function App() {
       });
     }
 
+    // 5. Supabase Auth session & Password Recovery link handler
+    supabaseAuthClient.auth.getSession().then(({ data }) => {
+      const user = data.session?.user;
+      if (user?.email) {
+        setIsAdminAuthenticated(true);
+        setCurrentTeacherEmail(user.email);
+        const metaName = user.user_metadata?.full_name as string | undefined;
+        if (metaName) setCurrentTeacherName(metaName);
+        sessionStorage.setItem('dam_me_lich_su_admin_auth', 'true');
+        sessionStorage.setItem(TEACHER_EMAIL_STORAGE_KEY, user.email);
+      }
+    });
+
+    const { data: authListener } = supabaseAuthClient.auth.onAuthStateChange((event, session) => {
+      if (event === 'PASSWORD_RECOVERY') {
+        setAuthModalMode('recovery');
+        setIsAdminPinModalOpen(true);
+        if (session?.user?.email) {
+          setCurrentTeacherEmail(session.user.email);
+        }
+      } else if (event === 'SIGNED_IN' && session?.user?.email) {
+        setIsAdminAuthenticated(true);
+        setCurrentTeacherEmail(session.user.email);
+        const metaName = session.user.user_metadata?.full_name as string | undefined;
+        if (metaName) setCurrentTeacherName(metaName);
+        sessionStorage.setItem('dam_me_lich_su_admin_auth', 'true');
+        sessionStorage.setItem(TEACHER_EMAIL_STORAGE_KEY, session.user.email);
+      }
+    });
+
     return () => {
       window.removeEventListener('hashchange', syncViewFromHash);
+      authListener.subscription.unsubscribe();
     };
   }, []);
 
@@ -218,6 +263,7 @@ export function App() {
   // View Navigation
   const handleNavigateView = (view: PortalView) => {
     if (view === 'admin' && !isAdminAuthenticated) {
+      setAuthModalMode('email_login');
       setIsAdminPinModalOpen(true);
       return;
     }
@@ -234,10 +280,18 @@ export function App() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const handleAdminPinSuccess = () => {
+  const handleAdminPinSuccess = (teacherInfo?: { email?: string; fullName?: string }) => {
     setIsAdminAuthenticated(true);
     sessionStorage.setItem('dam_me_lich_su_admin_auth', 'true');
+    if (teacherInfo?.email) {
+      setCurrentTeacherEmail(teacherInfo.email);
+      sessionStorage.setItem(TEACHER_EMAIL_STORAGE_KEY, teacherInfo.email);
+    }
+    if (teacherInfo?.fullName) {
+      setCurrentTeacherName(teacherInfo.fullName);
+    }
     setIsAdminPinModalOpen(false);
+    setAuthModalMode('email_login');
     setCurrentView('admin');
     window.location.hash = 'admin';
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -245,7 +299,7 @@ export function App() {
 
   const handleAdminLogout = () => {
     setIsAdminAuthenticated(false);
-    sessionStorage.removeItem('dam_me_lich_su_admin_auth');
+    void signOutTeacher();
     setCurrentView('portal');
     window.location.hash = 'portal';
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -311,6 +365,8 @@ export function App() {
           <AdminDashboardView
             resources={customResources}
             feedbackList={feedbackList}
+            currentTeacherEmail={currentTeacherEmail}
+            currentTeacherName={currentTeacherName}
             onAddResource={handleAddResource}
             onUpdateResource={handleUpdateResource}
             onDeleteResource={handleDeleteResource}
@@ -327,11 +383,15 @@ export function App() {
         onSelectGrade={handleGoToGrade}
       />
 
-      {/* Modal 1: Admin PIN Login */}
+      {/* Modal 1: Teacher Email/Pass & Password Recovery Login */}
       <AdminPinModal
         isOpen={isAdminPinModalOpen}
+        initialMode={authModalMode}
         onSuccess={handleAdminPinSuccess}
-        onCancel={() => setIsAdminPinModalOpen(false)}
+        onCancel={() => {
+          setIsAdminPinModalOpen(false);
+          setAuthModalMode('email_login');
+        }}
       />
 
       {/* Modal 2: Full-Screen Archival Event Reader (Timeline) */}

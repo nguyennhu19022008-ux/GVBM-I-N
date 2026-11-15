@@ -1,16 +1,20 @@
 import React, { useState } from 'react';
-import { Shield, UploadCloud, ListChecks, Inbox, LogOut, Clock, Check } from 'lucide-react';
+import { Shield, UploadCloud, ListChecks, Inbox, LogOut, Clock, Check, UserPlus } from 'lucide-react';
 import { DocumentPublisherForm } from './DocumentPublisherForm';
 import { DocumentManagerTable } from './DocumentManagerTable';
 import { FeedbackInboxTable } from './FeedbackInboxTable';
+import { TeacherAccountManager } from './TeacherAccountManager';
 import type { CurriculumResource } from '../../data/curriculumData';
 import { INITIAL_CURRICULUM_RESOURCES } from '../../data/curriculumData';
 import type { StudentFeedback } from '../../data/feedbackData';
 import { isSupabaseConfigured } from '../../services/supabaseService';
+import { DEFAULT_TEACHER_EMAIL } from '../../services/teacherAuthService';
 
 interface AdminDashboardViewProps {
   resources: CurriculumResource[];
   feedbackList: StudentFeedback[];
+  currentTeacherEmail?: string;
+  currentTeacherName?: string;
   onAddResource: (newRes: CurriculumResource) => void;
   onUpdateResource?: (updatedRes: CurriculumResource) => void;
   onDeleteResource: (id: string) => void;
@@ -21,13 +25,15 @@ interface AdminDashboardViewProps {
 export const AdminDashboardView: React.FC<AdminDashboardViewProps> = ({
   resources,
   feedbackList,
+  currentTeacherEmail,
+  currentTeacherName,
   onAddResource,
   onUpdateResource,
   onDeleteResource,
   onResolveFeedback,
   onLogout,
 }) => {
-  const [activeTab, setActiveTab] = useState<'publish' | 'manage' | 'inbox'>('publish');
+  const [activeTab, setActiveTab] = useState<'publish' | 'manage' | 'inbox' | 'teachers'>('publish');
   const [editingResource, setEditingResource] = useState<CurriculumResource | null>(null);
 
   const pendingFeedbackCount = feedbackList.filter((f) => f.status === 'pending').length;
@@ -78,6 +84,9 @@ export const AdminDashboardView: React.FC<AdminDashboardViewProps> = ({
           <h2 className="font-playfair text-3xl sm:text-4xl md:text-5xl font-black text-[#0A1418] tracking-tight">
             Bàn Điều Khiển & Phân Phối Học Liệu
           </h2>
+          <p className="text-xs font-mono text-[#687477] mt-1">
+            TÀI KHOẢN GIÁO VIÊN: <strong className="text-[#0A1418]">{currentTeacherEmail || DEFAULT_TEACHER_EMAIL}</strong>
+          </p>
         </div>
 
         <button
@@ -166,6 +175,18 @@ export const AdminDashboardView: React.FC<AdminDashboardViewProps> = ({
             </span>
           )}
         </button>
+
+        <button
+          onClick={() => setActiveTab('teachers')}
+          className={`px-4 py-2 text-xs font-mono font-bold uppercase transition-all flex items-center gap-2 cursor-pointer border-b-2 ${
+            activeTab === 'teachers'
+              ? 'border-[#1B4931] text-[#1B4931] bg-[#F3EFE5]'
+              : 'border-transparent text-[#687477] hover:text-[#0A1418]'
+          }`}
+        >
+          <UserPlus className="w-4 h-4" />
+          <span>4. Tài Khoản & Thêm Giáo Viên</span>
+        </button>
       </div>
 
       {/* Tab Panels */}
@@ -182,6 +203,7 @@ export const AdminDashboardView: React.FC<AdminDashboardViewProps> = ({
             }}
             editingResource={editingResource}
             onCancelEdit={handleCancelEdit}
+            defaultAuthor={currentTeacherName || currentTeacherEmail || 'GVBM Bùi Thị Điền'}
           />
         )}
 
@@ -198,6 +220,10 @@ export const AdminDashboardView: React.FC<AdminDashboardViewProps> = ({
             feedbackList={feedbackList}
             onResolveFeedback={onResolveFeedback}
           />
+        )}
+
+        {activeTab === 'teachers' && (
+          <TeacherAccountManager currentTeacherEmail={currentTeacherEmail || DEFAULT_TEACHER_EMAIL} />
         )}
       </div>
 

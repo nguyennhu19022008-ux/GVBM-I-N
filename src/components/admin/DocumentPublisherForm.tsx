@@ -7,12 +7,14 @@ interface DocumentPublisherFormProps {
   onPublish: (newRes: CurriculumResource) => void;
   editingResource?: CurriculumResource | null;
   onCancelEdit?: () => void;
+  defaultAuthor?: string;
 }
 
 export const DocumentPublisherForm: React.FC<DocumentPublisherFormProps> = ({
   onPublish,
   editingResource,
   onCancelEdit,
+  defaultAuthor,
 }) => {
   const [title, setTitle] = useState<string>('');
   const [grade, setGrade] = useState<GradeLevel>('12');
@@ -75,7 +77,7 @@ export const DocumentPublisherForm: React.FC<DocumentPublisherFormProps> = ({
       format,
       fileSize: fileSize.trim() || '5.0 MB',
       downloadsCount: editingResource ? editingResource.downloadsCount : 0,
-      author: editingResource ? editingResource.author : 'Thầy Nguyễn Vương Gia',
+      author: editingResource ? editingResource.author : defaultAuthor || 'GVBM Bùi Thị Điền',
       createdAt: editingResource ? editingResource.createdAt : new Date().toISOString().split('T')[0],
       hasAnswerKey: category === 'exam' || category === 'homework',
       highlights: highlights.length > 0 ? highlights : ['Tài liệu phát hành mới', 'Chuẩn giáo trình THPT'],
