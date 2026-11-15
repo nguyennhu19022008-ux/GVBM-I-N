@@ -4,7 +4,9 @@ import { DocumentPublisherForm } from './DocumentPublisherForm';
 import { DocumentManagerTable } from './DocumentManagerTable';
 import { FeedbackInboxTable } from './FeedbackInboxTable';
 import type { CurriculumResource } from '../../data/curriculumData';
+import { INITIAL_CURRICULUM_RESOURCES } from '../../data/curriculumData';
 import type { StudentFeedback } from '../../data/feedbackData';
+import { isSupabaseConfigured } from '../../services/supabaseService';
 
 interface AdminDashboardViewProps {
   resources: CurriculumResource[];
@@ -26,6 +28,7 @@ export const AdminDashboardView: React.FC<AdminDashboardViewProps> = ({
   const [activeTab, setActiveTab] = useState<'publish' | 'manage' | 'inbox'>('publish');
 
   const pendingFeedbackCount = feedbackList.filter((f) => f.status === 'pending').length;
+  const combinedResources = [...resources, ...INITIAL_CURRICULUM_RESOURCES];
 
   return (
     <div className="w-full py-10 lg:py-14 px-6 md:px-12 xl:px-16 bg-[#FAF8F1] animate-fadeSlideUp">
@@ -33,11 +36,15 @@ export const AdminDashboardView: React.FC<AdminDashboardViewProps> = ({
       {/* Top Banner & Logout: Broadsheet Double Rule */}
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-6 pb-4 broadsheet-double-b text-left">
         <div>
-          <div className="flex items-center gap-2 text-xs font-mono font-bold tracking-widest text-[#9C3B32] uppercase mb-1.5">
+          <div className="flex flex-wrap items-center gap-2 text-xs font-mono font-bold tracking-widest text-[#9C3B32] uppercase mb-1.5">
             <Shield className="w-4 h-4 text-[#9C3B32]" />
             <span>KHU VỰC QUẢN TRỊ SƯ PHẠM</span>
             <span>•</span>
             <span>BẢO MẬT GIÁO VIÊN</span>
+            <span>•</span>
+            <span className={`px-2 py-0.5 text-[10px] ${isSupabaseConfigured ? 'bg-[#1B4931] text-white' : 'bg-[#B47818] text-white'}`}>
+              {isSupabaseConfigured ? '✓ ĐỒNG BỘ ĐÁM MÂY SUPABASE' : '⏳ CHỜ KẾT NỐI SUPABASE (LƯU CỤC BỘ)'}
+            </span>
           </div>
           <h2 className="font-playfair text-3xl sm:text-4xl md:text-5xl font-black text-[#0A1418] tracking-tight">
             Bàn Điều Khiển & Phân Phối Học Liệu
@@ -57,22 +64,22 @@ export const AdminDashboardView: React.FC<AdminDashboardViewProps> = ({
       <div className="grid grid-cols-2 lg:grid-cols-4 divide-y sm:divide-y-0 sm:divide-x divide-[#10252B]/20 border-y-2 border-[#0A1418] mb-8 text-left py-4">
         <div className="p-3 sm:p-4">
           <span className="block text-[11px] font-mono text-[#687477] uppercase font-bold">TỔNG TÀI LIỆU</span>
-          <span className="block font-mono text-3xl sm:text-4xl font-black text-[#0A1418] mt-1">{resources.length}</span>
-          <span className="text-[10px] font-mono text-[#486D5D]">Đang lưu trữ & mở tải</span>
+          <span className="block font-mono text-3xl sm:text-4xl font-black text-[#0A1418] mt-1">{combinedResources.length}</span>
+          <span className="text-[10px] font-mono text-[#486D5D]">Gồm {resources.length} bài mới đăng</span>
         </div>
 
         <div className="p-3 sm:p-4">
           <span className="block text-[11px] font-mono text-[#687477] uppercase font-bold">BÀI TẬP VỀ NHÀ</span>
-          <span className="block font-mono text-3xl sm:text-4xl font-black text-[#9C3B32] mt-1">
-            {resources.filter((r) => r.category === 'homework').length}
+          <span className="block font-mono text-3xl sm:text-4xl font-black text-[#1B4931] mt-1">
+            {combinedResources.filter((r) => r.category === 'homework').length}
           </span>
           <span className="text-[10px] font-mono text-[#687477]">Khối 10, 11 và 12</span>
         </div>
 
         <div className="p-3 sm:p-4">
           <span className="block text-[11px] font-mono text-[#687477] uppercase font-bold">ĐỀ THI & ĐỀ CƯƠNG</span>
-          <span className="block font-mono text-3xl sm:text-4xl font-black text-[#C69A47] mt-1">
-            {resources.filter((r) => r.category === 'exam').length}
+          <span className="block font-mono text-3xl sm:text-4xl font-black text-[#9C3B32] mt-1">
+            {combinedResources.filter((r) => r.category === 'exam').length}
           </span>
           <span className="text-[10px] font-mono text-[#687477]">Kèm đáp án giải thích</span>
         </div>

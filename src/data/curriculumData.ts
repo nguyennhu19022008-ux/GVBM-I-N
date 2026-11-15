@@ -250,6 +250,100 @@ export const INITIAL_CURRICULUM_RESOURCES: CurriculumResource[] = [
     hasAnswerKey: false,
     highlights: ['Animation mượt mà', 'Bản đồ tương tác', 'Hình ảnh di chỉ khảo cổ học thật'],
   },
+  {
+    id: 'k10-hw-02',
+    title: 'Phiếu Bài Tập Tuần 09: Văn Minh Văn Lang - Âu Lạc, Chăm Pa & Phù Nam',
+    grade: '10',
+    category: 'homework',
+    period: 'Văn minh trên đất nước Việt Nam',
+    periodFacet: 'van-minh-viet-nam',
+    description: 'Hệ thống bảng so sánh 3 nền văn minh cổ trên đất nước Việt Nam về không gian địa lý, cơ sở kinh tế, đời sống vật chất tinh thần và di sản khảo cổ học tiêu biểu.',
+    format: 'DOCX',
+    fileSize: '3.9 MB',
+    downloadsCount: 640,
+    author: 'Thầy Nguyễn Vương Gia',
+    createdAt: '2026-03-08',
+    hasAnswerKey: true,
+    highlights: ['Bảng đối chiếu 3 nền văn minh', '12 câu hỏi trắc nghiệm + 2 Đúng/Sai', 'Kèm lời giải chi tiết'],
+    fullContentPreview: {
+      teacherNote: 'Học sinh cần nhớ chính xác không gian hình thành: Văn Lang - Âu Lạc (lưu vực sông Hồng), Chăm Pa (duyên hải miền Trung - văn hóa Sa Huỳnh), Phù Nam (Nam Bộ - văn hóa Óc Eo).',
+      estimatedStudyTimeMinutes: 35,
+      matrix: [
+        { level: 'Nhận biết', percent: 35, questionCount: 5, symbol: '○', color: '#2D6A4F' },
+        { level: 'Thông hiểu', percent: 35, questionCount: 5, symbol: '◐', color: '#1D4ED8' },
+        { level: 'Vận dụng', percent: 20, questionCount: 3, symbol: '◕', color: '#B45309' },
+        { level: 'Vận dụng cao', percent: 10, questionCount: 1, symbol: '●', color: '#B91C1C' },
+      ],
+      sections: [
+        {
+          sectionTitle: 'Phần I: Nhận diện di chỉ khảo cổ & Hiện vật tiêu biểu',
+          items: [
+            'Trống đồng Đông Sơn, thạp đồng Đào Thịnh (Văn Lang - Âu Lạc).',
+            'Thánh địa Mỹ Sơn, Tháp Chàm (Chăm Pa) và di chỉ Óc Eo (Phù Nam).'
+          ]
+        }
+      ],
+      sampleQuestions: [
+        {
+          num: 1,
+          cognitiveLevel: 'Nhận biết',
+          stem: 'Văn minh Phù Nam được hình thành và phát triển trên cơ sở nền văn hóa khảo cổ nào?',
+          options: ['A. Văn hóa Đông Sơn', 'B. Văn hóa Sa Huỳnh', 'C. Văn hóa Óc Eo', 'D. Văn hóa Hòa Bình'],
+          guide: 'Văn minh Phù Nam ở vùng đồng bằng sông Cửu Long gắn liền với nền văn hóa Óc Eo rực rỡ.'
+        }
+      ]
+    }
+  },
+  {
+    id: 'k10-exam-02',
+    title: 'Đề Ôn Tập Cuối Học Kỳ II Lịch Sử 10 (Cấu Trúc Mới: Trắc Nghiệm + Đúng/Sai Văn Minh Đại Việt)',
+    grade: '10',
+    category: 'exam',
+    period: 'Văn minh trên đất nước Việt Nam',
+    periodFacet: 'van-minh-viet-nam',
+    description: 'Đề ôn tập học kỳ II chuẩn cấu trúc mới của Bộ GD&ĐT gồm 24 câu trắc nghiệm 4 lựa chọn và 4 câu Đúng/Sai đa mệnh đề về Văn minh Đại Việt (thế kỷ X - XIX).',
+    format: 'PDF',
+    fileSize: '5.4 MB',
+    downloadsCount: 1020,
+    author: 'Thầy Nguyễn Vương Gia',
+    createdAt: '2026-03-12',
+    hasAnswerKey: true,
+    highlights: ['Chuẩn cấu trúc 2026', 'Có 4 câu Đúng/Sai tư liệu', 'Kèm hướng dẫn giải chi tiết'],
+    fullContentPreview: {
+      teacherNote: 'Đề kiểm tra chú trọng khả năng đọc hiểu đoạn trích sử liệu Đại Việt và phân tích thành tựu văn hóa Lý - Trần - Lê sơ.',
+      estimatedStudyTimeMinutes: 45,
+      matrix: [
+        { level: 'Nhận biết', percent: 40, questionCount: 11, symbol: '○', color: '#2D6A4F' },
+        { level: 'Thông hiểu', percent: 30, questionCount: 8, symbol: '◐', color: '#1D4ED8' },
+        { level: 'Vận dụng', percent: 20, questionCount: 6, symbol: '◕', color: '#B45309' },
+        { level: 'Vận dụng cao', percent: 10, questionCount: 3, symbol: '●', color: '#B91C1C' },
+      ],
+      sections: [
+        {
+          sectionTitle: 'Phần I: Trắc nghiệm nhiều lựa chọn (24 câu)',
+          items: ['Thành tựu chính trị, luật pháp (Hình thư, Luật Hồng Đức), giáo dục khoa cử và nghệ thuật Đại Việt.']
+        },
+        {
+          sectionTitle: 'Phần II: Trắc nghiệm Đúng/Sai theo đoạn trích tư liệu (4 câu)',
+          items: ['Khai thác tư liệu về Văn Miếu - Quốc Tử Giám, chữ Nôm và chính sách "ngụ binh ư nông".']
+        }
+      ],
+      sampleQuestions: [
+        {
+          num: 1,
+          cognitiveLevel: 'Vận dụng',
+          stem: 'Ý nghĩa lớn nhất của việc nhà Lý cho xây dựng Văn Miếu (1070) và lập Quốc Tử Giám (1076) là gì?',
+          options: [
+            'A. Đánh dấu sự ra đời của nền giáo dục, khoa cử Nho học chính quy ở nước ta.',
+            'B. Xóa bỏ hoàn toàn ảnh hưởng của Phật giáo trong triều đình.',
+            'C. Thay thế chữ Hán bằng chữ Quốc ngữ.',
+            'D. Chỉ dành riêng cho con em tầng lớp nông dân.'
+          ],
+          guide: 'Đây là cột mốc khai sinh trường đại học đầu tiên và nền khoa cử chính quy của Đại Việt.'
+        }
+      ]
+    }
+  },
 
   // ==========================================
   // KHỐI 11 (CẬN - HIỆN ĐẠI & THẾ GIỚI)
@@ -335,6 +429,105 @@ export const INITIAL_CURRICULUM_RESOURCES: CurriculumResource[] = [
     createdAt: '2026-01-25',
     hasAnswerKey: false,
     highlights: ['Sơ đồ phân nhánh tư tưởng', 'Trích dẫn thơ văn yêu nước', 'Thiết kế cổ điển trang trọng'],
+  },
+  {
+    id: 'k11-hw-02',
+    title: 'Phiếu Bài Tập Tuần 12: Xu Hướng Cứu Nước Mới Đầu Thế Kỷ XX (Phan Bội Châu & Phan Châu Trinh)',
+    grade: '11',
+    category: 'homework',
+    period: 'Việt Nam đầu thế kỷ XX',
+    periodFacet: 'dau-tk-xx',
+    description: 'Phiếu bài tập rèn luyện kỹ năng đối chiếu giữa xu hướng Bạo động (Đông Du) của Phan Bội Châu và xu hướng Cải cách (Duy Tân) của Phan Châu Trinh kèm bài tập nhận định Đúng/Sai.',
+    format: 'DOCX',
+    fileSize: '4.3 MB',
+    downloadsCount: 810,
+    author: 'Thầy Nguyễn Vương Gia',
+    createdAt: '2026-03-09',
+    hasAnswerKey: true,
+    highlights: ['Bảng đối chiếu 2 xu hướng cứu nước', '15 câu trắc nghiệm + 2 Đúng/Sai', 'Giải thích mẹo tránh bẫy'],
+    fullContentPreview: {
+      teacherNote: 'Hai cụ Phan tuy khác nhau về phương pháp đấu tranh (Bạo động vs Cải cách) và kẻ thù trước mắt/lâu dài, nhưng đều chung một mục tiêu tối thượng là cứu nước, giải phóng dân tộc theo khuynh hướng dân chủ tư sản.',
+      estimatedStudyTimeMinutes: 35,
+      matrix: [
+        { level: 'Nhận biết', percent: 30, questionCount: 5, symbol: '○', color: '#2D6A4F' },
+        { level: 'Thông hiểu', percent: 40, questionCount: 7, symbol: '◐', color: '#1D4ED8' },
+        { level: 'Vận dụng', percent: 20, questionCount: 3, symbol: '◕', color: '#B45309' },
+        { level: 'Vận dụng cao', percent: 10, questionCount: 2, symbol: '●', color: '#B91C1C' },
+      ],
+      sections: [
+        {
+          sectionTitle: 'So sánh điểm giống và khác nhau giữa Phan Bội Châu và Phan Châu Trinh',
+          items: [
+            'Mục tiêu: Đều hướng tới cứu nước, xây dựng xã hội mới tiến bộ theo khuynh hướng dân chủ tư sản.',
+            'Phương pháp: Phan Bội Châu dùng bạo động vũ trang, cầu viện Nhật Bản; Phan Châu Trinh dùng cải cách ôn hòa, dựa vào Pháp để "khai dân trí".'
+          ]
+        }
+      ],
+      sampleQuestions: [
+        {
+          num: 1,
+          cognitiveLevel: 'Vận dụng',
+          stem: 'Vì sao phong trào Đông Du (1905 - 1909) do Phan Bội Châu khởi xướng cuối cùng bị tan rã?',
+          options: [
+            'A. Do thực dân Pháp câu kết với Chính phủ Nhật Bản trục xuất lưu học sinh Việt Nam.',
+            'B. Do thanh niên Việt Nam không chịu sang Nhật du học.',
+            'C. Do mâu thuẫn nội bộ trong Hội Duy tân.',
+            'D. Do thiếu kinh phí hoạt động ngay từ năm đầu tiên.'
+          ],
+          guide: 'Tháng 9/1908, Chính phủ Nhật Bản thỏa hiệp với thực dân Pháp ra lệnh trục xuất Phan Bội Châu và lưu học sinh Việt Nam.'
+        }
+      ]
+    }
+  },
+  {
+    id: 'k11-exam-02',
+    title: 'Đề Kiểm Tra Giữa Học Kỳ I Lịch Sử 11: Việt Nam Từ 1858 Đến 1918 (Chuẩn Cấu Trúc 2026)',
+    grade: '11',
+    category: 'exam',
+    period: 'Lịch sử Việt Nam (1858 - 1918)',
+    periodFacet: 'viet-nam-can-dai',
+    description: 'Đề kiểm tra 45 phút bám sát ma trận mới gồm 24 câu trắc nghiệm nhiều lựa chọn và 4 câu trắc nghiệm Đúng/Sai về quá trình Pháp xâm lược và phong trào kháng chiến cuối thế kỷ XIX.',
+    format: 'PDF',
+    fileSize: '5.1 MB',
+    downloadsCount: 940,
+    author: 'Thầy Nguyễn Vương Gia',
+    createdAt: '2026-03-11',
+    hasAnswerKey: true,
+    highlights: ['Chuẩn cấu trúc Bộ GD&ĐT', 'Kèm tư liệu lịch sử gốc', 'Đáp án phân tích chi tiết'],
+    fullContentPreview: {
+      teacherNote: 'Chú ý thứ tự thời gian của 4 Hiệp ước bán nước (Nhâm Tuất 1862 -> Giáp Tuất 1874 -> Hác-măng 1883 -> Pa-tơ-nốt 1884) và diễn biến 2 giai đoạn của phong trào Cần Vương.',
+      estimatedStudyTimeMinutes: 45,
+      matrix: [
+        { level: 'Nhận biết', percent: 40, questionCount: 11, symbol: '○', color: '#2D6A4F' },
+        { level: 'Thông hiểu', percent: 30, questionCount: 8, symbol: '◐', color: '#1D4ED8' },
+        { level: 'Vận dụng', percent: 20, questionCount: 6, symbol: '◕', color: '#B45309' },
+        { level: 'Vận dụng cao', percent: 10, questionCount: 3, symbol: '●', color: '#B91C1C' },
+      ],
+      sections: [
+        {
+          sectionTitle: 'Phần I: Quá trình thực dân Pháp xâm lược & Cuộc kháng chiến của nhân dân (1858 - 1884)',
+          items: ['Mặt trận Đà Nẵng, Gia Định, Bắc Kỳ và trách nhiệm của triều đình nhà Nguyễn.']
+        },
+        {
+          sectionTitle: 'Phần II: Phong trào Cần Vương & Khởi nghĩa Yên Thế',
+          items: ['Các cuộc khởi nghĩa tiêu biểu: Ba Đình, Bãi Sậy, Hương Khê và 30 năm Yên Thế.']
+        }
+      ],
+      sampleQuestions: [
+        {
+          num: 1,
+          cognitiveLevel: 'Thông hiểu',
+          stem: 'Nguyên nhân chủ yếu nào khiến phong trào Cần Vương cuối thế kỷ XIX thất bại?',
+          options: [
+            'A. Thiếu sự lãnh đạo của một giai cấp tiên tiến với đường lối cứu nước đúng đắn.',
+            'B. Nhân dân ta không tích cực tham gia kháng chiến.',
+            'C. Thực dân Pháp được toàn bộ các nước châu Á ủng hộ.',
+            'D. Nghĩa quân không có vũ khí tự chế.'
+          ],
+          guide: 'Ngọn cờ phong kiến không còn đủ sức tập hợp toàn dân tộc và tạo ra bước đột phá về đường lối trước kẻ thù tư bản phương Tây.'
+        }
+      ]
+    }
   },
 
   // ==========================================

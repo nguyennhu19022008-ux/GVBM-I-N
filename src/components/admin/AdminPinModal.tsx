@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Lock, KeyRound, AlertCircle, ArrowRight } from 'lucide-react';
+import { Lock, KeyRound, AlertCircle, ArrowRight, Eye, EyeOff } from 'lucide-react';
 
 interface AdminPinModalProps {
   isOpen: boolean;
@@ -13,15 +13,16 @@ export const AdminPinModal: React.FC<AdminPinModalProps> = ({
   onCancel,
 }) => {
   const [pin, setPin] = useState<string>('');
+  const [showPin, setShowPin] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
 
   if (!isOpen) return null;
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Default PIN: 19022008 (or 123456 as backup)
-    if (pin.trim() === '19022008' || pin.trim() === '123456') {
+    if (pin.trim() === '19022008') {
       setError('');
+      setPin('');
       onSuccess();
     } else {
       setError('Mã PIN không chính xác. Vui lòng kiểm tra lại!');
@@ -29,8 +30,11 @@ export const AdminPinModal: React.FC<AdminPinModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-xs animate-fadeSlideUp">
-      <div 
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-xs animate-fadeSlideUp"
+      onClick={onCancel}
+    >
+      <div
         className="relative w-full max-w-md bg-[#FAF8F1] border-2 border-[#0A1418] shadow-2xl p-6 sm:p-8 text-left"
         onClick={(e) => e.stopPropagation()}
       >
@@ -52,23 +56,31 @@ export const AdminPinModal: React.FC<AdminPinModalProps> = ({
               <KeyRound className="w-3.5 h-3.5 text-[#9C3B32]" />
               <span>Nhập Mã PIN Giáo Viên:</span>
             </label>
-            <input
-              id="admin-pin-input"
-              name="adminPin"
-              type="password"
-              autoFocus
-              required
-              value={pin}
-              onChange={(e) => {
-                setPin(e.target.value);
-                if (error) setError('');
-              }}
-              placeholder="Nhập mã PIN bảo mật..."
-              className="w-full px-4 py-3 bg-white border border-[rgba(16,37,43,0.3)] focus:border-[#9C3B32] text-center font-mono text-lg tracking-widest outline-none text-[#0A1418]"
-            />
-            <p className="text-[11px] font-mono text-[#687477] mt-1.5 text-center">
-              (Gợi ý mã mặc định hệ thống: <span className="font-bold text-[#9C3B32]">19022008</span>)
-            </p>
+            <div className="relative">
+              <input
+                id="admin-pin-input"
+                name="adminPin"
+                type={showPin ? 'text' : 'password'}
+                autoFocus
+                required
+                value={pin}
+                onChange={(e) => {
+                  setPin(e.target.value);
+                  if (error) setError('');
+                }}
+                placeholder="Nhập mã PIN bảo mật..."
+                className="w-full px-4 py-3 pr-11 bg-white border border-[#0A1418]/30 focus:border-[#9C3B32] text-center font-mono text-lg tracking-widest outline-none text-[#0A1418]"
+              />
+              <button
+                type="button"
+                onClick={() => setShowPin((prev) => !prev)}
+                className="absolute right-3 top-1/2 -translate-y-1/2 p-1 text-[#687477] hover:text-[#0A1418] cursor-pointer"
+                title={showPin ? 'Ẩn mã PIN' : 'Hiện mã PIN'}
+                aria-label={showPin ? 'Ẩn mã PIN' : 'Hiện mã PIN'}
+              >
+                {showPin ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+              </button>
+            </div>
           </div>
 
           {error && (

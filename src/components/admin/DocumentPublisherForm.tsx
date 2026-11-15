@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { UploadCloud, Plus, CheckCircle2 } from 'lucide-react';
 import type { CurriculumResource, GradeLevel, ResourceCategory } from '../../data/curriculumData';
+import { PERIOD_FACETS_BY_GRADE } from '../../data/curriculumData';
 
 interface DocumentPublisherFormProps {
   onPublish: (newRes: CurriculumResource) => void;
@@ -10,12 +11,25 @@ export const DocumentPublisherForm: React.FC<DocumentPublisherFormProps> = ({ on
   const [title, setTitle] = useState<string>('');
   const [grade, setGrade] = useState<GradeLevel>('12');
   const [category, setCategory] = useState<ResourceCategory>('homework');
+  const [periodFacet, setPeriodFacet] = useState<string>('kc-chong-my');
   const [period, setPeriod] = useState<string>('Kháng chiến chống Mỹ cứu nước');
   const [format, setFormat] = useState<'DOCX' | 'PDF' | 'PPTX'>('DOCX');
   const [fileSize, setFileSize] = useState<string>('4.5 MB');
+  const [estimatedStudyTimeMinutes, setEstimatedStudyTimeMinutes] = useState<number>(40);
+  const [teacherNote, setTeacherNote] = useState<string>('');
   const [description, setDescription] = useState<string>('');
   const [highlightsInput, setHighlightsInput] = useState<string>('Có đáp án chi tiết, Chuẩn ma trận đề thi, File in ấn rõ nét');
   const [successMessage, setSuccessMessage] = useState<string>('');
+
+  const availableFacets = (PERIOD_FACETS_BY_GRADE[grade] || []).filter((f) => f.id !== 'all');
+
+  useEffect(() => {
+    const facets = (PERIOD_FACETS_BY_GRADE[grade] || []).filter((f) => f.id !== 'all');
+    if (facets.length > 0) {
+      setPeriodFacet(facets[0].id);
+      setPeriod(facets[0].label);
+    }
+  }, [grade]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -32,6 +46,7 @@ export const DocumentPublisherForm: React.FC<DocumentPublisherFormProps> = ({ on
       grade,
       category,
       period: period.trim() || 'Chương trình THPT',
+      periodFacet,
       description: description.trim(),
       format,
       fileSize: fileSize.trim() || '5.0 MB',
@@ -40,6 +55,23 @@ export const DocumentPublisherForm: React.FC<DocumentPublisherFormProps> = ({ on
       createdAt: new Date().toISOString().split('T')[0],
       hasAnswerKey: category === 'exam' || category === 'homework',
       highlights: highlights.length > 0 ? highlights : ['Tài liệu phát hành mới', 'Chuẩn giáo trình THPT'],
+      fullContentPreview: {
+        teacherNote: teacherNote.trim() || description.trim(),
+        estimatedStudyTimeMinutes: Number(estimatedStudyTimeMinutes) || 40,
+        matrix: [
+          { level: 'Nhận biết', percent: 40, questionCount: 8, symbol: '○', color: '#2D6A4F' },
+          { level: 'Thông hiểu', percent: 30, questionCount: 6, symbol: '◐', color: '#1D4ED8' },
+          { level: 'Vận dụng', percent: 20, questionCount: 4, symbol: '◕', color: '#B45309' },
+          { level: 'Vận dụng cao', percent: 10, questionCount: 2, symbol: '●', color: '#B91C1C' },
+        ],
+        sections: [
+          {
+            sectionTitle: 'Nội dung trọng tâm tài liệu',
+            items: [description.trim()],
+          },
+        ],
+        sampleQuestions: [],
+      },
     };
 
     onPublish(newResource);
@@ -48,6 +80,7 @@ export const DocumentPublisherForm: React.FC<DocumentPublisherFormProps> = ({ on
     // Reset form
     setTitle('');
     setDescription('');
+    setTeacherNote('');
     setTimeout(() => setSuccessMessage(''), 3500);
   };
 
@@ -145,11 +178,35 @@ export const DocumentPublisherForm: React.FC<DocumentPublisherFormProps> = ({ on
           </div>
         </div>
 
-        {/* Period & File size */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        {/* Period Facet, Period Label, File size & Estimated Study Time */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div>
+            <label htmlFor="pub-facet" className="block text-xs font-mono font-bold text-[#0A1418] uppercase mb-1">
+              Chuyên Đề Bộ Lọc
+            </label>
+            <select
+              id="pub-facet"
+              name="pubFacet"
+              value={periodFacet}
+              onChange={(e) => {
+                const fId = e.target.value;
+                setPeriodFacet(fId);
+                const found = availableFacets.find((f) => f.id === fId);
+                if (found) setPeriod(found.label);
+              }}
+              className="w-full px-3 py-2 bg-white border border-[#0A1418]/25 focus:border-[#9C3B32] text-xs font-mono outline-none text-[#0A1418]"
+            >
+              {availableFacets.map((f) => (
+                <option key={f.id} value={f.id}>
+                  {f.label}
+                </option>
+              ))}
+            </select>
+          </div>
+
           <div>
             <label htmlFor="pub-period" className="block text-xs font-mono font-bold text-[#0A1418] uppercase mb-1">
-              Giai Đoạn Lịch Sử / Phân Kỳ
+              Nhãn Giai Đoạn Hiển Thị
             </label>
             <input
               id="pub-period"
@@ -158,24 +215,57 @@ export const DocumentPublisherForm: React.FC<DocumentPublisherFormProps> = ({ on
               value={period}
               onChange={(e) => setPeriod(e.target.value)}
               placeholder="Ví dụ: Kháng chiến chống Pháp (1945 - 1954)"
-              className="w-full px-3 py-2 bg-white border border-[rgba(16,37,43,0.25)] focus:border-[#9C3B32] text-xs outline-none text-[#0A1418]"
+              className="w-full px-3 py-2 bg-white border border-[#0A1418]/25 focus:border-[#9C3B32] text-xs outline-none text-[#0A1418]"
             />
           </div>
 
-          <div>
-            <label htmlFor="pub-filesize" className="block text-xs font-mono font-bold text-[#0A1418] uppercase mb-1">
-              Dung Lượng Tệp Hiển Thị
-            </label>
-            <input
-              id="pub-filesize"
-              name="pubFileSize"
-              type="text"
-              value={fileSize}
-              onChange={(e) => setFileSize(e.target.value)}
-              placeholder="Ví dụ: 4.8 MB"
-              className="w-full px-3 py-2 bg-white border border-[rgba(16,37,43,0.25)] focus:border-[#9C3B32] text-xs outline-none text-[#0A1418]"
-            />
+          <div className="grid grid-cols-2 gap-2">
+            <div>
+              <label htmlFor="pub-filesize" className="block text-xs font-mono font-bold text-[#0A1418] uppercase mb-1">
+                Dung Lượng
+              </label>
+              <input
+                id="pub-filesize"
+                name="pubFileSize"
+                type="text"
+                value={fileSize}
+                onChange={(e) => setFileSize(e.target.value)}
+                placeholder="4.8 MB"
+                className="w-full px-3 py-2 bg-white border border-[#0A1418]/25 focus:border-[#9C3B32] text-xs outline-none text-[#0A1418]"
+              />
+            </div>
+            <div>
+              <label htmlFor="pub-time" className="block text-xs font-mono font-bold text-[#0A1418] uppercase mb-1">
+                Phút Tự Học
+              </label>
+              <input
+                id="pub-time"
+                name="pubTime"
+                type="number"
+                min={5}
+                max={180}
+                value={estimatedStudyTimeMinutes}
+                onChange={(e) => setEstimatedStudyTimeMinutes(Number(e.target.value))}
+                className="w-full px-3 py-2 bg-white border border-[#0A1418]/25 focus:border-[#9C3B32] text-xs outline-none text-[#0A1418]"
+              />
+            </div>
           </div>
+        </div>
+
+        {/* Teacher Note */}
+        <div>
+          <label htmlFor="pub-teacher-note" className="block text-xs font-mono font-bold text-[#0A1418] uppercase mb-1">
+            Lời Dặn Dò Của Thầy (Hiển thị trong Xem Ma Trận)
+          </label>
+          <input
+            id="pub-teacher-note"
+            name="pubTeacherNote"
+            type="text"
+            value={teacherNote}
+            onChange={(e) => setTeacherNote(e.target.value)}
+            placeholder="Ví dụ: Học sinh chú ý phân biệt mốc thời gian trước và sau chiến dịch..."
+            className="w-full px-3.5 py-2 bg-white border border-[#0A1418]/25 focus:border-[#9C3B32] text-xs outline-none text-[#0A1418]"
+          />
         </div>
 
         {/* Description */}

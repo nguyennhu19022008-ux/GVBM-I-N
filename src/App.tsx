@@ -15,6 +15,15 @@ import type { CurriculumResource, GradeLevel } from './data/curriculumData';
 import type { StudentFeedback } from './data/feedbackData';
 import { INITIAL_FEEDBACK_LIST } from './data/feedbackData';
 import { QUIZ_EXAMS } from './data/quizData';
+import {
+  isSupabaseConfigured,
+  fetchCloudResources,
+  insertCloudResource,
+  deleteCloudResource,
+  fetchCloudFeedback,
+  insertCloudFeedback,
+  resolveCloudFeedback,
+} from './services/supabaseService';
 
 export function App() {
   // Current Active Main Zone
@@ -38,16 +47,21 @@ export function App() {
   // Selected Quiz Exam for Testing Room
   const [selectedExam, setSelectedExam] = useState<QuizExam | null>(null);
 
-  // Load persistent states on mount
+  // Load persistent states on mount & sync with Supabase if configured
   useEffect(() => {
     try {
-      // 1. Custom Resources
+      // 0. Admin session restore
+      if (sessionStorage.getItem('dam_me_lich_su_admin_auth') === 'true') {
+        setIsAdminAuthenticated(true);
+      }
+
+      // 1. Custom Resources (local fallback)
       const storedRes = localStorage.getItem('dam_me_lich_su_custom_res');
       if (storedRes) {
         setCustomResources(JSON.parse(storedRes));
       }
 
-      // 3. Feedback Reports
+      // 2. Feedback Reports (local fallback)
       const storedFeedback = localStorage.getItem('dam_me_lich_su_feedback');
       if (storedFeedback) {
         setFeedbackList(JSON.parse(storedFeedback));
@@ -55,11 +69,15 @@ export function App() {
         setFeedbackList(INITIAL_FEEDBACK_LIST);
       }
 
-      // 4. URL Hash Routing
+      // 3. URL Hash Routing
       const hash = window.location.hash.replace('#', '');
       if (hash === 'learning' || hash === 'admin' || hash === 'portal') {
         if (hash === 'admin') {
-          setIsAdminPinModalOpen(true);
+          if (sessionStorage.getItem('dam_me_lich_su_admin_auth') === 'true') {
+            setCurrentView('admin');
+          } else {
+            setIsAdminPinModalOpen(true);
+          }
         } else {
           setCurrentView(hash as PortalView);
         }
@@ -67,9 +85,34 @@ export function App() {
     } catch (err) {
       console.warn('Error reading stored state:', err);
     }
+
+    // 4. Cloud sync with Supabase (if configured)
+    if (isSupabaseConfigured) {
+      fetchCloudResources().then((cloudRes) => {
+        if (cloudRes) {
+          setCustomResources(cloudRes);
+          try {
+            localStorage.setItem('dam_me_lich_su_custom_res', JSON.stringify(cloudRes));
+          } catch (e) {
+            console.warn(e);
+          }
+        }
+      });
+
+      fetchCloudFeedback().then((cloudFb) => {
+        if (cloudFb && cloudFb.length > 0) {
+          setFeedbackList(cloudFb);
+          try {
+            localStorage.setItem('dam_me_lich_su_feedback', JSON.stringify(cloudFb));
+          } catch (e) {
+            console.warn(e);
+          }
+        }
+      });
+    }
   }, []);
 
-  // Sync custom resources to localStorage
+  // Sync custom resources to localStorage + Supabase Cloud
   const handleAddResource = (newRes: CurriculumResource) => {
     const updated = [newRes, ...customResources];
     setCustomResources(updated);
@@ -78,6 +121,7 @@ export function App() {
     } catch (err) {
       console.warn('Cannot save custom resources:', err);
     }
+    void insertCloudResource(newRes);
   };
 
   const handleDeleteResource = (id: string) => {
@@ -88,9 +132,10 @@ export function App() {
     } catch (err) {
       console.warn('Cannot update custom resources:', err);
     }
+    void deleteCloudResource(id);
   };
 
-  // Sync feedback to localStorage
+  // Sync feedback to localStorage + Supabase Cloud
   const handleSubmitFeedback = (fb: Omit<StudentFeedback, 'id' | 'createdAt' | 'status'>) => {
     const newFeedback: StudentFeedback = {
       ...fb,
@@ -112,11 +157,13 @@ export function App() {
     } catch (err) {
       console.warn('Cannot save feedback:', err);
     }
+    void insertCloudFeedback(newFeedback);
   };
 
   const handleResolveFeedback = (id: string) => {
+    const resolvedAt = new Date().toISOString();
     const updated = feedbackList.map((f) =>
-      f.id === id ? { ...f, status: 'resolved' as const, resolvedAt: new Date().toISOString() } : f
+      f.id === id ? { ...f, status: 'resolved' as const, resolvedAt } : f
     );
     setFeedbackList(updated);
     try {
@@ -124,6 +171,7 @@ export function App() {
     } catch (err) {
       console.warn('Cannot update feedback:', err);
     }
+    void resolveCloudFeedback(id, resolvedAt);
   };
 
   // View Navigation
@@ -147,6 +195,7 @@ export function App() {
 
   const handleAdminPinSuccess = () => {
     setIsAdminAuthenticated(true);
+    sessionStorage.setItem('dam_me_lich_su_admin_auth', 'true');
     setIsAdminPinModalOpen(false);
     setCurrentView('admin');
     window.location.hash = 'admin';
@@ -155,6 +204,7 @@ export function App() {
 
   const handleAdminLogout = () => {
     setIsAdminAuthenticated(false);
+    sessionStorage.removeItem('dam_me_lich_su_admin_auth');
     setCurrentView('portal');
     window.location.hash = 'portal';
     window.scrollTo({ top: 0, behavior: 'smooth' });

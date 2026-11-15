@@ -829,5 +829,209 @@ export const QUIZ_EXAMS: QuizExam[] = [
         topic: 'Khởi nghĩa Yên Thế'
       }
     ]
+  },
+  {
+    id: 'quiz-lich-su-10-cach-mang-cn',
+    title: 'Đề Khối 10 Số 02: Các Cuộc Cách Mạng Công Nghiệp Trong Lịch Sử Thế Giới',
+    topicLabel: 'Cách Mạng Công Nghiệp & Toàn Cầu Hóa',
+    description: 'Bộ câu hỏi trắc nghiệm chuyên đề Cách mạng công nghiệp lần thứ nhất, thứ hai, thứ ba và thứ tư (4.0) cùng tác động đến đời sống xã hội nhân loại.',
+    timeLimitMinutes: 15,
+    gradeLevel: '10',
+    questionsCount: 5,
+    difficulty: 'Vận Dụng',
+    questions: [
+      {
+        id: 1006,
+        type: 'single_choice',
+        question: 'Cuộc Cách mạng công nghiệp lần thứ nhất (nửa sau thế kỷ XVIII) khởi phát đầu tiên từ quốc gia nào?',
+        options: [
+          'A. Nước Pháp.',
+          'B. Nước Anh.',
+          'C. Nước Đức.',
+          'D. Hợp chủng quốc Hoa Kỳ.'
+        ],
+        correctAnswer: 1,
+        explanation: 'Nước Anh hội tụ đủ các điều kiện: vốn, nhân công, tài nguyên than sắt và sự ổn định thể chế nên trở thành quê hương của Cách mạng công nghiệp lần thứ nhất.',
+        topic: 'Cách mạng công nghiệp lần I'
+      },
+      {
+        id: 1007,
+        type: 'single_choice',
+        question: 'Phát minh vĩ đại nào được xem là biểu tượng mở đầu cho kỷ nguyên cơ khí hóa của Cách mạng công nghiệp lần thứ nhất?',
+        options: [
+          'A. Động cơ đốt trong.',
+          'B. Máy hơi nước của Giêm Oát (James Watt).',
+          'C. Đèn sợi đốt của Thomas Edison.',
+          'D. Máy tính điện tử ENIAC.'
+        ],
+        correctAnswer: 1,
+        explanation: 'Năm 1784, Giêm Oát (James Watt) hoàn thiện máy hơi nước, giúp giải phóng sức lao động cơ bắp và đặt nền móng cho nền đại công nghiệp cơ khí.',
+        topic: 'Phát minh máy hơi nước'
+      },
+      {
+        id: 1008,
+        type: 'single_choice',
+        question: 'Nguồn năng lượng mới giữ vai trò chủ đạo thúc đẩy Cách mạng công nghiệp lần thứ hai (cuối thế kỷ XIX - đầu XX) là:',
+        options: [
+          'A. Than đá và sức nước.',
+          'B. Điện năng và dầu mỏ.',
+          'C. Năng lượng hạt nhân.',
+          'D. Năng lượng mặt trời.'
+        ],
+        correctAnswer: 1,
+        explanation: 'Cách mạng công nghiệp lần thứ hai chuyển nền sản xuất từ cơ khí hóa sang điện khí hóa với việc sử dụng rộng rãi điện năng, dầu mỏ và động cơ đốt trong.',
+        topic: 'Cách mạng công nghiệp lần II'
+      },
+      {
+        id: 1009,
+        type: 'single_choice',
+        question: 'Đặc trưng cốt lõi của cuộc Cách mạng công nghiệp lần thứ tư (Công nghiệp 4.0) hiện nay là:',
+        options: [
+          'A. Sử dụng máy hơi nước trong dệt vải.',
+          'B. Sự kết hợp giữa thế giới thực và thế giới ảo thông qua Trí tuệ nhân tạo (AI), Internet vạn vật (IoT) và Dữ liệu lớn.',
+          'C. Bắt đầu sử dụng dây chuyền lắp ráp ô tô.',
+          'D. Khai thác than đá quy mô lớn.'
+        ],
+        correctAnswer: 1,
+        explanation: 'Công nghiệp 4.0 dựa trên công nghệ số và tích hợp các công nghệ thông minh như AI, IoT, Big Data, điện toán đám mây và công nghệ sinh học.',
+        topic: 'Cách mạng công nghiệp 4.0'
+      },
+      {
+        id: 1010,
+        type: 'true_false_group',
+        stimulus: 'Các cuộc cách mạng công nghiệp thời cận - hiện đại đã làm thay đổi căn bản diện mạo kinh tế, xã hội và văn hóa của loài người.',
+        question: 'Xác định tính đúng/sai của các nhận định sau về tác động của Cách mạng công nghiệp:',
+        statements: [
+          {
+            id: 'a',
+            statement: 'Thúc đẩy quá trình đô thị hóa và hình thành hai giai cấp cơ bản mới là tư sản công nghiệp và vô sản.',
+            isCorrect: true,
+            explanation: 'Đúng: Cách mạng công nghiệp I và II tạo ra hàng loạt trung tâm công nghiệp lớn và hình thành giai cấp công nhân hiện đại.'
+          },
+          {
+            id: 'b',
+            statement: 'Cách mạng công nghiệp lần thứ ba gắn liền với sự ra đời của máy tính điện tử và tự động hóa.',
+            isCorrect: true,
+            explanation: 'Đúng: Bắt đầu từ thập niên 1940 - 1970 với công nghệ thông tin, bán dẫn và tự động hóa.'
+          },
+          {
+            id: 'c',
+            statement: 'Các cuộc cách mạng công nghiệp hoàn toàn không gây ra bất kỳ tác động tiêu cực nào tới môi trường tự nhiên.',
+            isCorrect: false,
+            explanation: 'Sai: Quá trình công nghiệp hóa ồ ạt gây ô nhiễm môi trường, cạn kiệt tài nguyên và biến đổi khí hậu.'
+          },
+          {
+            id: 'd',
+            statement: 'Góp phần thúc đẩy giao lưu kinh tế và kết nối toàn cầu hóa mạnh mẽ.',
+            isCorrect: true,
+            explanation: 'Đúng: Nhờ sự phát triển vượt bậc của giao thông vận tải và viễn thông.'
+          }
+        ],
+        explanation: 'Mỗi cuộc cách mạng công nghiệp đều mang lại bước nhảy vọt về năng suất lao động nhưng cũng đặt ra thách thức về môi trường và phân hóa giàu nghèo.',
+        topic: 'Tác động Cách mạng Công nghiệp'
+      }
+    ]
+  },
+  {
+    id: 'quiz-lich-su-11-the-gioi',
+    title: 'Đề Khối 11 Số 02: Cách Mạng Tháng Mười Nga & Chiến Tranh Thế Giới',
+    topicLabel: 'Lịch Sử Thế Giới Cận - Hiện Đại',
+    description: 'Bộ câu hỏi trắc nghiệm Khối 11 trọng tâm về Cách mạng tháng Mười Nga 1917, Chiến tranh thế giới thứ nhất và Chiến tranh thế giới thứ hai (1939 - 1945).',
+    timeLimitMinutes: 15,
+    gradeLevel: '11',
+    questionsCount: 5,
+    difficulty: 'Phân Hóa 8-9-10',
+    questions: [
+      {
+        id: 1106,
+        type: 'single_choice',
+        question: 'Sự kiện nào được coi là mở đầu cho thời kỳ lịch sử thế giới hiện đại (năm 1917)?',
+        options: [
+          'A. Chiến tranh thế giới thứ nhất kết thúc.',
+          'B. Thắng lợi của Cách mạng tháng Mười Nga (1917).',
+          'C. Cuộc khủng hoảng kinh tế thế giới 1929 - 1933.',
+          'D. Sự thành lập Hội Quốc Liên.'
+        ],
+        correctAnswer: 1,
+        explanation: 'Thắng lợi của Cách mạng tháng Mười Nga năm 1917 đã lập nên nhà nước xã hội chủ nghĩa đầu tiên trên thế giới, mở ra kỷ nguyên mới trong lịch sử nhân loại.',
+        topic: 'Cách mạng tháng Mười Nga 1917'
+      },
+      {
+        id: 1107,
+        type: 'single_choice',
+        question: 'Nguyên nhân sâu xa dẫn đến bùng nổ Chiến tranh thế giới thứ nhất (1914 - 1918) là:',
+        options: [
+          'A. Sự kiện Thái tử Áo - Hung bị ám sát tại Xéc-bi.',
+          'B. Mâu thuẫn gay gắt giữa các nước đế quốc về vấn đề thị trường và thuộc địa.',
+          'C. Cuộc chạy đua vũ trang hạt nhân giữa Liên Xô và Mỹ.',
+          'D. Sự trỗi dậy của chủ nghĩa phát xít ở Đức và Ý.'
+        ],
+        correctAnswer: 1,
+        explanation: 'Sự phát triển không đều về kinh tế và chính trị giữa các nước tư bản cuối thế kỷ XIX đầu XX làm nảy sinh mâu thuẫn gay gắt về thuộc địa, dẫn tới hình thành hai khối quân sự đối lập.',
+        topic: 'Thế chiến I (1914-1918)'
+      },
+      {
+        id: 1108,
+        type: 'single_choice',
+        question: 'Lực lượng nào đóng vai trò quyết định nhất trong việc tiêu diệt chủ nghĩa phát xít trong Chiến tranh thế giới thứ hai (1939 - 1945)?',
+        options: [
+          'A. Khối Đồng minh chống phát xít, trong đó Liên Xô, Mỹ, Anh giữ vai trò trụ cột.',
+          'B. Hội Quốc Liên.',
+          'C. Khối quân sự Bắc Đại Tây Dương (NATO).',
+          'D. Phong trào Không liên kết.'
+        ],
+        correctAnswer: 0,
+        explanation: 'Mặt trận Đồng minh chống phát xít (nòng cốt là Liên Xô, Mỹ, Anh) cùng nhân dân tiến bộ toàn thế giới đã hợp sức đánh bại hoàn toàn phe Trục Đức - Ý - Nhật.',
+        topic: 'Thế chiến II (1939-1945)'
+      },
+      {
+        id: 1109,
+        type: 'single_choice',
+        question: 'Trận đánh nào được xem là bước ngoặt xoay chuyển hoàn toàn cục diện Chiến tranh thế giới thứ hai trên chiến trường Xô - Đức?',
+        options: [
+          'A. Trận Mát-xcơ-va (1941).',
+          'B. Trận Xta-lin-grát (11/1942 - 2/1943).',
+          'C. Trận Trân Châu Cảng (12/1941).',
+          'D. Chiến dịch đổ bộ Noóc-măng-đi (6/1944).'
+        ],
+        correctAnswer: 1,
+        explanation: 'Chiến thắng vĩ đại tại Xta-lin-grát (2/1943) đã bẻ gãy xương sống quân đội phát xít Đức, buộc phe Trục phải chuyển từ tiến công sang phòng ngự trên toàn bộ các mặt trận.',
+        topic: 'Bước ngoặt Xta-lin-grát'
+      },
+      {
+        id: 1110,
+        type: 'true_false_group',
+        stimulus: 'Tháng 8/1945, lợi dụng thời cơ phát xít Nhật đầu hàng Đồng minh vô điều kiện, nhân dân nhiều nước Đông Nam Á trong đó có Việt Nam đã vùng lên giành độc lập.',
+        question: 'Xác định tính đúng/sai của các nhận định sau về kết cục của Chiến tranh thế giới thứ hai:',
+        statements: [
+          {
+            id: 'a',
+            statement: 'Chủ nghĩa phát xít Đức, Ý, Nhật Bản bị tiêu diệt hoàn toàn.',
+            isCorrect: true,
+            explanation: 'Đúng: Đức đầu hàng ngày 9/5/1945 và Nhật Bản đầu hàng vô điều kiện ngày 15/8/1945.'
+          },
+          {
+            id: 'b',
+            statement: 'Làm thay đổi căn bản tình hình thế giới, dẫn tới sự ra đời của Liên Hợp Quốc và trật tự hai cực Ianta.',
+            isCorrect: true,
+            explanation: 'Đúng: Sau chiến tranh, tương quan lực lượng thế giới thay đổi lớn với hai siêu cường Liên Xô và Mỹ.'
+          },
+          {
+            id: 'c',
+            statement: 'Chiến tranh thế giới thứ hai chỉ gây thiệt hại nhẹ và diễn ra trên phạm vi châu Âu.',
+            isCorrect: false,
+            explanation: 'Sai: Đây là cuộc chiến tranh tàn khốc nhất lịch sử nhân loại, lôi cuốn hơn 70 quốc gia ở khắp châu Âu, Á, Phi, Thái Bình Dương.'
+          },
+          {
+            id: 'd',
+            statement: 'Tạo điều kiện khách quan thuận lợi cho Cách mạng tháng Tám năm 1945 ở Việt Nam giành thắng lợi.',
+            isCorrect: true,
+            explanation: 'Đúng: Nhật đầu hàng Đồng minh tạo ra thời cơ "ngàn năm có một" để toàn dân ta tổng khởi nghĩa giành chính quyền.'
+          }
+        ],
+        explanation: 'Kết cục Chiến tranh thế giới thứ hai không chỉ tiêu diệt chủ nghĩa phát xít mà còn mở ra cao trào giải phóng dân tộc trên toàn cầu.',
+        topic: 'Kết cục Thế chiến II'
+      }
+    ]
   }
 ];
