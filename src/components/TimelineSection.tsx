@@ -74,7 +74,7 @@ export const TimelineSection: React.FC<TimelineSectionProps> = ({
             </p>
           </div>
 
-          {/* Quick Search: Crisp Square Search Input */}
+          {/* Quick Search: Smooth Pill Input */}
           <div className="relative w-full lg:w-96">
             <input
               id="timeline-search"
@@ -83,37 +83,37 @@ export const TimelineSection: React.FC<TimelineSectionProps> = ({
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Tìm mốc năm, chiến dịch, nhân vật..."
-              className="w-full pl-9 pr-12 py-2.5 bg-[#F3EFE5] text-sm outline-none font-sans placeholder-[#687477]/70 text-[#0A1418] transition-all border-b-2 border-[#0A1418] focus:border-[#9C3B32]"
+              className="w-full pl-10 pr-14 py-2.5 rounded-full bg-white/85 border border-[#0A1418]/12 focus:border-[#9C3B32] text-sm outline-none font-sans placeholder-[#687477]/70 text-[#0A1418] transition-all shadow-2xs"
             />
-            <Search className="w-4 h-4 text-[#0A1418]/60 absolute left-2.5 top-3.5" />
+            <Search className="w-4 h-4 text-[#0A1418]/50 absolute left-3.5 top-3" />
             {searchQuery && (
               <button
                 onClick={() => setSearchQuery('')}
-                className="absolute right-3 top-2.5 text-xs text-[#9C3B32] hover:text-[#0A1418] font-mono font-bold uppercase cursor-pointer"
+                className="absolute right-4 top-2.5 text-xs text-[#9C3B32] hover:text-[#0A1418] font-mono font-semibold cursor-pointer"
               >
-                XÓA
+                Xóa
               </button>
             )}
           </div>
         </div>
 
-        {/* Horizontal Year Scrubber (Crisp Square Tab Strip - Cardless) */}
-        <div className="my-6 pb-2 overflow-x-auto scrollbar-none flex items-center justify-between gap-3">
-          <div className="flex items-center gap-2 text-xs font-mono font-bold text-[#9C3B32] shrink-0 mr-2 uppercase">
-            <span>NIÊN ĐẠI:</span>
+        {/* Horizontal Year Scrubber: Clean Borderless Underline Strip (No boxy squares) */}
+        <div className="my-5 border-b border-[#0A1418]/12 overflow-x-auto scrollbar-none flex items-center justify-between gap-4">
+          <div className="flex items-center gap-2 text-xs font-mono font-bold text-[#9C3B32] shrink-0 uppercase pb-2.5">
+            <span>Niên đại:</span>
           </div>
 
-          <div className="flex items-center gap-1 sm:gap-2 flex-1 overflow-x-auto scrollbar-none">
+          <div className="flex items-center gap-5 sm:gap-7 flex-1 overflow-x-auto scrollbar-none">
             {TIMELINE_EVENTS.map((item) => {
               const isActive = activeEvent?.id === item.id;
               return (
                 <button
                   key={item.id}
                   onClick={() => setActiveEventId(item.id)}
-                  className={`px-3.5 py-1.5 text-xs sm:text-sm font-mono font-bold transition-all whitespace-nowrap cursor-pointer ${
+                  className={`pb-2.5 text-xs sm:text-sm font-mono transition-all whitespace-nowrap cursor-pointer border-b-2 ${
                     isActive
-                      ? 'bg-[#9C3B32] text-white shadow-xs'
-                      : 'text-[#0A1418] bg-[#F3EFE5]/70 hover:bg-[#F3EFE5] hover:text-[#9C3B32]'
+                      ? 'border-[#9C3B32] text-[#9C3B32] font-black'
+                      : 'border-transparent text-[#687477] hover:text-[#0A1418] font-semibold'
                   }`}
                 >
                   {item.year}
@@ -122,14 +122,14 @@ export const TimelineSection: React.FC<TimelineSectionProps> = ({
             })}
           </div>
 
-          <div className="hidden sm:flex items-center gap-2 shrink-0">
-            <span className="text-xs font-mono font-bold text-[#687477]">1858 — 1986</span>
+          <div className="hidden sm:flex items-center gap-2 shrink-0 pb-2.5">
+            <span className="text-xs font-mono font-medium text-[#687477]">1858 — 1986</span>
           </div>
         </div>
 
-        {/* Period Filter Tabs: Crisp Square Tabs */}
-        <div className="flex items-center gap-2 overflow-x-auto pb-4 mb-8 text-xs font-mono scrollbar-none">
-          <div className="flex items-center gap-1.5 text-[#0A1418] font-bold shrink-0 mr-2 uppercase">
+        {/* Period Filter Tabs: Soft Pill Strip without Harsh Borders */}
+        <div className="flex items-center gap-2 overflow-x-auto pb-3 mb-8 text-xs font-sans scrollbar-none">
+          <div className="flex items-center gap-1.5 text-[#0A1418]/70 font-semibold shrink-0 mr-2">
             <Filter className="w-3.5 h-3.5 text-[#9C3B32]" />
             <span>Phân kỳ:</span>
           </div>
@@ -138,10 +138,10 @@ export const TimelineSection: React.FC<TimelineSectionProps> = ({
             <button
               key={tab.id}
               onClick={() => setSelectedPeriod(tab.id)}
-              className={`px-3.5 py-1.5 whitespace-nowrap transition-all cursor-pointer uppercase ${
+              className={`px-3.5 py-1.5 rounded-full whitespace-nowrap transition-all cursor-pointer font-medium ${
                 selectedPeriod === tab.id
-                  ? 'bg-[#0A1418] text-[#FAF8F1] font-bold'
-                  : 'text-[#687477] bg-[#F3EFE5]/50 hover:text-[#0A1418] hover:bg-[#F3EFE5]'
+                  ? 'bg-[#0A1418] text-[#FAF8F1] font-semibold shadow-2xs'
+                  : 'text-[#687477] hover:text-[#0A1418] hover:bg-[#0A1418]/5'
               }`}
             >
               {tab.label}
@@ -151,13 +151,13 @@ export const TimelineSection: React.FC<TimelineSectionProps> = ({
 
         {/* CARDLESS ASYMMETRICAL EDITORIAL SPREAD (4 COLS STREAM : 8 COLS READING DESK) */}
         {filteredEvents.length === 0 ? (
-          <div className="text-center py-16 bg-[#F3EFE5]/50 p-8">
+          <div className="text-center py-16 rounded-2xl bg-[#F3EFE5]/60 p-8">
             <p className="text-sm font-serif italic text-[#687477]">
               Không tìm thấy sự kiện phù hợp với từ khóa "{searchQuery}".
             </p>
             <button
               onClick={() => { setSelectedPeriod('all'); setSearchQuery(''); }}
-              className="mt-3 px-5 py-2.5 bg-[#9C3B32] text-white text-xs font-mono font-bold uppercase cursor-pointer"
+              className="mt-4 px-6 py-2.5 rounded-full bg-[#9C3B32] text-white text-xs font-mono font-bold uppercase cursor-pointer"
             >
               Xem tất cả sự kiện
             </button>
@@ -229,8 +229,8 @@ export const TimelineSection: React.FC<TimelineSectionProps> = ({
                 {/* Desk Header Strip */}
                 <div className="flex flex-wrap items-center justify-between gap-3 pb-2">
                   <div className="flex items-center gap-3">
-                    <span className="px-3 py-1 bg-[#9C3B32] text-white font-mono text-xs font-bold uppercase tracking-wider">
-                      HỒ SƠ TƯ LIỆU: NĂM {activeEvent.year}
+                    <span className="px-3.5 py-1 rounded-full bg-[#9C3B32] text-white font-mono text-xs font-bold uppercase tracking-wider">
+                      Hồ sơ năm {activeEvent.year}
                     </span>
                     <span className="text-xs font-mono font-bold text-[#0A1418] uppercase">
                       {activeEvent.periodLabel}
@@ -242,7 +242,7 @@ export const TimelineSection: React.FC<TimelineSectionProps> = ({
 
                   <button
                     onClick={() => onSelectEventDetail(activeEvent)}
-                    className="px-3 py-1.5 bg-[#F3EFE5] hover:bg-[#9C3B32] hover:text-white text-xs font-mono font-bold text-[#9C3B32] transition-colors uppercase flex items-center gap-1.5 cursor-pointer shadow-xs"
+                    className="px-4 py-1.5 rounded-full bg-[#9C3B32]/10 hover:bg-[#9C3B32] text-xs font-mono font-bold text-[#9C3B32] hover:text-white transition-colors uppercase flex items-center gap-1.5 cursor-pointer"
                     title="Mở toàn màn hình"
                   >
                     <Maximize2 className="w-3.5 h-3.5" />
@@ -260,18 +260,18 @@ export const TimelineSection: React.FC<TimelineSectionProps> = ({
                   </p>
                 </div>
 
-                {/* Authentic Documentary Photograph (Square-edged Editorial Photo, Zero Card Box) */}
+                {/* Authentic Documentary Photograph */}
                 <div className="space-y-2">
-                  <div className="relative aspect-21/9 overflow-hidden bg-stone-900 shadow-sm">
+                  <div className="relative aspect-21/9 rounded-2xl overflow-hidden bg-stone-900 shadow-md">
                     <img
                       src={activeEvent.imageUrl}
                       alt={activeEvent.title}
-                      className="w-full h-full object-cover grayscale contrast-110 hover:scale-101 transition-transform duration-500"
+                      className="w-full h-full object-cover grayscale contrast-110 hover:scale-102 transition-transform duration-500"
                     />
                     <div className="absolute bottom-3 left-4 right-4 flex items-center justify-between text-white text-xs font-mono">
-                      <span className="italic font-sans text-xs text-white/90 drop-shadow">{activeEvent.imageCaption}</span>
-                      <span className="shrink-0 text-[10px] font-bold text-[#E5C985] uppercase tracking-wider bg-black/60 px-2 py-0.5">
-                        [ẢNH TƯ LIỆU GỐC]
+                      <span className="italic font-sans text-xs text-white/95 drop-shadow">{activeEvent.imageCaption}</span>
+                      <span className="shrink-0 text-[10px] font-bold text-[#E5C985] uppercase tracking-wider bg-black/60 backdrop-blur-xs px-2.5 py-0.5 rounded-full">
+                        Ảnh tư liệu gốc
                       </span>
                     </div>
                   </div>
@@ -340,7 +340,7 @@ export const TimelineSection: React.FC<TimelineSectionProps> = ({
                       </span>
                       <div className="flex flex-wrap gap-2 pt-1">
                         {activeEvent.keyFigures.map((fig, idx) => (
-                          <span key={idx} className="px-2.5 py-1 bg-[#0A1418] text-[#FAF8F1] text-xs font-mono">
+                          <span key={idx} className="px-3 py-1 rounded-full bg-[#0A1418]/8 text-[#0A1418] text-xs font-sans font-medium">
                             {fig}
                           </span>
                         ))}
@@ -351,20 +351,20 @@ export const TimelineSection: React.FC<TimelineSectionProps> = ({
 
                 </div>
 
-                {/* Bottom Action Bar: Open Solid Ink Press Buttons */}
+                {/* Bottom Action Bar */}
                 <div className="pt-6 flex flex-wrap items-center justify-between gap-4">
                   <div className="flex flex-wrap gap-2 text-xs font-mono text-[#687477]">
                     {activeEvent.tags.map((t, i) => (
-                      <span key={i} className="px-2 py-0.5 bg-[#F3EFE5] text-[11px]">
+                      <span key={i} className="px-2.5 py-0.5 rounded-full bg-[#F3EFE5] text-[11px]">
                         #{t}
                       </span>
                     ))}
                   </div>
 
-                  <div className="flex items-center gap-3">
+                  <div className="flex flex-wrap items-center gap-3">
                     <button
                       onClick={() => onGoToDownload(activeEvent.relatedResourceId)}
-                      className="px-4 py-2.5 bg-[#F3EFE5] hover:bg-[#EAE4D5] text-[#0A1418] hover:text-[#9C3B32] text-xs font-mono font-bold uppercase transition-colors flex items-center gap-1.5 cursor-pointer shadow-xs"
+                      className="px-4 py-2 rounded-full bg-[#0A1418]/6 hover:bg-[#0A1418]/12 text-[#0A1418] hover:text-[#9C3B32] text-xs font-mono font-bold uppercase transition-colors flex items-center gap-1.5 cursor-pointer"
                     >
                       <Download className="w-3.5 h-3.5 text-[#9C3B32]" />
                       <span>Tải Đề Cương Phân Kỳ Này</span>
@@ -372,7 +372,7 @@ export const TimelineSection: React.FC<TimelineSectionProps> = ({
 
                     <button
                       onClick={() => onGoToQuiz(activeEvent.relatedQuizId)}
-                      className="px-5 py-2.5 bg-[#9C3B32] hover:bg-[#7A2820] text-white text-xs font-mono font-bold uppercase tracking-wider transition-colors flex items-center gap-1.5 cursor-pointer shadow-xs"
+                      className="px-6 py-2.5 rounded-full bg-[#9C3B32] hover:bg-[#7A2820] text-white text-xs font-mono font-bold uppercase tracking-wider transition-all flex items-center gap-1.5 cursor-pointer shadow-sm hover:-translate-y-0.5"
                     >
                       <span>Luyện Trắc Nghiệm Mốc Này</span>
                       <ExternalLink className="w-3.5 h-3.5 text-[#E5C985]" />

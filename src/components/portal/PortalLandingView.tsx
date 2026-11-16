@@ -73,12 +73,12 @@ export const PortalLandingView: React.FC<PortalLandingViewProps> = ({
             <div className="lg:col-span-7 space-y-6">
               
               {/* Metadata Badges */}
-              <div className="flex flex-wrap items-center gap-2">
-                <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-[#0A1418] text-[#E5C985] text-xs font-mono font-bold uppercase tracking-wider">
+              <div className="flex flex-wrap items-center gap-2.5">
+                <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-[#0A1418] text-[#E5C985] text-xs font-mono font-bold uppercase tracking-wider">
                   <Flame className="w-3.5 h-3.5 text-[#9C3B32]" />
                   <span>NHẬT BÁO SỬ HỌC VIỆT NAM</span>
-                </div>
-                <span className="hidden sm:inline-block px-2.5 py-1 bg-[#F3EFE5] text-[#9C3B32] text-xs font-mono font-bold uppercase">
+                </span>
+                <span className="hidden sm:inline-block text-xs font-mono font-semibold text-[#9C3B32] uppercase tracking-wider">
                   GDPT 2018 · THPT 2026
                 </span>
               </div>
@@ -170,11 +170,11 @@ export const PortalLandingView: React.FC<PortalLandingViewProps> = ({
                 </div>
               </div>
 
-              {/* Action Buttons Group (Phẳng, góc vuông dứt khoát) */}
-              <div className="pt-3 flex flex-wrap items-center gap-3.5">
+              {/* Action Buttons Group (Mềm mại, hài hòa với nút pill & text link) */}
+              <div className="pt-3 flex flex-wrap items-center gap-4">
                 <button
                   onClick={onGoToLearning}
-                  className="px-6 py-3.5 bg-[#9C3B32] hover:bg-[#7A2820] text-white font-mono text-xs font-bold uppercase tracking-wider transition-all shadow-xs cursor-pointer flex items-center gap-2 active:scale-98"
+                  className="px-7 py-3.5 rounded-full bg-[#9C3B32] hover:bg-[#7A2820] text-white font-mono text-xs font-bold uppercase tracking-wider transition-all shadow-sm hover:shadow-md hover:-translate-y-0.5 cursor-pointer flex items-center gap-2.5 active:scale-98"
                 >
                   <GraduationCap className="w-4 h-4 text-[#E5C985]" />
                   <span>Vào Giảng Đường Khối 10 · 11 · 12</span>
@@ -183,10 +183,10 @@ export const PortalLandingView: React.FC<PortalLandingViewProps> = ({
 
                 <button
                   onClick={scrollToTimeline}
-                  className="px-5 py-3.5 bg-transparent hover:bg-[#0A1418]/5 text-[#0A1418] hover:text-[#9C3B32] font-mono text-xs font-bold uppercase tracking-wider transition-colors cursor-pointer flex items-center gap-2"
+                  className="px-4 py-3 rounded-full bg-transparent hover:bg-[#0A1418]/5 text-[#0A1418] hover:text-[#9C3B32] font-mono text-xs font-bold uppercase tracking-wider transition-colors cursor-pointer flex items-center gap-2"
                 >
                   <Clock className="w-4 h-4 text-[#9C3B32]" />
-                  <span>Khám Phá Dòng Lịch Sử</span>
+                  <span className="underline underline-offset-4 decoration-[#9C3B32]/40">Khám Phá Dòng Lịch Sử</span>
                 </button>
               </div>
 
@@ -195,16 +195,16 @@ export const PortalLandingView: React.FC<PortalLandingViewProps> = ({
             {/* Right 5 Columns: Archival Plate & 4 Open Key Stats */}
             <div className="lg:col-span-5 space-y-6">
               
-              {/* Archival Documentary Photo (Pure Broadsheet Photo, Sắc Cạnh Góc Vuông, Không Bọc Card) */}
-              <div className="space-y-2 text-left">
-                <div className="relative aspect-16/10 overflow-hidden bg-stone-900 shadow-sm">
+              {/* Archival Documentary Photo (Bo góc mềm mại, tự nhiên) */}
+              <div className="space-y-2.5 text-left">
+                <div className="relative aspect-16/10 overflow-hidden rounded-2xl bg-stone-900 shadow-md">
                   <img
                     src="/images/ba-dinh-1945.jpg"
                     alt="Quảng trường Ba Đình lịch sử năm 1945"
-                    className="w-full h-full object-cover contrast-110 hover:scale-101 transition-transform duration-700"
+                    className="w-full h-full object-cover contrast-110 hover:scale-102 transition-transform duration-700"
                   />
-                  <div className="absolute top-3 left-3 px-2.5 py-1 bg-[#0A1418] text-[#E5C985] text-[10px] font-mono font-bold uppercase">
-                    MỐC SON 2/9/1945
+                  <div className="absolute top-3.5 left-3.5 px-3 py-1 rounded-full bg-[#0A1418]/85 backdrop-blur-xs text-[#E5C985] text-[10px] font-mono font-bold uppercase tracking-wider">
+                    Mốc son 2/9/1945
                   </div>
                 </div>
 
@@ -256,8 +256,8 @@ export const PortalLandingView: React.FC<PortalLandingViewProps> = ({
                 </div>
 
                 <div>
-                  <span className="block font-mono text-3xl xl:text-4xl font-black text-[#486D5D] leading-none">
-                    ĂN ĐIỂM 8-10
+                  <span className="block font-mono text-2xl sm:text-3xl xl:text-4xl font-black text-[#486D5D] leading-none whitespace-nowrap">
+                    ĐIỂM 8–10
                   </span>
                   <span className="text-[11px] text-[#687477] font-mono uppercase block mt-1.5">Chuẩn Ma Trận Đề Thi</span>
                 </div>

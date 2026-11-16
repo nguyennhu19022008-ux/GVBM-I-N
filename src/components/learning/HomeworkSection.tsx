@@ -27,8 +27,8 @@ export const HomeworkSection: React.FC<HomeworkSectionProps> = ({
 
   if (homeworkItems.length === 0) {
     return (
-      <div className="py-10 text-center text-[#687477] font-mono text-xs bg-[#F3EFE5]/40 border-l-3 border-[#1B4931] p-6 text-left">
-        Chưa có phiếu bài tập phù hợp với tiêu chí lọc này. Thầy sẽ cập nhật thêm sớm!
+      <div className="py-8 px-6 rounded-2xl bg-white/65 border border-[#0A1418]/10 text-left text-[#687477] font-sans text-sm">
+        Chưa có phiếu bài tập phù hợp với tiêu chí lọc này. Giáo viên sẽ cập nhật thêm sớm!
       </div>
     );
   }
@@ -37,22 +37,22 @@ export const HomeworkSection: React.FC<HomeworkSectionProps> = ({
     <div className="space-y-6 text-left">
       
       {/* Section Sub-Header */}
-      <div className="flex items-center justify-between pb-2 border-b border-[#0A1418]/15">
-        <div className="flex items-center gap-2.5">
-          <span className="px-2.5 py-1 bg-[#1B4931] text-white text-xs font-mono font-bold tracking-wider">
-            [ ✎ BÀI TẬP TUẦN ]
+      <div className="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-[#0A1418]/12">
+        <div className="flex flex-wrap items-center gap-3">
+          <span className="px-3 py-1 rounded-full bg-[#1B4931]/12 text-[#1B4931] text-xs font-mono font-bold tracking-wider">
+            Bài tập tuần
           </span>
           <h3 className="font-playfair text-xl sm:text-2xl font-black text-[#0A1418]">
-            Sổ Lưu Chiểu Phiếu Bài Tập Về Nhà & Rèn Luyện Tư Duy
+            Phiếu Bài Tập Về Nhà & Rèn Luyện Tư Duy
           </h3>
         </div>
         <span className="text-xs font-mono font-bold text-[#1B4931]">
-          {homeworkItems.length} PHIẾU BÀI TẬP
+          {homeworkItems.length} phiếu bài tập
         </span>
       </div>
 
-      {/* Cardless Open Editorial Rows */}
-      <div className="divide-y divide-[#0A1418]/15 border-b border-[#0A1418]/20">
+      {/* Soft Open Rows */}
+      <div className="divide-y divide-[#0A1418]/10">
         {homeworkItems.map((item, idx) => {
           const isBookmarked = bookmarkedIds.includes(item.id);
           const isCompleted = completedIds.includes(item.id);
@@ -60,8 +60,8 @@ export const HomeworkSection: React.FC<HomeworkSectionProps> = ({
           return (
             <div
               key={item.id}
-              className={`py-6 px-2 sm:px-4 transition-colors flex flex-col lg:flex-row lg:items-center justify-between gap-6 ${
-                isCompleted ? 'bg-[#1B4931]/5' : 'hover:bg-[#F3EFE5]/40'
+              className={`py-6 px-4 rounded-2xl transition-colors flex flex-col lg:flex-row lg:items-center justify-between gap-6 ${
+                isCompleted ? 'bg-[#1B4931]/5' : 'hover:bg-white/70'
               }`}
             >
               {/* Left: Star, Index & Content */}
@@ -70,8 +70,8 @@ export const HomeworkSection: React.FC<HomeworkSectionProps> = ({
                 {/* Bookmark Button */}
                 <button
                   onClick={() => onToggleBookmark(item.id)}
-                  className={`mt-1 p-1 transition-colors cursor-pointer ${
-                    isBookmarked ? 'text-[#B47818]' : 'text-[#687477]/50 hover:text-[#B47818]'
+                  className={`mt-1 p-1.5 rounded-full transition-colors cursor-pointer ${
+                    isBookmarked ? 'text-[#B47818] bg-[#B47818]/10' : 'text-[#687477]/50 hover:text-[#B47818] hover:bg-[#0A1418]/5'
                   }`}
                   title={isBookmarked ? 'Bỏ lưu tài liệu' : 'Lưu tài liệu ôn tập'}
                   aria-label={isBookmarked ? 'Bỏ lưu tài liệu' : 'Lưu tài liệu ôn tập'}
@@ -79,14 +79,14 @@ export const HomeworkSection: React.FC<HomeworkSectionProps> = ({
                   <Star className={`w-5 h-5 ${isBookmarked ? 'fill-current' : ''}`} />
                 </button>
 
-                {/* Huge Editorial Index */}
-                <span className="font-playfair text-3xl sm:text-4xl font-black text-[#1B4931]/70 shrink-0 w-10 text-right">
+                {/* Editorial Index */}
+                <span className="font-playfair text-3xl sm:text-4xl font-black text-[#1B4931]/65 shrink-0 w-10 text-right">
                   {String(idx + 1).padStart(2, '0')}
                 </span>
 
                 <div className="space-y-2">
                   <div className="flex flex-wrap items-center gap-2 text-xs font-mono">
-                    <span className="px-2 py-0.5 bg-[#1B4931] text-white font-bold text-[10px]">
+                    <span className="px-2.5 py-0.5 rounded-full bg-[#1B4931]/12 text-[#1B4931] font-bold text-[11px]">
                       {item.format} • {item.fileSize}
                     </span>
                     <span className="text-[#1B4931] font-bold uppercase">
@@ -96,8 +96,8 @@ export const HomeworkSection: React.FC<HomeworkSectionProps> = ({
                       • Đăng ngày: {item.createdAt}
                     </span>
                     {isCompleted && (
-                      <span className="px-2 py-0.5 bg-[#1B4931]/15 text-[#1B4931] font-bold text-[10px] flex items-center gap-1">
-                        <CheckCircle2 className="w-3 h-3" /> ĐÃ HOÀN THÀNH
+                      <span className="px-2.5 py-0.5 rounded-full bg-[#1B4931] text-white font-bold text-[10px] inline-flex items-center gap-1">
+                        <CheckCircle2 className="w-3 h-3" /> Đã hoàn thành
                       </span>
                     )}
                   </div>
@@ -122,49 +122,49 @@ export const HomeworkSection: React.FC<HomeworkSectionProps> = ({
                 </div>
               </div>
 
-              {/* Right: Actions */}
-              <div className="flex flex-wrap items-center gap-2.5 self-end lg:self-center shrink-0">
+              {/* Right: Clean Actions (Borderless ghost pills + 1 Primary pill CTA) */}
+              <div className="flex flex-wrap items-center gap-2 self-end lg:self-center shrink-0">
                 
                 {/* Toggle Completed */}
                 <button
                   onClick={() => onToggleComplete(item.id)}
-                  className={`px-3 py-2 text-xs font-mono transition-colors cursor-pointer flex items-center gap-1.5 border ${
+                  className={`px-3.5 py-2 rounded-full text-xs font-sans font-medium transition-colors cursor-pointer flex items-center gap-1.5 ${
                     isCompleted
-                      ? 'bg-[#1B4931] text-white border-[#1B4931]'
-                      : 'bg-transparent text-[#687477] border-[#0A1418]/20 hover:border-[#1B4931] hover:text-[#1B4931]'
+                      ? 'bg-[#1B4931] text-white'
+                      : 'text-[#687477] hover:bg-[#1B4931]/10 hover:text-[#1B4931]'
                   }`}
                   title="Đánh dấu đã hoàn thành bài tập này"
                 >
                   <CheckCircle2 className="w-3.5 h-3.5" />
-                  <span>{isCompleted ? 'Đã Xong' : 'Đánh Dấu Xong'}</span>
+                  <span>{isCompleted ? 'Đã xong' : 'Đánh dấu xong'}</span>
                 </button>
 
                 {/* Preview / Read Full Content & Matrix */}
                 <button
                   onClick={() => onPreview(item)}
-                  className="px-3.5 py-2 bg-transparent border border-[#0A1418]/25 hover:border-[#1B4931] hover:bg-[#1B4931]/10 text-xs font-mono text-[#0A1418] font-bold uppercase transition-colors cursor-pointer flex items-center gap-1.5"
+                  className="px-3.5 py-2 rounded-full text-xs font-sans font-semibold text-[#0A1418] hover:bg-[#0A1418]/6 hover:text-[#1B4931] transition-colors cursor-pointer flex items-center gap-1.5"
                 >
                   <Eye className="w-3.5 h-3.5 text-[#1B4931]" />
-                  <span>Xem Ma Trận</span>
+                  <span>Xem ma trận</span>
                 </button>
 
                 {/* Report Issue */}
                 <button
                   onClick={() => onReportIssue(item)}
-                  className="p-2 bg-transparent border border-[#0A1418]/20 hover:border-[#9C3B32] text-xs font-mono transition-colors cursor-pointer hover:text-[#9C3B32]"
+                  className="p-2 rounded-full text-xs font-sans transition-colors cursor-pointer text-[#687477] hover:bg-[#9C3B32]/10 hover:text-[#9C3B32]"
                   title="Báo cáo câu hỏi có sai sót"
                   aria-label="Báo cáo câu hỏi có sai sót"
                 >
                   <AlertTriangle className="w-3.5 h-3.5 text-[#9C3B32]" />
                 </button>
 
-                {/* Download */}
+                {/* Download Primary Pill CTA */}
                 <button
                   onClick={() => onDownload(item)}
-                  className="px-4 py-2 bg-[#1B4931] hover:bg-[#133523] text-white text-xs font-mono font-bold uppercase tracking-wider transition-all flex items-center gap-1.5 cursor-pointer active:scale-95"
+                  className="px-5 py-2 rounded-full bg-[#1B4931] hover:bg-[#133523] text-white text-xs font-mono font-bold uppercase tracking-wider transition-all flex items-center gap-1.5 cursor-pointer shadow-xs active:scale-95"
                 >
                   <Download className="w-3.5 h-3.5" />
-                  <span>Tải Về</span>
+                  <span>Tải về</span>
                 </button>
               </div>
             </div>

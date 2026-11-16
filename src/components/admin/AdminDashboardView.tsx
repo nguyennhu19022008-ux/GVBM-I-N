@@ -67,16 +67,16 @@ export const AdminDashboardView: React.FC<AdminDashboardViewProps> = ({
             <span>•</span>
             <span>BẢO MẬT GIÁO VIÊN</span>
             <span>•</span>
-            <span className={`px-2 py-0.5 text-[10px] inline-flex items-center gap-1 ${isSupabaseConfigured ? 'bg-[#1B4931] text-white' : 'bg-[#B47818] text-white'}`}>
+            <span className={`px-3 py-0.5 rounded-full text-[10px] inline-flex items-center gap-1 ${isSupabaseConfigured ? 'bg-[#1B4931] text-white' : 'bg-[#B47818] text-white'}`}>
               {isSupabaseConfigured ? (
                 <>
                   <Check className="w-3 h-3" />
-                  <span>ĐỒNG BỘ ĐÁM MÂY SUPABASE</span>
+                  <span>Đồng bộ đám mây Supabase</span>
                 </>
               ) : (
                 <>
                   <Clock className="w-3 h-3" />
-                  <span>CHỜ KẾT NỐI SUPABASE (LƯU CỤC BỘ)</span>
+                  <span>Chờ kết nối Supabase (Lưu cục bộ)</span>
                 </>
               )}
             </span>
@@ -85,21 +85,21 @@ export const AdminDashboardView: React.FC<AdminDashboardViewProps> = ({
             Bàn Điều Khiển & Phân Phối Học Liệu
           </h2>
           <p className="text-xs font-mono text-[#687477] mt-1">
-            TÀI KHOẢN GIÁO VIÊN: <strong className="text-[#0A1418]">{currentTeacherEmail || DEFAULT_TEACHER_EMAIL}</strong>
+            Tài khoản giáo viên: <strong className="text-[#0A1418]">{currentTeacherEmail || DEFAULT_TEACHER_EMAIL}</strong>
           </p>
         </div>
 
         <button
           onClick={onLogout}
-          className="px-4 py-2 border border-[#0A1418] hover:bg-[#9C3B32] hover:text-white text-xs font-mono font-bold uppercase transition-all flex items-center gap-1.5 cursor-pointer self-start md:self-auto"
+          className="px-4 py-2 rounded-full bg-[#0A1418]/8 hover:bg-[#9C3B32] text-[#0A1418] hover:text-white text-xs font-mono font-bold uppercase transition-all flex items-center gap-1.5 cursor-pointer self-start md:self-auto"
         >
           <LogOut className="w-3.5 h-3.5" />
           <span>Khóa Bàn Quản Trị</span>
         </button>
       </div>
 
-      {/* Overview 4 Quick Metrics: Open Broadsheet Ledger Band (Zero Card Boxes) */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 divide-y sm:divide-y-0 sm:divide-x divide-[#10252B]/20 border-y-2 border-[#0A1418] mb-8 text-left py-4">
+      {/* Overview 4 Quick Metrics */}
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 rounded-2xl bg-white/75 border border-[#0A1418]/10 mb-8 text-left p-5 shadow-2xs">
         <div className="p-3 sm:p-4">
           <span className="block text-[11px] font-mono text-[#687477] uppercase font-bold">TỔNG TÀI LIỆU</span>
           <span className="block font-mono text-3xl sm:text-4xl font-black text-[#0A1418] mt-1">{combinedResources.length}</span>

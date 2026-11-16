@@ -163,12 +163,12 @@ export const AdminPinModal: React.FC<AdminPinModalProps> = ({
       onClick={onCancel}
     >
       <div
-        className="relative w-full max-w-md bg-[#FAF8F1] border-2 border-[#0A1418] shadow-2xl p-6 sm:p-8 text-left"
+        className="relative w-full max-w-md bg-[#FAF8F1] rounded-3xl border border-[#0A1418]/15 shadow-2xl p-6 sm:p-8 text-left"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="text-center space-y-2 mb-6 pb-4 broadsheet-double-b">
-          <div className="w-12 h-12 rounded-none bg-[#0A1418] text-[#E5C985] flex items-center justify-center mx-auto mb-2 shadow">
+        <div className="text-center space-y-2 mb-6 pb-4 border-b border-[#0A1418]/10">
+          <div className="w-12 h-12 rounded-2xl bg-[#0A1418] text-[#E5C985] flex items-center justify-center mx-auto mb-2 shadow">
             {mode === 'recovery' ? <ShieldCheck className="w-6 h-6" /> : <Lock className="w-6 h-6" />}
           </div>
           <h3 className="font-playfair text-2xl font-black text-[#0A1418]">
@@ -276,7 +276,7 @@ export const AdminPinModal: React.FC<AdminPinModalProps> = ({
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="px-5 py-2.5 bg-[#9C3B32] hover:bg-[#7e2e26] disabled:opacity-60 text-white text-xs font-mono font-bold uppercase transition-all flex items-center gap-1.5 cursor-pointer shadow-xs"
+                className="px-6 py-2.5 rounded-full bg-[#9C3B32] hover:bg-[#7e2e26] disabled:opacity-60 text-white text-xs font-mono font-bold uppercase transition-all flex items-center gap-1.5 cursor-pointer shadow-xs"
               >
                 <span>{isSubmitting ? 'Đang Xác Thực...' : 'Đăng Nhập Bàn Quản Trị'}</span>
                 <ArrowRight className="w-3.5 h-3.5" />
@@ -353,7 +353,7 @@ export const AdminPinModal: React.FC<AdminPinModalProps> = ({
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="px-5 py-2.5 bg-[#0A1418] hover:bg-[#9C3B32] disabled:opacity-60 text-white text-xs font-mono font-bold uppercase transition-all flex items-center gap-1.5 cursor-pointer shadow-xs"
+                className="px-6 py-2.5 rounded-full bg-[#0A1418] hover:bg-[#9C3B32] disabled:opacity-60 text-white text-xs font-mono font-bold uppercase transition-all flex items-center gap-1.5 cursor-pointer shadow-xs"
               >
                 <span>{isSubmitting ? 'Đang Gửi Mail...' : 'Gửi Link Qua Email'}</span>
                 <Mail className="w-3.5 h-3.5" />
@@ -449,7 +449,7 @@ export const AdminPinModal: React.FC<AdminPinModalProps> = ({
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="px-5 py-2.5 bg-[#1B4931] hover:bg-[#143725] disabled:opacity-60 text-white text-xs font-mono font-bold uppercase transition-all flex items-center gap-1.5 cursor-pointer shadow-xs"
+                className="px-6 py-2.5 rounded-full bg-[#1B4931] hover:bg-[#143725] disabled:opacity-60 text-white text-xs font-mono font-bold uppercase transition-all flex items-center gap-1.5 cursor-pointer shadow-xs"
               >
                 <span>{isSubmitting ? 'Đang Lưu...' : 'Lưu Mật Khẩu Mới'}</span>
                 <ArrowRight className="w-3.5 h-3.5" />
@@ -514,7 +514,7 @@ export const AdminPinModal: React.FC<AdminPinModalProps> = ({
               </button>
               <button
                 type="submit"
-                className="px-5 py-2.5 bg-[#9C3B32] hover:bg-[#7e2e26] text-white text-xs font-mono font-bold uppercase transition-all flex items-center gap-1.5 cursor-pointer shadow-xs"
+                className="px-6 py-2.5 rounded-full bg-[#9C3B32] hover:bg-[#7e2e26] text-white text-xs font-mono font-bold uppercase transition-all flex items-center gap-1.5 cursor-pointer shadow-xs"
               >
                 <span>Xác Thực Mã PIN</span>
                 <ArrowRight className="w-3.5 h-3.5" />

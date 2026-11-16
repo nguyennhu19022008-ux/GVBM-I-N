@@ -86,14 +86,11 @@ export const Navbar: React.FC<NavbarProps> = ({
             className={`h-16 px-1 text-xs font-mono tracking-wider uppercase transition-all flex items-center gap-2 cursor-pointer relative ${
               currentView === 'learning'
                 ? 'text-[#E5C985] font-bold after:content-[""] after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[2px] after:bg-[#E5C985]'
-                : 'text-white/70 hover:text-white font-medium after:content-[""] after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[2px] after:bg-transparent hover:after:bg-white/30'
+                : 'text-white/75 hover:text-white font-medium after:content-[""] after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[2px] after:bg-transparent hover:after:bg-white/30'
             }`}
           >
             <GraduationCap className="w-3.5 h-3.5 text-[#E5C985]" />
             <span>02. Giảng Đường 10-11-12</span>
-            <span className="px-1.5 py-0.5 text-[9px] font-mono font-bold border border-[#E5C985]/40 text-[#E5C985] leading-none">
-              HỌC TẬP
-            </span>
           </button>
 
           {/* Tab 3: Khu Vực Quản Trị */}
@@ -102,7 +99,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             className={`h-16 px-1 text-xs font-mono tracking-wider uppercase transition-all flex items-center gap-2 cursor-pointer relative ${
               currentView === 'admin'
                 ? 'text-[#E5C985] font-bold after:content-[""] after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[2px] after:bg-[#E5C985]'
-                : 'text-white/70 hover:text-white font-medium after:content-[""] after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[2px] after:bg-transparent hover:after:bg-white/30'
+                : 'text-white/75 hover:text-white font-medium after:content-[""] after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[2px] after:bg-transparent hover:after:bg-white/30'
             }`}
           >
             <Shield className="w-3.5 h-3.5 text-[#E5C985]" />
@@ -118,10 +115,10 @@ export const Navbar: React.FC<NavbarProps> = ({
               setIsMobileMenuOpen(false);
               onChangeView('admin');
             }}
-            className={`px-3 sm:px-3.5 py-1.5 border text-[11px] sm:text-xs font-mono font-semibold uppercase tracking-wider transition-all flex items-center gap-1.5 cursor-pointer ${
+            className={`px-3.5 sm:px-4 py-1.5 rounded-full text-[11px] sm:text-xs font-mono font-semibold uppercase tracking-wider transition-all flex items-center gap-1.5 cursor-pointer ${
               isAdminAuthenticated
-                ? 'border-[#E5C985] bg-[#E5C985] text-[#0A1418]'
-                : 'border-[#E5C985]/50 hover:border-[#E5C985] hover:bg-[#E5C985]/10 text-[#E5C985]'
+                ? 'bg-[#E5C985] text-[#0A1418] shadow-xs'
+                : 'bg-white/10 hover:bg-[#E5C985]/20 text-[#E5C985]'
             }`}
           >
             <Shield className="w-3.5 h-3.5" />
@@ -134,7 +131,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             onClick={() => setIsMobileMenuOpen((prev) => !prev)}
             aria-label="Toggle mobile menu"
             aria-expanded={isMobileMenuOpen}
-            className="md:hidden p-1.5 text-[#E5C985] hover:text-white border border-[#E5C985]/30 hover:border-[#E5C985] transition-colors cursor-pointer"
+            className="md:hidden p-2 rounded-full text-[#E5C985] hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
           >
             {isMobileMenuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
           </button>

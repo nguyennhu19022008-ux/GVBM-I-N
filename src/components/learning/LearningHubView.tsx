@@ -204,12 +204,7 @@ Chúc các em học sinh Khối ${res.grade} ôn tập hiệu quả và đạt �
         style={{ backgroundImage: `url('/images/hoi-nghi-ianta.jpg')` }}
       />
       {/* Soft warm paper lighting vignette */}
-      <div className="absolute inset-0 bg-radial from-transparent via-[#FAF8F1]/60 to-[#FAF8F1] pointer-events-none" />
-
-      {/* Large Pedagogical Watermark showing ONLY activeGrade */}
-      <div className="absolute right-6 top-10 font-mono text-8xl sm:text-9xl font-black text-[#9C3B32]/5 select-none pointer-events-none tracking-widest uppercase">
-        KHỐI {activeGrade}
-      </div>
+      <div className="absolute inset-0 bg-radial from-transparent via-[#FAF8F1]/65 to-[#FAF8F1] pointer-events-none" />
 
       <div className="relative z-10">
         {/* Top Breadcrumb & Page Banner */}
@@ -224,8 +219,8 @@ Chúc các em học sinh Khối ${res.grade} ôn tập hiệu quả và đạt �
               Bài Tập & Đề Thi Dành Riêng Cho Khối {activeGrade}
             </h2>
           </div>
-          <p className="text-xs sm:text-sm font-sans text-[#687477] max-w-md italic">
-            "Phân loại trực quan bằng hệ ký hiệu sư phạm: [ ✎ BÀI TẬP TUẦN ], [ ✦ ĐỀ THI MA TRẬN ], [ ◈ KHẢO THÍ ONLINE ] thuộc chương trình Lịch sử Khối {activeGrade}."
+          <p className="text-xs sm:text-sm font-sans text-[#687477] max-w-md leading-relaxed">
+            Không gian học tập tách biệt cho Khối {activeGrade}, tổng hợp phiếu bài tập tuần, đề ôn ma trận và phòng khảo thí trực tuyến chuẩn Bộ GD&ĐT.
           </p>
         </div>
 
@@ -259,8 +254,17 @@ Chúc các em học sinh Khối ${res.grade} ôn tập hiệu quả và đạt �
         {/* Main Content Area */}
         <div className="pt-8 space-y-12">
           
+          {/* Quiet unified notice when all resources for grade are empty */}
+          {activeCategory === 'all' &&
+            !filteredResources.some((r) => r.category === 'homework' || r.category === 'exam') && (
+              <div className="py-5 px-6 rounded-2xl bg-white/65 border border-[#0A1418]/10 text-sm font-sans text-[#687477] text-left">
+                Phiếu bài tập và đề ôn tập Khối {activeGrade} sẽ hiển thị tại đây ngay khi giáo viên Bùi Thị Điền đăng tải. Trong lúc chờ, em có thể luyện ngay các đề Khảo thí trực tuyến bên dưới.
+              </div>
+            )}
+
           {/* Section 1: Homework */}
-          {(activeCategory === 'all' || activeCategory === 'homework') && (
+          {(activeCategory === 'homework' ||
+            (activeCategory === 'all' && filteredResources.some((r) => r.category === 'homework'))) && (
             <HomeworkSection
               resources={filteredResources}
               bookmarkedIds={bookmarkedIds}
@@ -274,7 +278,8 @@ Chúc các em học sinh Khối ${res.grade} ôn tập hiệu quả và đạt �
           )}
 
           {/* Section 2: Exams & Tests */}
-          {(activeCategory === 'all' || activeCategory === 'exam') && (
+          {(activeCategory === 'exam' ||
+            (activeCategory === 'all' && filteredResources.some((r) => r.category === 'exam'))) && (
             <ExamArchiveSection
               resources={filteredResources}
               bookmarkedIds={bookmarkedIds}

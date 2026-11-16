@@ -77,17 +77,17 @@ export const WartimeStoriesSection: React.FC = () => {
             onClick={() => setSelectedStoryModal(currentStory)}
             className="lg:col-span-7 space-y-3 animate-fadeSlideUp cursor-pointer group"
           >
-            <div className="relative overflow-hidden bg-stone-900 shadow-xl">
+            <div className="relative overflow-hidden rounded-2xl bg-stone-900 shadow-xl">
               <img
                 src={currentStory.imageUrl}
                 alt={currentStory.title}
-                className="w-full aspect-16/10 object-cover contrast-110 brightness-95 group-hover:scale-101 transition-transform duration-700"
+                className="w-full aspect-16/10 object-cover contrast-110 brightness-95 group-hover:scale-102 transition-transform duration-700"
               />
-              <div className="absolute top-3 left-3 px-3 py-1 bg-[#0A1418] text-[#E5C985] font-mono text-xs font-bold uppercase tracking-wider">
-                NĂM {currentStory.year} • {currentStory.period}
+              <div className="absolute top-3.5 left-3.5 px-3 py-1 rounded-full bg-[#0A1418]/85 backdrop-blur-xs text-[#E5C985] font-mono text-xs font-bold tracking-wider">
+                Năm {currentStory.year} • {currentStory.period}
               </div>
-              <div className="absolute bottom-3 right-3 px-3 py-1.5 bg-[#9C3B32] text-white text-[11px] font-mono font-bold uppercase tracking-wider flex items-center gap-1.5 shadow-md group-hover:bg-[#7A2820] transition-colors">
-                <span>BẤM ĐỌC HỒ SƠ</span>
+              <div className="absolute bottom-3.5 right-3.5 px-4 py-1.5 rounded-full bg-[#9C3B32] text-white text-[11px] font-mono font-bold uppercase tracking-wider flex items-center gap-1.5 shadow-md group-hover:bg-[#7A2820] transition-colors">
+                <span>Đọc hồ sơ</span>
                 <ArrowRight className="w-3.5 h-3.5 text-[#E5C985]" />
               </div>
             </div>
@@ -147,7 +147,7 @@ export const WartimeStoriesSection: React.FC = () => {
             <div className="pt-2">
               <button
                 onClick={() => setSelectedStoryModal(currentStory)}
-                className="px-6 py-3.5 bg-[#9C3B32] hover:bg-[#7A2820] text-white text-xs font-mono font-bold uppercase tracking-wider transition-all flex items-center gap-2 cursor-pointer shadow-xs active:scale-98"
+                className="px-6 py-3 rounded-full bg-[#9C3B32] hover:bg-[#7A2820] text-white text-xs font-mono font-bold uppercase tracking-wider transition-all flex items-center gap-2 cursor-pointer shadow-sm hover:-translate-y-0.5 active:scale-98"
               >
                 <span>Đọc Trọn Vẹn Diễn Biến & Ý Nghĩa</span>
                 <ArrowRight className="w-4 h-4 text-[#E5C985]" />
@@ -201,15 +201,15 @@ export const WartimeStoriesSection: React.FC = () => {
                       <ArrowRight className="w-2.5 h-2.5" />
                     </span>
                   </div>
-                  <div className={`relative aspect-16/9 overflow-hidden mb-3 bg-stone-900 ${isActive ? 'ring-2 ring-[#E5C985]' : ''}`}>
+                  <div className={`relative aspect-16/9 rounded-xl overflow-hidden mb-3 bg-stone-900 ${isActive ? 'ring-2 ring-[#E5C985]' : ''}`}>
                     <img
                       src={story.imageUrl}
                       alt={story.title}
                       className={`w-full h-full object-cover transition-all duration-500 ${isActive ? 'contrast-115 scale-102' : 'contrast-95 opacity-85 group-hover:opacity-100 group-hover:scale-102'}`}
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
-                    <div className="absolute bottom-2 right-2 px-2 py-1 bg-[#9C3B32] group-hover:bg-[#7A2820] text-white text-[10px] font-mono font-bold uppercase tracking-wider flex items-center gap-1 shadow-sm transition-colors">
-                      <span>BẤM ĐỌC NGAY</span>
+                    <div className="absolute bottom-2.5 right-2.5 px-3 py-1 rounded-full bg-[#9C3B32] group-hover:bg-[#7A2820] text-white text-[10px] font-mono font-bold uppercase tracking-wider flex items-center gap-1 shadow-sm transition-colors">
+                      <span>Đọc ngay</span>
                       <ArrowRight className="w-3 h-3 text-[#E5C985]" />
                     </div>
                   </div>
@@ -251,8 +251,8 @@ export const WartimeStoriesSection: React.FC = () => {
                 onClick={() => setSelectedLeader(leader)}
                 className="leader-card-stagger group cursor-pointer text-left space-y-3 transition-transform hover:-translate-y-0.5"
               >
-                {/* Crisp Square Portrait */}
-                <div className="overflow-hidden bg-stone-900 shadow-sm aspect-4/5">
+                {/* Soft Portrait Frame */}
+                <div className="overflow-hidden rounded-2xl bg-stone-900 shadow-md aspect-4/5">
                   <img
                     src={leader.imageUrl}
                     alt={leader.name}

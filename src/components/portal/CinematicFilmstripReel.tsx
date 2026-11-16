@@ -153,25 +153,27 @@ export const CinematicFilmstripReel: React.FC<CinematicFilmstripReelProps> = ({ 
           <div className="flex items-center gap-2.5 self-start sm:self-auto font-mono text-xs">
             <button
               onClick={() => setIsPlaying(!isPlaying)}
-              className="px-3 py-1.5 bg-[#14242A] hover:bg-[#9C3B32] text-[#E5C985] hover:text-white border border-[#E5C985]/30 transition-colors cursor-pointer flex items-center gap-1.5 shadow-xs"
+              className="px-4 py-1.5 rounded-full bg-white/10 hover:bg-[#9C3B32] text-[#E5C985] hover:text-white transition-colors cursor-pointer flex items-center gap-1.5"
               title={isPlaying ? 'Tạm dừng chuyển động' : 'Tiếp tục chuyển động'}
             >
               {isPlaying ? <Pause className="w-3.5 h-3.5" /> : <Play className="w-3.5 h-3.5" />}
               <span className="uppercase text-[11px] font-bold">{isPlaying ? 'TẠM DỪNG' : 'CHUYỂN ĐỘNG'}</span>
             </button>
 
-            <div className="hidden sm:flex items-center gap-1">
+            <div className="hidden sm:flex items-center gap-1.5">
               <button
                 onClick={() => handleScroll('left')}
-                className="w-8 h-8 bg-[#14242A] hover:bg-[#9C3B32] text-white border border-white/10 flex items-center justify-center transition-colors cursor-pointer"
+                className="w-8 h-8 rounded-full bg-white/10 hover:bg-[#9C3B32] text-white flex items-center justify-center transition-colors cursor-pointer"
                 title="Tua về trước"
+                aria-label="Tua về trước"
               >
                 <ChevronLeft className="w-4 h-4" />
               </button>
               <button
                 onClick={() => handleScroll('right')}
-                className="w-8 h-8 bg-[#14242A] hover:bg-[#9C3B32] text-white border border-white/10 flex items-center justify-center transition-colors cursor-pointer"
+                className="w-8 h-8 rounded-full bg-white/10 hover:bg-[#9C3B32] text-white flex items-center justify-center transition-colors cursor-pointer"
                 title="Tua tiếp theo"
+                aria-label="Tua tiếp theo"
               >
                 <ChevronRight className="w-4 h-4" />
               </button>
@@ -201,12 +203,8 @@ export const CinematicFilmstripReel: React.FC<CinematicFilmstripReelProps> = ({ 
               <div
                 key={`${frame.id}-${index}`}
                 onClick={() => handleFrameClick(frame)}
-                className="group relative w-72 sm:w-80 shrink-0 cursor-pointer bg-[#0A1418] border border-[#E5C985]/20 hover:border-[#E5C985] transition-all duration-300 text-left shadow-lg hover:-translate-y-1"
+                className="group relative w-72 sm:w-80 shrink-0 cursor-pointer rounded-2xl overflow-hidden bg-[#0A1418]/90 border border-[#E5C985]/15 hover:border-[#E5C985]/60 transition-all duration-300 text-left shadow-lg hover:-translate-y-1"
               >
-                {/* Vintage Frame Corner Stamps */}
-                <div className="absolute -top-1.5 -left-1.5 w-3 h-3 border-t-2 border-l-2 border-[#E5C985]/60 z-20 pointer-events-none" />
-                <div className="absolute -bottom-1.5 -right-1.5 w-3 h-3 border-b-2 border-r-2 border-[#E5C985]/60 z-20 pointer-events-none" />
-
                 {/* Photo Viewport */}
                 <div className="relative aspect-16/10 w-full overflow-hidden bg-stone-950">
                   <img
@@ -216,9 +214,9 @@ export const CinematicFilmstripReel: React.FC<CinematicFilmstripReelProps> = ({ 
                     loading="lazy"
                   />
                   
-                  {/* Year Timestamp Badge */}
-                  <div className="absolute top-2.5 left-2.5 px-2 py-0.5 bg-[#0A1418]/90 text-[#E5C985] text-xs font-mono font-bold tracking-wider border border-[#E5C985]/40">
-                    NĂM {frame.year}
+                  {/* Year Timestamp Pill */}
+                  <div className="absolute top-3 left-3 px-2.5 py-0.5 rounded-full bg-[#0A1418]/85 backdrop-blur-xs text-[#E5C985] text-[11px] font-mono font-bold tracking-wider">
+                    Năm {frame.year}
                   </div>
 
                   {/* Hover Quick-Inspect Overlay */}

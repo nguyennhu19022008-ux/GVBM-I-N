@@ -48,24 +48,24 @@ export const TeacherProfileSection: React.FC = () => {
         {/* 4:8 Asymmetrical Editorial Grid (Cardless & Crisp) */}
         <div className="cinematic-scroll-reveal grid grid-cols-1 lg:grid-cols-12 gap-10 xl:gap-14 items-start">
           
-          {/* Left Column (4 Cols): Large Portrait & Open Contact Info */}
+          {/* Left Column (4 Cols): Portrait & Clean Contact Links */}
           <div className="lg:col-span-4 space-y-6">
-            <div className="space-y-2">
-              <div className="overflow-hidden bg-stone-900 shadow-sm aspect-4/5">
+            <div className="space-y-2.5">
+              <div className="overflow-hidden rounded-2xl bg-stone-900 shadow-md aspect-4/5">
                 <img
                   src={TEACHER_DATA.avatarUrl}
                   alt={TEACHER_DATA.name}
-                  className="w-full h-full object-cover object-center contrast-105 hover:scale-101 transition-transform duration-700"
+                  className="w-full h-full object-cover object-center contrast-105 hover:scale-102 transition-transform duration-700"
                 />
               </div>
               <div className="pt-1 flex items-center justify-between text-xs font-mono text-[#687477]">
-                <span>ẢNH LƯU CHIỂU SƯ PHẠM</span>
-                <span className="font-bold text-[#9C3B32]">NIÊN KHÓA 2025 - 2026</span>
+                <span>Ảnh tư liệu sư phạm</span>
+                <span className="font-bold text-[#9C3B32]">Niên khóa 2025 - 2026</span>
               </div>
             </div>
 
-            {/* Open Contact Strip (No Card Boxes, Clean Free-Standing Rows) */}
-            <div className="space-y-3 pt-2">
+            {/* Clean Contact Links (Zero boxy black squares) */}
+            <div className="space-y-2.5 pt-3 border-t border-[#0A1418]/10">
               <h4 className="text-xs font-mono font-bold uppercase tracking-wider text-[#0A1418] flex items-center gap-2">
                 <BookOpen className="w-4 h-4 text-[#9C3B32]" />
                 <span>Liên Hệ Trực Tiếp Trao Đổi Bài Học:</span>
@@ -79,9 +79,9 @@ export const TeacherProfileSection: React.FC = () => {
                 </div>
                 <button
                   onClick={() => handleCopy(TEACHER_DATA.email, 'email')}
-                  className="px-2.5 py-1 text-[10px] font-mono font-bold uppercase bg-[#0A1418] text-[#FAF8F1] hover:bg-[#9C3B32] transition-colors cursor-pointer shrink-0"
+                  className="px-3 py-1 rounded-full text-[11px] font-mono font-semibold text-[#0A1418] hover:text-[#9C3B32] hover:bg-[#9C3B32]/10 transition-colors cursor-pointer shrink-0"
                 >
-                  {copiedType === 'email' ? 'ĐÃ CHÉP' : 'CHÉP'}
+                  {copiedType === 'email' ? 'Đã chép' : 'Sao chép'}
                 </button>
               </div>
 
@@ -90,22 +90,22 @@ export const TeacherProfileSection: React.FC = () => {
                 <div className="flex items-center gap-2 min-w-0">
                   <Phone className="w-4 h-4 text-[#C69A47] shrink-0" />
                   <span className="text-[#0A1418] font-bold">{TEACHER_DATA.phone}</span>
-                  <span className="text-[10px] px-1.5 py-0.5 bg-[#0A1418] text-[#FAF8F1]">Zalo</span>
+                  <span className="text-[11px] text-[#687477]">(Zalo)</span>
                 </div>
                 <div className="flex items-center gap-1.5 shrink-0">
                   <button
                     onClick={() => handleCopy(TEACHER_DATA.phone, 'phone')}
-                    className="px-2.5 py-1 text-[10px] font-mono font-bold uppercase bg-[#0A1418] text-[#FAF8F1] hover:bg-[#9C3B32] transition-colors cursor-pointer"
+                    className="px-3 py-1 rounded-full text-[11px] font-mono font-semibold text-[#0A1418] hover:text-[#9C3B32] hover:bg-[#9C3B32]/10 transition-colors cursor-pointer"
                   >
-                    {copiedType === 'phone' ? 'ĐÃ CHÉP' : 'CHÉP'}
+                    {copiedType === 'phone' ? 'Đã chép' : 'Chép'}
                   </button>
                   <a
                     href={TEACHER_DATA.zalo}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="px-2.5 py-1 text-[10px] font-mono font-bold uppercase bg-[#9C3B32] text-white hover:bg-[#7A2820] transition-colors flex items-center gap-1 cursor-pointer"
+                    className="px-3.5 py-1 rounded-full text-[11px] font-mono font-bold bg-[#9C3B32] text-white hover:bg-[#7A2820] transition-colors inline-flex items-center gap-1 cursor-pointer"
                   >
-                    <span>NHẮN</span>
+                    <span>Nhắn Zalo</span>
                     <ExternalLink className="w-3 h-3" />
                   </a>
                 </div>
@@ -118,7 +118,7 @@ export const TeacherProfileSection: React.FC = () => {
             
             {/* Identity */}
             <div>
-              <div className="inline-block px-3 py-1 bg-[#9C3B32] text-white text-[11px] font-mono font-bold uppercase tracking-wider mb-2">
+              <div className="inline-block px-3.5 py-1 rounded-full bg-[#9C3B32]/12 text-[#9C3B32] text-xs font-mono font-bold tracking-wider mb-2.5">
                 {TEACHER_DATA.school}
               </div>
               <h3 className="font-playfair text-3xl sm:text-4xl md:text-5xl font-black text-[#0A1418] tracking-tight">

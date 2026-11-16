@@ -57,6 +57,11 @@
     color: var(--paper);
     background-color: var(--red);
   }
+
+  :focus-visible {
+    outline: 2px solid var(--red);
+    outline-offset: 2px;
+  }
 }
 
 /* Neutralized line borders (Eliminating harsh lines around text & images) */
@@ -102,11 +107,19 @@
   pointer-events: none;
 }
 
-/* Standout editorial image presentation (Khổ báo phẳng, góc vuông dứt khoát, không bo tròn, không bọc card) */
+/* Standout editorial image presentation (Soft archival corners, no harsh boxy frame) */
 .image-standout {
-  border-radius: 0 !important;
-  box-shadow: 0 10px 25px -10px rgba(10, 20, 24, 0.16);
+  border-radius: 16px !important;
+  box-shadow: 0 12px 28px -12px rgba(10, 20, 24, 0.14);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
 
 .image-standout:hover {
@@ -233,7 +246,7 @@
 
 ::-webkit-scrollbar-thumb {
   background: rgba(10, 20, 24, 0.25);
-  border-radius: 0px;
+  border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {

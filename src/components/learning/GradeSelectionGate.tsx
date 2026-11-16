@@ -85,21 +85,20 @@ export const GradeSelectionGate: React.FC<GradeSelectionGateProps> = ({
 
       <div className="relative z-10 max-w-6xl mx-auto w-full space-y-10 text-left">
         {/* Header */}
-        <div className="space-y-3 border-b border-[#0A1418]/20 pb-6">
-          <div className="flex items-center gap-2 text-xs font-mono font-bold tracking-widest text-[#9C3B32] uppercase">
-            <span>BƯỚC 1 • XÁC ĐỊNH KHỐI LỚP HỌC TẬP</span>
+        <div className="space-y-3 pb-4 border-b border-[#0A1418]/12">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#9C3B32]/10 text-xs font-mono font-bold tracking-wider text-[#9C3B32] uppercase">
+            <span>Bước 1 • Chọn khối lớp học tập</span>
           </div>
           <h2 className="font-playfair text-3xl sm:text-4xl md:text-5xl font-black text-[#0A1418] tracking-tight">
             Em Đang Theo Học Khối Lớp Nào?
           </h2>
           <p className="text-sm sm:text-base font-sans text-[#687477] max-w-2xl leading-relaxed">
-            Vui lòng chọn đúng khối lớp của mình trước khi vào Giảng Đường. Hệ thống sẽ chỉ hiển thị
-            riêng phiếu bài tập về nhà, đề ôn tập ma trận và phòng khảo thí trực tuyến thuộc khối lớp em đã chọn.
+            Chọn đúng khối lớp của mình trước khi vào Giảng Đường. Hệ thống sẽ hiển thị riêng bài tập, đề ôn tập và phòng khảo thí trực tuyến thuộc khối lớp em đã chọn.
           </p>
         </div>
 
-        {/* 3 Open Editorial Columns (No Card-Slop) */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-0 md:divide-x divide-[#0A1418]/15 border-b border-[#0A1418]/20">
+        {/* 3 Harmonious Soft Rounded Editorial Columns */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
           {grades.map((item) => {
             const { hwCount, examCount, quizCount } = getCountsForGrade(item.grade);
             return (
@@ -114,18 +113,17 @@ export const GradeSelectionGate: React.FC<GradeSelectionGateProps> = ({
                     onSelectGrade(item.grade);
                   }
                 }}
-                className="group py-8 px-2 sm:px-6 flex flex-col justify-between gap-6 border-t-4 transition-colors hover:bg-[#F3EFE5]/60 cursor-pointer text-left"
-                style={{ borderTopColor: item.accentColor }}
+                className="group rounded-3xl bg-white/80 backdrop-blur-xs border border-[#0A1418]/10 hover:border-[#9C3B32]/35 shadow-xs hover:shadow-lg transition-all duration-300 p-7 sm:p-8 flex flex-col justify-between gap-6 cursor-pointer text-left hover:-translate-y-1"
               >
                 <div className="space-y-4">
-                  <div className="flex items-center justify-between text-xs font-mono">
+                  <div className="flex items-center justify-between gap-2 text-xs font-mono">
                     <span
                       className="font-bold uppercase tracking-wider"
                       style={{ color: item.accentColor }}
                     >
                       {item.tag}
                     </span>
-                    <span className="text-[10px] font-mono font-bold px-2 py-0.5 bg-[#0A1418] text-[#FAF8F1]">
+                    <span className="text-[11px] font-sans font-semibold px-3 py-0.5 rounded-full bg-[#0A1418]/8 text-[#0A1418]">
                       {item.badge}
                     </span>
                   </div>
@@ -139,7 +137,7 @@ export const GradeSelectionGate: React.FC<GradeSelectionGateProps> = ({
                     </p>
                   </div>
 
-                  <ul className="space-y-1.5 pt-2 text-xs font-sans text-[#0A1418]/85 border-t border-[#0A1418]/10">
+                  <ul className="space-y-2 pt-3 text-xs font-sans text-[#0A1418]/85 border-t border-[#0A1418]/8">
                     {item.highlights.map((hl, idx) => (
                       <li key={idx} className="flex items-start gap-2">
                         <span className="font-mono font-bold text-[#9C3B32]">—</span>
@@ -149,28 +147,30 @@ export const GradeSelectionGate: React.FC<GradeSelectionGateProps> = ({
                   </ul>
                 </div>
 
-                <div className="space-y-4 pt-4 border-t border-[#0A1418]/10">
-                  <div className="flex flex-wrap items-center gap-3 text-[11px] font-mono text-[#0A1418]">
-                    <span className="flex items-center gap-1">
+                <div className="space-y-5 pt-4 border-t border-[#0A1418]/8">
+                  <div className="flex flex-wrap items-center gap-3.5 text-xs font-sans text-[#0A1418]/80">
+                    <span className="flex items-center gap-1.5">
                       <BookOpen className="w-3.5 h-3.5 text-[#1B4931]" />
                       <strong>{hwCount}</strong> Bài tập
                     </span>
-                    <span className="flex items-center gap-1">
+                    <span className="flex items-center gap-1.5">
                       <FileText className="w-3.5 h-3.5 text-[#9C3B32]" />
                       <strong>{examCount}</strong> Đề ôn
                     </span>
-                    <span className="flex items-center gap-1">
+                    <span className="flex items-center gap-1.5">
                       <Award className="w-3.5 h-3.5 text-[#B47818]" />
                       <strong>{quizCount}</strong> Đề thi thử
                     </span>
                   </div>
 
-                  <div
-                    className="w-full py-3 px-4 text-xs font-mono font-bold uppercase tracking-wider text-white flex items-center justify-between transition-all group-hover:translate-x-0.5"
-                    style={{ backgroundColor: item.accentColor }}
-                  >
-                    <span>Vào Giảng Đường Khối {item.grade}</span>
-                    <ArrowRight className="w-4 h-4" />
+                  <div className="flex items-center justify-between pt-1">
+                    <span
+                      className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-mono font-bold uppercase tracking-wider text-white transition-all group-hover:shadow-md"
+                      style={{ backgroundColor: item.accentColor }}
+                    >
+                      <span>Vào Khối {item.grade}</span>
+                      <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
+                    </span>
                   </div>
                 </div>
               </div>
