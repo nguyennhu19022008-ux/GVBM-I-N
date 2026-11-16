@@ -91,7 +91,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigateView, onSelectGrade })
                 </li>
               )}
               <li className="pt-1 text-[11px] text-[#FAF8F1]/50">
-                Tên miền chính thức: dammelichsu.vercel.app
+                Tên miền chính thức: lichsuthpt.vercel.app
               </li>
             </ul>
           </div>
