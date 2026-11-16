@@ -138,7 +138,7 @@ export async function fetchCloudResources(): Promise<CurriculumResource[] | null
       format: row.format as CurriculumResource['format'],
       fileSize: row.file_size as string,
       downloadsCount: Number(row.downloads_count || 0),
-      author: (row.author as string) || 'Thầy Nguyễn Vương Gia',
+      author: (row.author as string) || 'GVBM Bùi Thị Điền',
       createdAt: row.created_at as string,
       hasAnswerKey: Boolean(row.has_answer_key),
       highlights: (row.highlights as string[]) || [],

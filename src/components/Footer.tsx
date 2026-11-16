@@ -130,7 +130,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigateView, onSelectGrade })
           <div className="flex items-center gap-2">
             <span>THIẾT KẾ & VẬN HÀNH:</span>
             <span className="px-2.5 py-1 bg-white/10 text-[#E5C985] font-bold">
-              NGUYỄN VƯƠNG GIA
+              BÙI THỊ ĐIỀN
             </span>
           </div>
         </div>

@@ -163,7 +163,7 @@ export const LearningHubView: React.FC<LearningHubViewProps> = ({
   const handleDownload = (res: CurriculumResource) => {
     const content = `===============================================================
 ĐAM MÊ LỊCH SỬ • TÀI LIỆU HỌC TẬP & ÔN THI CHÍNH THỨC
-CHỦ NHIỆM: THẦY NGUYỄN VƯƠNG GIA
+CHỦ NHIỆM: GVBM BÙI THỊ ĐIỀN
 ===============================================================
 TÊN TÀI LIỆU: ${res.title}
 KHỐI LỚP: ${res.grade} | THỂ LOẠI: ${res.category.toUpperCase()}

@@ -18,14 +18,14 @@ export interface TeacherProfile {
 }
 
 export const TEACHER_DATA: TeacherProfile = {
-  name: "Thầy Nguyễn Vương Gia",
-  title: "Thạc sĩ Lịch sử • Giáo viên Chuyên môn Lịch sử THPT",
+  name: "Bùi Thị Điền",
+  title: "Giáo viên Bộ môn Lịch sử THPT",
   school: "Trường THPT Chuyên • Tỉnh Bà Rịa - Vũng Tàu",
-  bio: "Với hơn 10 năm tâm huyết nghiên cứu và đồng hành cùng các thế hệ học sinh trong các kỳ thi Học sinh Giỏi cấp Tỉnh, Quốc gia và Tốt nghiệp THPT, thầy mong muốn biến những trang sử hào hùng của dân tộc thành nguồn cảm hứng sống, lòng tự tôn và tri thức vững vàng cho thế hệ trẻ.",
+  bio: "Với tâm huyết nghiên cứu và đồng hành cùng các thế hệ học sinh trong các kỳ thi Học sinh Giỏi cấp Tỉnh, Quốc gia và Tốt nghiệp THPT, cô mong muốn biến những trang sử hào hùng của dân tộc thành nguồn cảm hứng sống, lòng tự tôn và tri thức vững vàng cho thế hệ trẻ.",
   quote: "Lịch sử không phải là những con số và sự kiện khô khan nằm im trên trang sách, mà là nhịp đập, là hơi thở và máu xương của cha ông trao truyền lại cho chúng ta hôm nay.",
   email: "nguyennhu19022008@gmail.com",
-  phone: "0876637806",
-  zalo: "https://zalo.me/0876637806",
+  phone: "0985646348",
+  zalo: "https://zalo.me/0985646348",
   avatarUrl: "/images/thay-giao-nguyen-vuong-gia.jpg",
   achievements: [
     {

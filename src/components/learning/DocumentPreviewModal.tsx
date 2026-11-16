@@ -57,7 +57,7 @@ export const DocumentPreviewModal: React.FC<DocumentPreviewModalProps> = ({
   const preview = resource.fullContentPreview;
 
   const handleCopySummary = () => {
-    const text = `TÀI LIỆU LỊCH SỬ THPT • THẦY NGUYỄN VƯƠNG GIA
+    const text = `TÀI LIỆU LỊCH SỬ THPT • GVBM BÙI THỊ ĐIỀN
 Tên: ${resource.title}
 Khối lớp: ${resource.grade} | Phân kỳ: ${resource.period}
 Tác giả: ${resource.author}
@@ -124,7 +124,7 @@ Thời gian khuyến nghị: ${preview?.estimatedStudyTimeMinutes || 45} phút`;
           <div className="space-y-4">
             <div className="flex items-center gap-2 text-xs font-mono font-bold text-[#9C3B32] uppercase tracking-wider">
               <BookOpen className="w-4 h-4" />
-              <span>DẶN DÒ TỪ THẦY NGUYỄN VƯƠNG GIA</span>
+              <span>DẶN DÒ TỪ GVBM BÙI THỊ ĐIỀN</span>
             </div>
             <div className="p-4 bg-[#F3EFE5]/70 border-l-3 border-[#9C3B32] font-serif text-sm leading-relaxed text-[#0A1418] italic">
               "{preview?.teacherNote || resource.description}"
