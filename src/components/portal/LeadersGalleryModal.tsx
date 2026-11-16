@@ -57,10 +57,6 @@ export const LeadersGalleryModal: React.FC<LeadersGalleryModalProps> = ({ leader
                 alt={leader.name}
                 className="w-full aspect-3/4 object-cover object-top grayscale contrast-110"
               />
-              <div className="p-2 text-center text-xs font-mono text-[#FAF8F1] bg-[#0A1418]">
-                <span>NIÊN ĐẠI: </span>
-                <span className="font-bold text-[#E5C985]">{leader.lifespan}</span>
-              </div>
             </div>
 
             <div className="pt-1 text-xs font-mono space-y-1">

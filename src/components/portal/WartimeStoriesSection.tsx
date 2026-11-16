@@ -262,8 +262,7 @@ export const WartimeStoriesSection: React.FC = () => {
 
                 {/* Text information standing freely on the canvas */}
                 <div>
-                  <div className="flex items-center justify-between text-[10px] font-mono text-[#E5C985] uppercase mb-1">
-                    <span>NIÊN ĐẠI: {leader.lifespan}</span>
+                  <div className="flex items-center justify-end text-[10px] font-mono text-[#E5C985] uppercase mb-1">
                     <span className="font-bold">HỒ SƠ →</span>
                   </div>
                   <h4 className="font-playfair text-lg sm:text-xl font-bold text-white group-hover:text-[#E5C985] transition-colors leading-snug">

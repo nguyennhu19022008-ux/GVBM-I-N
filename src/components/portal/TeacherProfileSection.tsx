@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Mail, Phone, Award, CheckCircle2, ExternalLink, BookOpen } from 'lucide-react';
+import { Mail, Phone, CheckCircle2, ExternalLink, BookOpen } from 'lucide-react';
 import { TEACHER_DATA } from '../../data/teacherData';
 
 export const TeacherProfileSection: React.FC = () => {
@@ -151,32 +151,6 @@ export const TeacherProfileSection: React.FC = () => {
                   <div key={idx} className="flex items-start gap-3 py-1.5">
                     <CheckCircle2 className="w-4 h-4 text-[#486D5D] shrink-0 mt-0.5" />
                     <span>{item}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Notable Achievements: Open Rows (Zero Boxed Cards) */}
-            <div className="pt-4 space-y-3">
-              <h4 className="text-xs font-mono font-bold uppercase tracking-wider text-[#0A1418] flex items-center gap-2">
-                <Award className="w-4 h-4 text-[#C69A47]" />
-                <span>Thành Tích & Dấu Ấn Sư Phạm Nổi Bật:</span>
-              </h4>
-
-              <div className="space-y-3">
-                {TEACHER_DATA.achievements.map((ach, idx) => (
-                  <div key={idx} className="py-2.5 flex flex-col sm:flex-row sm:items-baseline justify-between gap-2">
-                    <div className="flex items-baseline gap-3">
-                      <span className="font-mono text-xs font-bold text-[#9C3B32] shrink-0">
-                        [{ach.year}]
-                      </span>
-                      <h5 className="font-bold text-sm text-[#0A1418]">
-                        {ach.title}
-                      </h5>
-                    </div>
-                    <p className="text-xs text-[#687477] font-sans sm:max-w-md sm:text-right">
-                      {ach.description}
-                    </p>
                   </div>
                 ))}
               </div>
