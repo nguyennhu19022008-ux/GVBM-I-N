@@ -35,8 +35,8 @@ export const AdminPinModal: React.FC<AdminPinModalProps> = ({
 }) => {
   const [mode, setMode] = useState<AuthModalMode>(initialMode);
 
-  // Email & Password Login
-  const [email, setEmail] = useState<string>(DEFAULT_TEACHER_EMAIL);
+  // Email & Password Login (never pre-fill teacher email so students do not see it)
+  const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
@@ -56,6 +56,14 @@ export const AdminPinModal: React.FC<AdminPinModalProps> = ({
   useEffect(() => {
     if (isOpen) {
       setMode(initialMode);
+      setEmail('');
+      setPassword('');
+      setNewPassword('');
+      setConfirmNewPassword('');
+      setPin('');
+      setShowPassword(false);
+      setShowNewPassword(false);
+      setShowPin(false);
       setError('');
       setSuccessMsg('');
     }
@@ -194,6 +202,7 @@ export const AdminPinModal: React.FC<AdminPinModalProps> = ({
                 id="teacher-login-email"
                 name="teacherEmail"
                 type="email"
+                autoComplete="off"
                 autoFocus
                 required
                 value={email}
@@ -201,7 +210,7 @@ export const AdminPinModal: React.FC<AdminPinModalProps> = ({
                   setEmail(e.target.value);
                   if (error) setError('');
                 }}
-                placeholder={DEFAULT_TEACHER_EMAIL}
+                placeholder="Nhập email giáo viên..."
                 className="w-full px-3.5 py-2.5 bg-white border border-[#0A1418]/30 focus:border-[#9C3B32] font-sans text-sm outline-none text-[#0A1418]"
               />
             </div>
@@ -305,6 +314,7 @@ export const AdminPinModal: React.FC<AdminPinModalProps> = ({
                 id="teacher-reset-email"
                 name="resetEmail"
                 type="email"
+                autoComplete="off"
                 autoFocus
                 required
                 value={email}
@@ -312,7 +322,7 @@ export const AdminPinModal: React.FC<AdminPinModalProps> = ({
                   setEmail(e.target.value);
                   if (error) setError('');
                 }}
-                placeholder={DEFAULT_TEACHER_EMAIL}
+                placeholder="Nhập email giáo viên để nhận link..."
                 className="w-full px-3.5 py-2.5 bg-white border border-[#0A1418]/30 focus:border-[#9C3B32] font-sans text-sm outline-none text-[#0A1418]"
               />
             </div>

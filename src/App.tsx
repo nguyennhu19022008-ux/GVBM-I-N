@@ -27,7 +27,6 @@ import {
   resolveCloudFeedback,
 } from './services/supabaseService';
 import {
-  DEFAULT_TEACHER_EMAIL,
   TEACHER_EMAIL_STORAGE_KEY,
   supabaseAuthClient,
   signOutTeacher,
@@ -43,7 +42,7 @@ export function App() {
   const [isAdminAuthenticated, setIsAdminAuthenticated] = useState<boolean>(false);
   const [isAdminPinModalOpen, setIsAdminPinModalOpen] = useState<boolean>(false);
   const [authModalMode, setAuthModalMode] = useState<AuthModalMode>('email_login');
-  const [currentTeacherEmail, setCurrentTeacherEmail] = useState<string>(DEFAULT_TEACHER_EMAIL);
+  const [currentTeacherEmail, setCurrentTeacherEmail] = useState<string>('');
   const [currentTeacherName, setCurrentTeacherName] = useState<string>('GVBM Bùi Thị Điền');
 
   // Dynamic Custom Resources (Added by teacher)
@@ -299,6 +298,7 @@ export function App() {
 
   const handleAdminLogout = () => {
     setIsAdminAuthenticated(false);
+    setCurrentTeacherEmail('');
     void signOutTeacher();
     setCurrentView('portal');
     window.location.hash = 'portal';
