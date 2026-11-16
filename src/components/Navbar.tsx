@@ -52,11 +52,11 @@ export const Navbar: React.FC<NavbarProps> = ({
           onClick={() => onChangeView('portal')}
         >
           <div className="brand-mark group-hover:scale-105 transition-transform shrink-0">
-            <span>LS</span>
+            <span>ĐS</span>
           </div>
           <div className="text-left">
-            <span className="font-playfair text-base sm:text-lg font-black text-white tracking-tight group-hover:text-[#E5C985] transition-colors block leading-none">
-              lichsuTHPT
+            <span className="font-playfair text-base sm:text-lg font-black text-white tracking-tight group-hover:text-[#E5C985] transition-colors uppercase block leading-none">
+              ĐAM MÊ LỊCH SỬ
             </span>
             <span className="text-[9px] font-mono text-[#E5C985]/80 tracking-widest uppercase block mt-1">
               CỔNG DI SẢN SỬ HỌC SỐ & KHẢO THÍ SƯ PHẠM
