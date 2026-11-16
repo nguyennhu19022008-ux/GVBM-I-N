@@ -44,7 +44,7 @@ export const Navbar: React.FC<NavbarProps> = ({
         style={{ width: `${scrollProgress}%` }} 
       />
 
-      <div className="w-full px-6 md:px-12 xl:px-16 h-16 flex items-center justify-between">
+      <div className="w-full max-w-[1680px] mx-auto px-5 sm:px-10 lg:px-14 h-16 flex items-center justify-between">
         
         {/* Brand Medallion & Title */}
         <div 

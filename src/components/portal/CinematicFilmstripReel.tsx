@@ -134,7 +134,7 @@ export const CinematicFilmstripReel: React.FC<CinematicFilmstripReelProps> = ({ 
         style={{ backgroundImage: `url('/images/quang-truong-ba-dinh.jpg')` }}
       />
 
-      <div className="w-full px-6 md:px-12 xl:px-16 relative z-10">
+      <div className="w-full max-w-[1680px] mx-auto px-5 sm:px-10 lg:px-14 relative z-10">
         
         {/* Top Header of the Filmstrip Reel */}
         <div className="cinematic-scroll-reveal flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-6">
@@ -254,7 +254,7 @@ export const CinematicFilmstripReel: React.FC<CinematicFilmstripReelProps> = ({ 
       </div>
 
       {/* Bottom Sub-Ticker Bar */}
-      <div className="w-full px-6 md:px-12 xl:px-16 pt-3 flex flex-wrap items-center justify-between text-[11px] font-mono text-[#FAF8F1]/60">
+      <div className="w-full max-w-[1680px] mx-auto px-5 sm:px-10 lg:px-14 pt-3 flex flex-wrap items-center justify-between text-[11px] font-mono text-[#FAF8F1]/60">
         <div className="flex items-center gap-2">
           <Sparkles className="w-3.5 h-3.5 text-[#E5C985]" />
           <span>Rà chuột vào ảnh để tạm dừng • Bấm vào khung hình để đọc toàn văn sự kiện</span>

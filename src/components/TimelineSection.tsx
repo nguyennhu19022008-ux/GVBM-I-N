@@ -40,26 +40,20 @@ export const TimelineSection: React.FC<TimelineSectionProps> = ({
 
   return (
     <section id="timeline-section" className="py-14 lg:py-20 bg-[#FAF8F1] text-left relative overflow-hidden">
-      {/* Prominent Atmospheric Background Historical Trail Blend with Parallax */}
-      <div 
-        className="archival-parallax-bg will-change-transform absolute inset-x-0 -top-10 h-[550px] pointer-events-none opacity-25 select-none image-blend-panoramic filter contrast-120"
+      {/* Subtle archival atmosphere restricted away from text readability */}
+      <div
+        className="archival-parallax-bg will-change-transform absolute inset-x-0 top-0 h-[360px] pointer-events-none opacity-[0.07] select-none image-blend-fade-bottom"
         style={{
           backgroundImage: 'url(/images/duong-truong-son.jpg)',
           backgroundSize: 'cover',
-          backgroundPosition: 'center 40%',
+          backgroundPosition: 'center 35%',
         }}
       />
-      {/* Soft warm paper vignette */}
-      <div className="absolute inset-0 bg-radial from-transparent via-[#FAF8F1]/60 to-[#FAF8F1] pointer-events-none" />
-      
-      {/* Historic Background Typographic Watermark */}
-      <div className="absolute left-6 bottom-12 font-mono text-8xl sm:text-9xl font-black text-[#9C3B32]/5 select-none pointer-events-none tracking-widest uppercase">
-        1858 · 1986
-      </div>
+      <div className="absolute inset-0 bg-gradient-to-b from-[#FAF8F1]/60 via-[#FAF8F1]/92 to-[#FAF8F1] pointer-events-none" />
 
-      <div className="w-full px-6 md:px-12 xl:px-16 relative z-10">
+      <div className="w-full max-w-[1680px] mx-auto px-5 sm:px-10 lg:px-14 relative z-10">
         
-        {/* Section Header: Open Air Masthead */}
+        {/* Section Header: Clean High-Contrast Editorial Masthead */}
         <div className="cinematic-scroll-reveal flex flex-col lg:flex-row lg:items-end justify-between gap-6 pb-6">
           <div>
             <div className="flex items-center gap-2 mb-2 text-xs font-mono font-bold uppercase tracking-widest text-[#9C3B32]">
@@ -69,8 +63,8 @@ export const TimelineSection: React.FC<TimelineSectionProps> = ({
             <h2 className="font-playfair text-3xl sm:text-5xl lg:text-6xl font-black text-[#0A1418] tracking-tight">
               Dòng Chảy Lịch Sử Theo Tiến Trình
             </h2>
-            <p className="mt-2 text-xs sm:text-sm text-[#687477] max-w-2xl font-serif italic">
-              "Khám phá các phân kỳ lịch sử lớn của Việt Nam và Thế giới. Nhấp vào mốc năm để đọc ngay hồ sơ tư liệu trực tiếp trên mặt báo."
+            <p className="mt-2.5 text-sm sm:text-base text-[#3F4B4E] max-w-2xl font-sans leading-relaxed">
+              Khám phá các phân kỳ lịch sử lớn của Việt Nam và Thế giới. Nhấp vào mốc năm để đọc ngay hồ sơ tư liệu trực quan.
             </p>
           </div>
 
@@ -83,9 +77,9 @@ export const TimelineSection: React.FC<TimelineSectionProps> = ({
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Tìm mốc năm, chiến dịch, nhân vật..."
-              className="w-full pl-10 pr-14 py-2.5 rounded-full bg-white/85 border border-[#0A1418]/12 focus:border-[#9C3B32] text-sm outline-none font-sans placeholder-[#687477]/70 text-[#0A1418] transition-all shadow-2xs"
+              className="w-full pl-10 pr-14 py-2.5 rounded-full bg-white border border-[#0A1418]/18 focus:border-[#9C3B32] text-sm outline-none font-sans placeholder-[#4A5558]/75 text-[#0A1418] transition-all shadow-2xs"
             />
-            <Search className="w-4 h-4 text-[#0A1418]/50 absolute left-3.5 top-3" />
+            <Search className="w-4 h-4 text-[#3F4B4E] absolute left-3.5 top-3" />
             {searchQuery && (
               <button
                 onClick={() => setSearchQuery('')}
@@ -97,8 +91,8 @@ export const TimelineSection: React.FC<TimelineSectionProps> = ({
           </div>
         </div>
 
-        {/* Horizontal Year Scrubber: Clean Borderless Underline Strip (No boxy squares) */}
-        <div className="my-5 border-b border-[#0A1418]/12 overflow-x-auto scrollbar-none flex items-center justify-between gap-4">
+        {/* Horizontal Year Scrubber: Crisp High-Contrast Underline Strip */}
+        <div className="my-5 border-b border-[#0A1418]/15 overflow-x-auto scrollbar-none flex items-center justify-between gap-4">
           <div className="flex items-center gap-2 text-xs font-mono font-bold text-[#9C3B32] shrink-0 uppercase pb-2.5">
             <span>Niên đại:</span>
           </div>
@@ -113,7 +107,7 @@ export const TimelineSection: React.FC<TimelineSectionProps> = ({
                   className={`pb-2.5 text-xs sm:text-sm font-mono transition-all whitespace-nowrap cursor-pointer border-b-2 ${
                     isActive
                       ? 'border-[#9C3B32] text-[#9C3B32] font-black'
-                      : 'border-transparent text-[#687477] hover:text-[#0A1418] font-semibold'
+                      : 'border-transparent text-[#3F4B4E] hover:text-[#0A1418] font-semibold'
                   }`}
                 >
                   {item.year}
@@ -123,13 +117,13 @@ export const TimelineSection: React.FC<TimelineSectionProps> = ({
           </div>
 
           <div className="hidden sm:flex items-center gap-2 shrink-0 pb-2.5">
-            <span className="text-xs font-mono font-medium text-[#687477]">1858 — 1986</span>
+            <span className="text-xs font-mono font-semibold text-[#3F4B4E]">1858 — 1986</span>
           </div>
         </div>
 
-        {/* Period Filter Tabs: Soft Pill Strip without Harsh Borders */}
+        {/* Period Filter Tabs: Soft Pill Strip with Readable Text */}
         <div className="flex items-center gap-2 overflow-x-auto pb-3 mb-8 text-xs font-sans scrollbar-none">
-          <div className="flex items-center gap-1.5 text-[#0A1418]/70 font-semibold shrink-0 mr-2">
+          <div className="flex items-center gap-1.5 text-[#0A1418] font-semibold shrink-0 mr-2">
             <Filter className="w-3.5 h-3.5 text-[#9C3B32]" />
             <span>Phân kỳ:</span>
           </div>
@@ -141,7 +135,7 @@ export const TimelineSection: React.FC<TimelineSectionProps> = ({
               className={`px-3.5 py-1.5 rounded-full whitespace-nowrap transition-all cursor-pointer font-medium ${
                 selectedPeriod === tab.id
                   ? 'bg-[#0A1418] text-[#FAF8F1] font-semibold shadow-2xs'
-                  : 'text-[#687477] hover:text-[#0A1418] hover:bg-[#0A1418]/5'
+                  : 'bg-white/75 text-[#2E383B] hover:text-[#0A1418] hover:bg-white border border-[#0A1418]/10'
               }`}
             >
               {tab.label}
@@ -151,8 +145,8 @@ export const TimelineSection: React.FC<TimelineSectionProps> = ({
 
         {/* CARDLESS ASYMMETRICAL EDITORIAL SPREAD (4 COLS STREAM : 8 COLS READING DESK) */}
         {filteredEvents.length === 0 ? (
-          <div className="text-center py-16 rounded-2xl bg-[#F3EFE5]/60 p-8">
-            <p className="text-sm font-serif italic text-[#687477]">
+          <div className="text-center py-16 rounded-2xl bg-white border border-[#0A1418]/10 p-8">
+            <p className="text-sm font-sans text-[#3F4B4E]">
               Không tìm thấy sự kiện phù hợp với từ khóa "{searchQuery}".
             </p>
             <button
@@ -178,22 +172,17 @@ export const TimelineSection: React.FC<TimelineSectionProps> = ({
                   <div
                     key={evt.id}
                     onClick={() => setActiveEventId(evt.id)}
-                    className={`p-3.5 transition-all cursor-pointer text-left relative group ${
+                    className={`p-4 rounded-2xl transition-all cursor-pointer text-left relative group border ${
                       isSelected 
-                        ? 'bg-[#F3EFE5] pl-4' 
-                        : 'hover:bg-[#F3EFE5]/50 hover:pl-4'
+                        ? 'bg-white border-[#9C3B32]/30 shadow-xs' 
+                        : 'bg-white/60 border-transparent hover:bg-white hover:border-[#0A1418]/10'
                     }`}
                   >
-                    {/* Active Notch Indicator */}
-                    {isSelected && (
-                      <div className="absolute left-0 top-0 bottom-0 w-1 bg-[#9C3B32]" />
-                    )}
-
                     <div className="flex items-baseline justify-between mb-1">
                       <span className={`font-mono text-2xl font-black ${isSelected ? 'text-[#9C3B32]' : 'text-[#0A1418] group-hover:text-[#9C3B32]'}`}>
                         {evt.year}
                       </span>
-                      <span className="text-[10px] font-mono text-[#687477] uppercase">
+                      <span className="text-[11px] font-mono font-semibold text-[#3F4B4E] uppercase">
                         Khối {evt.gradeLevel === 'all' ? '11 & 12' : evt.gradeLevel}
                       </span>
                     </div>
@@ -202,11 +191,11 @@ export const TimelineSection: React.FC<TimelineSectionProps> = ({
                       {evt.title}
                     </h4>
 
-                    <p className="mt-1 text-xs text-[#687477] line-clamp-2 font-sans">
+                    <p className="mt-1 text-xs text-[#3F4B4E] line-clamp-2 font-sans leading-relaxed">
                       {evt.summary}
                     </p>
 
-                    <div className="mt-2 flex items-center justify-between text-[10px] font-mono text-[#687477]">
+                    <div className="mt-2.5 flex items-center justify-between text-[11px] font-mono text-[#4A5558]">
                       <span>{evt.periodLabel}</span>
                       <span className={`flex items-center gap-0.5 font-bold uppercase ${isSelected ? 'text-[#9C3B32]' : 'text-[#0A1418] group-hover:text-[#9C3B32]'}`}>
                         {isSelected ? 'Đang đọc' : 'Chi tiết'} <ChevronRight className="w-3 h-3" />
@@ -217,17 +206,12 @@ export const TimelineSection: React.FC<TimelineSectionProps> = ({
               })}
             </div>
 
-            {/* Right 8 Columns: Open Broadsheet Reading Desk (Cardless & Crisp with Cinematic Cross-Fade) */}
+            {/* Right 8 Columns: Clean High-Contrast Broadsheet Reading Desk */}
             {activeEvent && (
-              <div key={`desk-${activeEvent.id}`} className="lg:col-span-8 space-y-6 text-left relative animate-fadeSlideUp">
+              <div key={`desk-${activeEvent.id}`} className="lg:col-span-8 p-6 sm:p-8 rounded-3xl bg-white border border-[#0A1418]/10 shadow-xs space-y-6 text-left relative animate-fadeSlideUp">
                 
-                {/* Huge Watermark Year in Background */}
-                <div className="absolute -top-10 -right-6 font-mono text-7xl sm:text-9xl font-black text-[#0A1418]/5 select-none pointer-events-none">
-                  {activeEvent.year}
-                </div>
-
                 {/* Desk Header Strip */}
-                <div className="flex flex-wrap items-center justify-between gap-3 pb-2">
+                <div className="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-[#0A1418]/10">
                   <div className="flex items-center gap-3">
                     <span className="px-3.5 py-1 rounded-full bg-[#9C3B32] text-white font-mono text-xs font-bold uppercase tracking-wider">
                       Hồ sơ năm {activeEvent.year}
@@ -235,14 +219,14 @@ export const TimelineSection: React.FC<TimelineSectionProps> = ({
                     <span className="text-xs font-mono font-bold text-[#0A1418] uppercase">
                       {activeEvent.periodLabel}
                     </span>
-                    <span className="text-xs font-mono text-[#687477] hidden sm:inline">
+                    <span className="text-xs font-mono font-medium text-[#3F4B4E] hidden sm:inline">
                       • Thời gian: {activeEvent.exactDate || activeEvent.year}
                     </span>
                   </div>
 
                   <button
                     onClick={() => onSelectEventDetail(activeEvent)}
-                    className="px-4 py-1.5 rounded-full bg-[#9C3B32]/10 hover:bg-[#9C3B32] text-xs font-mono font-bold text-[#9C3B32] hover:text-white transition-colors uppercase flex items-center gap-1.5 cursor-pointer"
+                    className="px-4 py-1.5 rounded-full bg-[#9C3B32]/12 hover:bg-[#9C3B32] text-xs font-mono font-bold text-[#9C3B32] hover:text-white transition-colors uppercase flex items-center gap-1.5 cursor-pointer"
                     title="Mở toàn màn hình"
                   >
                     <Maximize2 className="w-3.5 h-3.5" />
@@ -255,7 +239,7 @@ export const TimelineSection: React.FC<TimelineSectionProps> = ({
                   <h3 className="font-playfair text-2xl sm:text-4xl font-black text-[#0A1418] leading-tight">
                     {activeEvent.title}
                   </h3>
-                  <p className="text-sm sm:text-base text-[#0A1418] font-serif italic leading-relaxed">
+                  <p className="text-sm sm:text-base text-[#1E292D] font-sans leading-relaxed">
                     "{activeEvent.summary}"
                   </p>
                 </div>
@@ -352,8 +336,8 @@ export const TimelineSection: React.FC<TimelineSectionProps> = ({
                 </div>
 
                 {/* Bottom Action Bar */}
-                <div className="pt-6 flex flex-wrap items-center justify-between gap-4">
-                  <div className="flex flex-wrap gap-2 text-xs font-mono text-[#687477]">
+                <div className="pt-6 border-t border-[#0A1418]/10 flex flex-wrap items-center justify-between gap-4">
+                  <div className="flex flex-wrap gap-2 text-xs font-mono text-[#3F4B4E]">
                     {activeEvent.tags.map((t, i) => (
                       <span key={i} className="px-2.5 py-0.5 rounded-full bg-[#F3EFE5] text-[11px]">
                         #{t}

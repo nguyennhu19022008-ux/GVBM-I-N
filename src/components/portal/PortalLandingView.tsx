@@ -36,16 +36,18 @@ export const PortalLandingView: React.FC<PortalLandingViewProps> = ({
     <div className="w-full flex flex-col bg-[#FAF8F1] text-[#0A1418] animate-fadeSlideUp relative">
       
       {/* Top Heritage Edition Publication Banner */}
-      <div className="w-full py-2.5 px-6 md:px-12 xl:px-16 bg-[#F3EFE5]/90 text-xs font-mono text-[#687477] flex flex-wrap items-center justify-between gap-3 relative z-20">
-        <div className="flex items-center gap-3">
-          <span className="font-bold text-[#9C3B32] uppercase">SỐ XUÂN ĐỘC LẬP • 2026</span>
-          <span className="hidden sm:inline">•</span>
-          <span className="hidden sm:inline">CỔNG DI SẢN SỬ HỌC SỐ TOÀN DÂN</span>
-        </div>
-        <div className="flex items-center gap-4 text-[11px]">
-          <span>LƯU CHIỂU: THPT QUỐC GIA 2026</span>
-          <span>•</span>
-          <span className="text-[#9C3B32] font-bold">GIÁO DỤC PHI THƯƠNG MẠI</span>
+      <div className="w-full bg-[#F3EFE5]/90 relative z-20">
+        <div className="w-full max-w-[1680px] mx-auto py-2.5 px-5 sm:px-10 lg:px-14 text-xs font-mono text-[#687477] flex flex-wrap items-center justify-between gap-3">
+          <div className="flex items-center gap-3">
+            <span className="font-bold text-[#9C3B32] uppercase">SỐ XUÂN ĐỘC LẬP • 2026</span>
+            <span className="hidden sm:inline">•</span>
+            <span className="hidden sm:inline">CỔNG DI SẢN SỬ HỌC SỐ TOÀN DÂN</span>
+          </div>
+          <div className="flex items-center gap-4 text-[11px]">
+            <span>LƯU CHIỂU: THPT QUỐC GIA 2026</span>
+            <span>•</span>
+            <span className="text-[#9C3B32] font-bold">GIÁO DỤC PHI THƯƠNG MẠI</span>
+          </div>
         </div>
       </div>
 
@@ -66,7 +68,7 @@ export const PortalLandingView: React.FC<PortalLandingViewProps> = ({
           1945
         </div>
 
-        <div className="w-full px-6 md:px-12 xl:px-16 relative z-10">
+        <div className="w-full max-w-[1680px] mx-auto px-5 sm:px-10 lg:px-14 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 xl:gap-14 items-start">
             
             {/* Left 7 Columns: Core Identity, Statement, 3 Horizontal Gateways & Action */}

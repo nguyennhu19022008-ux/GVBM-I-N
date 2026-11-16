@@ -56,7 +56,8 @@ export const AdminDashboardView: React.FC<AdminDashboardViewProps> = ({
   };
 
   return (
-    <div className="w-full py-10 lg:py-14 px-6 md:px-12 xl:px-16 bg-[#FAF8F1] animate-fadeSlideUp">
+    <div className="w-full py-10 lg:py-14 bg-[#FAF8F1] animate-fadeSlideUp">
+      <div className="w-full max-w-[1680px] mx-auto px-5 sm:px-10 lg:px-14">
       
       {/* Top Banner & Logout: Broadsheet Double Rule */}
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-6 pb-4 broadsheet-double-b text-left">
@@ -227,6 +228,7 @@ export const AdminDashboardView: React.FC<AdminDashboardViewProps> = ({
         )}
       </div>
 
+      </div>
     </div>
   );
 };

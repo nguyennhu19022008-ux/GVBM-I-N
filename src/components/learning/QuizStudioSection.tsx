@@ -43,16 +43,16 @@ export const QuizStudioSection: React.FC<QuizStudioSectionProps> = ({
         </span>
       </div>
 
-      {/* Harmonious Open Editorial Rows */}
-      <div className="divide-y divide-[#0A1418]/10">
+      {/* Clean Crisp Exam Cards over Paper */}
+      <div className="space-y-3">
         {gradeExams.map((exam, idx) => (
           <div
             key={exam.id}
-            className="py-6 px-4 rounded-2xl hover:bg-white/75 transition-colors flex flex-col lg:flex-row lg:items-center justify-between gap-6"
+            className="p-5 sm:p-6 rounded-2xl bg-white border border-[#0A1418]/10 hover:border-[#9C3B32]/30 transition-all shadow-2xs flex flex-col lg:flex-row lg:items-center justify-between gap-6"
           >
             {/* Left: Index & Exam Info */}
             <div className="flex items-start gap-4 max-w-4xl">
-              <span className="font-playfair text-3xl sm:text-4xl font-black text-[#B47818]/65 shrink-0 w-10 text-right">
+              <span className="font-playfair text-3xl sm:text-4xl font-black text-[#B47818]/75 shrink-0 w-10 text-right">
                 {String(idx + 1).padStart(2, '0')}
               </span>
 
@@ -68,7 +68,7 @@ export const QuizStudioSection: React.FC<QuizStudioSectionProps> = ({
                   <span className="text-[#9C3B32] font-bold">
                     • {exam.questionsCount} câu trắc nghiệm
                   </span>
-                  <span className="text-[#687477]">
+                  <span className="text-[#4A5558]">
                     • {exam.topicLabel}
                   </span>
                 </div>
@@ -77,17 +77,17 @@ export const QuizStudioSection: React.FC<QuizStudioSectionProps> = ({
                   {exam.title}
                 </h4>
 
-                <p className="font-sans text-xs sm:text-sm text-[#687477] leading-relaxed max-w-3xl">
+                <p className="font-sans text-xs sm:text-sm text-[#4A5558] leading-relaxed max-w-3xl">
                   {exam.description}
                 </p>
               </div>
             </div>
 
-            {/* Right: Actions (Borderless ghost button + Pill CTA) */}
+            {/* Right: Actions */}
             <div className="flex items-center gap-3 self-end lg:self-center shrink-0">
               <button
                 onClick={() => onOpenReport(exam.title)}
-                className="px-3.5 py-2 rounded-full text-xs font-sans font-medium text-[#687477] hover:bg-[#9C3B32]/10 hover:text-[#9C3B32] transition-colors cursor-pointer flex items-center gap-1.5"
+                className="px-3.5 py-2 rounded-full text-xs font-sans font-medium text-[#4A5558] hover:bg-[#9C3B32]/10 hover:text-[#9C3B32] transition-colors cursor-pointer flex items-center gap-1.5"
               >
                 <AlertTriangle className="w-3.5 h-3.5 text-[#9C3B32]" />
                 <span>Báo lỗi đề</span>

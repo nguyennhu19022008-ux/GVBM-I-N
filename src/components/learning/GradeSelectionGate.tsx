@@ -75,15 +75,8 @@ export const GradeSelectionGate: React.FC<GradeSelectionGateProps> = ({
   };
 
   return (
-    <div className="w-full py-12 lg:py-16 px-6 md:px-12 xl:px-16 bg-[#FAF8F1] animate-fadeSlideUp relative overflow-hidden min-h-[75vh] flex flex-col justify-center">
-      {/* Subtle Historical Background */}
-      <div
-        className="absolute top-0 right-0 w-full sm:w-2/3 h-[500px] bg-cover bg-center opacity-15 mix-blend-multiply pointer-events-none select-none"
-        style={{ backgroundImage: `url('/images/hoi-nghi-ianta.jpg')` }}
-      />
-      <div className="absolute inset-0 bg-radial from-transparent via-[#FAF8F1]/70 to-[#FAF8F1] pointer-events-none" />
-
-      <div className="relative z-10 max-w-6xl mx-auto w-full space-y-10 text-left">
+    <div className="w-full py-12 lg:py-16 bg-[#FAF8F1] animate-fadeSlideUp relative min-h-[75vh] flex flex-col justify-center">
+      <div className="relative z-10 max-w-[1680px] mx-auto px-5 sm:px-10 lg:px-14 w-full space-y-10 text-left">
         {/* Header */}
         <div className="space-y-3 pb-4 border-b border-[#0A1418]/12">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#9C3B32]/10 text-xs font-mono font-bold tracking-wider text-[#9C3B32] uppercase">

@@ -11,7 +11,7 @@ interface FooterProps {
 export const Footer: React.FC<FooterProps> = ({ onNavigateView, onSelectGrade }) => {
   return (
     <footer className="bg-[#0A1418] text-[#FAF8F1] pt-14 pb-12 text-left w-full">
-      <div className="w-full px-6 md:px-12 xl:px-16">
+      <div className="w-full max-w-[1680px] mx-auto px-5 sm:px-10 lg:px-14">
         
         {/* Quote Banner: Bác Hồ */}
         <div className="mb-12 p-8 sm:p-10 bg-[#10252B] border-l-4 border-[#9C3B32] text-left sm:text-center relative overflow-hidden">

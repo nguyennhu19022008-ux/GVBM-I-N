@@ -48,7 +48,7 @@ export const WartimeStoriesSection: React.FC = () => {
         1954 · 1975
       </div>
 
-      <div className="w-full px-6 md:px-12 xl:px-16 text-left relative z-10">
+      <div className="w-full max-w-[1680px] mx-auto px-5 sm:px-10 lg:px-14 text-left relative z-10">
         
         {/* Section Header */}
         <div className="cinematic-scroll-reveal flex flex-col md:flex-row md:items-end justify-between gap-4 mb-12">
@@ -177,48 +177,27 @@ export const WartimeStoriesSection: React.FC = () => {
               return (
                 <div
                   key={story.id}
-                  onClick={() => {
-                    setActiveStoryIndex(idx);
-                    setSelectedStoryModal(story);
-                  }}
-                  className="campaign-card-stagger text-left cursor-pointer group transition-transform hover:-translate-y-0.5"
+                  onClick={() => setActiveStoryIndex(idx)}
+                  className="campaign-card-stagger text-left cursor-pointer group transition-transform hover:-translate-y-0.5 space-y-2.5"
                   role="button"
                   tabIndex={0}
                   onKeyDown={(e) => {
                     if (e.key === 'Enter' || e.key === ' ') {
                       e.preventDefault();
                       setActiveStoryIndex(idx);
-                      setSelectedStoryModal(story);
                     }
                   }}
                 >
-                  <div className="flex items-baseline justify-between mb-2">
-                    <span className={`font-mono text-xs font-bold ${isActive ? 'text-[#E5C985]' : 'text-[#FAF8F1]/80'}`}>
-                      0{idx + 1}. MỐC NĂM {story.year}
-                    </span>
-                    <span className="text-[10px] font-mono text-[#E5C985] group-hover:underline flex items-center gap-0.5">
-                      <span>ĐỌC HỒ SƠ</span>
-                      <ArrowRight className="w-2.5 h-2.5" />
-                    </span>
-                  </div>
-                  <div className={`relative aspect-16/9 rounded-xl overflow-hidden mb-3 bg-stone-900 ${isActive ? 'ring-2 ring-[#E5C985]' : ''}`}>
+                  <div className={`relative aspect-16/9 rounded-xl overflow-hidden bg-stone-900 ${isActive ? 'ring-2 ring-[#E5C985]' : ''}`}>
                     <img
                       src={story.imageUrl}
                       alt={story.title}
                       className={`w-full h-full object-cover transition-all duration-500 ${isActive ? 'contrast-115 scale-102' : 'contrast-95 opacity-85 group-hover:opacity-100 group-hover:scale-102'}`}
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
-                    <div className="absolute bottom-2.5 right-2.5 px-3 py-1 rounded-full bg-[#9C3B32] group-hover:bg-[#7A2820] text-white text-[10px] font-mono font-bold uppercase tracking-wider flex items-center gap-1 shadow-sm transition-colors">
-                      <span>Đọc ngay</span>
-                      <ArrowRight className="w-3 h-3 text-[#E5C985]" />
-                    </div>
                   </div>
-                  <h5 className={`font-playfair text-sm font-bold line-clamp-1 ${isActive ? 'text-[#E5C985]' : 'text-white group-hover:text-[#E5C985]'}`}>
+                  <h5 className={`font-playfair text-sm sm:text-base font-bold leading-snug line-clamp-2 ${isActive ? 'text-[#E5C985]' : 'text-white group-hover:text-[#E5C985]'}`}>
                     {story.title}
                   </h5>
-                  <p className="text-[10px] font-mono text-[#FAF8F1]/60 truncate mt-1">
-                    {story.period}
-                  </p>
                 </div>
               );
             })}
@@ -260,21 +239,10 @@ export const WartimeStoriesSection: React.FC = () => {
                   />
                 </div>
 
-                {/* Text information standing freely on the canvas */}
-                <div>
-                  <div className="flex items-center justify-end text-[10px] font-mono text-[#E5C985] uppercase mb-1">
-                    <span className="font-bold">HỒ SƠ →</span>
-                  </div>
-                  <h4 className="font-playfair text-lg sm:text-xl font-bold text-white group-hover:text-[#E5C985] transition-colors leading-snug">
-                    {leader.name}
-                  </h4>
-                  <p className="text-xs text-[#E5C985] font-mono mt-1 font-semibold line-clamp-1">
-                    {leader.historicalMilestone}
-                  </p>
-                  <p className="text-xs text-[#FAF8F1]/70 italic mt-2 line-clamp-2 leading-relaxed font-sans">
-                    "{leader.quote}"
-                  </p>
-                </div>
+                {/* Display only leader name below portrait */}
+                <h4 className="font-playfair text-lg sm:text-xl font-bold text-white group-hover:text-[#E5C985] transition-colors leading-snug pt-0.5">
+                  {leader.name}
+                </h4>
               </div>
             ))}
           </div>

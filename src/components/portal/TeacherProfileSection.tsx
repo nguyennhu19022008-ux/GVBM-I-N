@@ -26,7 +26,7 @@ export const TeacherProfileSection: React.FC = () => {
         SƯ PHẠM
       </div>
 
-      <div className="w-full px-6 md:px-12 xl:px-16 text-left relative z-10">
+      <div className="w-full max-w-[1680px] mx-auto px-5 sm:px-10 lg:px-14 text-left relative z-10">
         
         {/* Section Header */}
         <div className="cinematic-scroll-reveal flex flex-col md:flex-row md:items-end justify-between gap-4 mb-12">
