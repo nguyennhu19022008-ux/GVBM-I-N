@@ -162,7 +162,7 @@ export const LearningHubView: React.FC<LearningHubViewProps> = ({
 
   const handleDownload = (res: CurriculumResource) => {
     const content = `===============================================================
-ĐAM MÊ LỊCH SỬ • TÀI LIỆU HỌC TẬP & ÔN THI CHÍNH THỨC
+lichsuTHPT • TÀI LIỆU HỌC TẬP & ÔN THI CHÍNH THỨC
 CHỦ NHIỆM: THẦY NGUYỄN VƯƠNG GIA
 ===============================================================
 TÊN TÀI LIỆU: ${res.title}

@@ -85,8 +85,8 @@ export const PortalLandingView: React.FC<PortalLandingViewProps> = ({
 
               {/* Monumental Unified Title */}
               <div>
-                <h1 className="text-4xl sm:text-6xl xl:text-7xl font-black text-[#0A1418] tracking-tight leading-[1.05] uppercase">
-                  ĐAM MÊ LỊCH SỬ
+                <h1 className="text-4xl sm:text-6xl xl:text-7xl font-black text-[#0A1418] tracking-tight leading-[1.05]">
+                  lichsuTHPT
                 </h1>
                 <p className="text-xl sm:text-2xl lg:text-3xl font-extrabold text-[#9C3B32] tracking-tight mt-2.5 leading-snug">
                   Khắc Ghi Sử Việt · Vững Vàng Điểm 10 THPT Quốc Gia
